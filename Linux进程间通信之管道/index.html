@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/Linux进程间通信之管道/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Linux进程间通信之管道｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Feb 20, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#Linux"
+                                 title="Linux">Linux</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">Linux进程间通信之管道</div><p>
+          <p>转自：<a href="https://www.ibm.com/developerworks/cn/linux/l-ipc/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-ipc/</a> </p>
+<p> linux下进程间通信的几种主要手段简介：</p>
+<ul>
+<li>管道（Pipe）及有名管道（named pipe）：管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信；</li>
+<li>信号（Signal）：信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，又能够统一对外接口，用sigaction函数重新实现了signal函数）；</li>
+<li>报文（Message）队列（消息队列）：消息队列是消息的链接表，包括Posix消息队列system V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享内存：使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</li>
+<li>信号量（semaphore）：主要作为进程间以及同一进程不同线程之间的同步手段。</li>
+<li>套接口（Socket）：更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。<a id="more"></a>
+<h1 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h1>在本系列序中作者概述了linux 进程间通信的几种主要手段。其中<strong>管道</strong>和<strong>有名管道</strong>是最早的进程间通信机制之一，管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。认清管道和有名管道的读写规则是在程序中应用它们的关键，本文在详细讨论了管道和有名管道的通信机制的基础上，用实例对其读写规则进行了程序验证，这样做有利于增强读者对读写规则的感性认识，同时也提供了应用范例。<h2 id="管道概述及相关API应用"><a href="#管道概述及相关API应用" class="headerlink" title="管道概述及相关API应用"></a>管道概述及相关API应用</h2><h3 id="管道相关的关键概念"><a href="#管道相关的关键概念" class="headerlink" title="管道相关的关键概念"></a>管道相关的关键概念</h3>管道是Linux支持的最初Unix IPC形式之一，具有以下特点：</li>
+<li>管道是半双工的，数据只能向一个方向流动；需要双方通信时，需要建立起两个管道；</li>
+<li>只能用于父子进程或者兄弟进程之间（具有亲缘关系的进程）；</li>
+<li>单独构成一种独立的文件系统：管道对于管道两端的进程而言，就是一个文件，但它不是普通的文件，它不属于某种文件系统，而是自立门户，单独构成一种文件系统，并且只存在与内存中。</li>
+<li>数据的读出和写入：一个进程向管道中写的内容被管道另一端的进程读出。写入的内容每次都添加在管道缓冲区的末尾，并且每次都是从缓冲区的头部读出数据。<h3 id="管道的创建"><a href="#管道的创建" class="headerlink" title="管道的创建"></a>管道的创建</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pipe</span><span class="params">(<span class="keyword">int</span> fd[<span class="number">2</span>])</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>该函数创建的管道的两端处于一个进程中间，在实际应用中没有太大意义，因此<strong>，一个进程在由pipe()创建管道后，一般再fork一个子进程，然后通过管道实现父子进程间的通信</strong>（因此也不难推出，只要两个进程中存在亲缘关系，这里的亲缘关系指的是<strong>具有共同的祖先</strong>，都可以采用管道方式来进行通信。</p>
+<h3 id="管道的读写规则"><a href="#管道的读写规则" class="headerlink" title="管道的读写规则"></a>管道的读写规则</h3><p>管道两端可分别用描述字fd[0]以及fd[1]来描述，需要注意的是，管道的两端是固定了任务的。即<strong>一端只能用于读，由描述字fd[0]表示，称其为管道读端；另一端则只能用于写，由描述字fd[1]来表示，称其为管道写端。</strong>如果试图从管道写端读取数据，或者向管道读端写入数据都将导致错误发生。一般文件的I/O函数都可以用于管道，如close、read、write等等。<br>向管道中写入数据：<br>向管道中写入数据时，linux将不保证写入的原子性，管道缓冲区一有空闲区域，写进程就会试图向管道写入数据。如果读进程不读走管道缓冲区中的数据，那么写操作将一直阻塞。<br>    注：只有在管道的读端存在时，向管道中写入数据才有意义。否则，向管道中写入数据的进程将收到内核传来的SIFPIPE信号，应用程序可以处理该信号，也可以忽略（默认动作则是应用程序终止）。<br><strong>关于管道的读规则验证：</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**************</span></span><br><span class="line"><span class="comment"> * readtest.c *</span></span><br><span class="line"><span class="comment"> **************/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">       <span class="keyword">int</span> pipe_fd[<span class="number">2</span>];</span><br><span class="line">       <span class="keyword">pid_t</span> pid;</span><br><span class="line">       <span class="keyword">char</span> r_buf[<span class="number">100</span>];</span><br><span class="line">       <span class="keyword">char</span> w_buf[<span class="number">4</span>];</span><br><span class="line">       <span class="keyword">char</span>* p_wbuf;</span><br><span class="line">       <span class="keyword">int</span> r_num;</span><br><span class="line">       <span class="keyword">int</span> cmd;</span><br><span class="line">       <span class="built_in">memset</span>(r_buf,<span class="number">0</span>,<span class="keyword">sizeof</span>(r_buf));</span><br><span class="line">       <span class="built_in">memset</span>(w_buf,<span class="number">0</span>,<span class="keyword">sizeof</span>(r_buf));</span><br><span class="line">       p_wbuf=w_buf;</span><br><span class="line">       <span class="keyword">if</span>(pipe(pipe_fd)&lt;<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"pipe create error\n"</span>);</span><br><span class="line">              <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span>((pid=fork())==<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">              close(pipe_fd[<span class="number">1</span>]);</span><br><span class="line">              sleep(<span class="number">3</span>);<span class="comment">//确保父进程关闭写端</span></span><br><span class="line">              r_num=read(pipe_fd[<span class="number">0</span>],r_buf,<span class="number">100</span>);</span><br><span class="line">              <span class="built_in">printf</span>( <span class="string">"read num is %d   the data read from the pipe is %d\n"</span>,r_num,atoi(r_buf));</span><br><span class="line">              close(pipe_fd[<span class="number">0</span>]);</span><br><span class="line">              <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(pid&gt;<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">       close(pipe_fd[<span class="number">0</span>]);<span class="comment">//read</span></span><br><span class="line">       <span class="built_in">strcpy</span>(w_buf,<span class="string">"111"</span>);</span><br><span class="line">       <span class="keyword">if</span>(write(pipe_fd[<span class="number">1</span>],w_buf,<span class="number">4</span>)!=<span class="number">-1</span>)</span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"parent write over\n"</span>);</span><br><span class="line">       close(pipe_fd[<span class="number">1</span>]);<span class="comment">//write</span></span><br><span class="line">       <span class="built_in">printf</span>(<span class="string">"parent close fd[1] over\n"</span>);</span><br><span class="line">       sleep(<span class="number">10</span>);</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>fork()函数通过系统调用创建一个与原来进程几乎完全相同的进程，这个新产生的进程称为子进程。一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己。需要注意的一点：就是调用fork函数之后，一定是两个进程同时执行的代码段是fork函数之后的代码，而之前的代码以及由父进程执行完毕。两个进程并发执行，谁先税后没有规律，由操作系统调度决定。<br>fork函数返回两个值:</p>
+<ul>
+<li>返回一个大于0的值给父进程</li>
+<li>返回0给子进程</li>
+<li>返回其他值说明fork失败了<br>输出：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~/Documents/blog$ ./test</span><br><span class="line">parent write over</span><br><span class="line">parent close fd[1] over</span><br><span class="line"></span><br><span class="line">read num is 4   the data read from the pipe is 111</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>附加结论：管道写端关闭后，写入的数据将一直存在，直到读出为止.<br><strong>对管道的写规则的验证2：linux不保证写管道的原子性验证</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;errno.h&gt;</span></span></span><br><span class="line">main(<span class="keyword">int</span> argc,<span class="keyword">char</span>**argv)</span><br><span class="line">&#123;</span><br><span class="line">       <span class="keyword">int</span> pipe_fd[<span class="number">2</span>];</span><br><span class="line">       <span class="keyword">pid_t</span> pid;</span><br><span class="line">       <span class="keyword">char</span> r_buf[<span class="number">4096</span>];</span><br><span class="line">       <span class="keyword">char</span> w_buf[<span class="number">4096</span>*<span class="number">2</span>];</span><br><span class="line">       <span class="keyword">int</span> writenum;</span><br><span class="line">       <span class="keyword">int</span> rnum;</span><br><span class="line">       <span class="built_in">memset</span>(r_buf,<span class="number">0</span>,<span class="keyword">sizeof</span>(r_buf));    </span><br><span class="line">       <span class="keyword">if</span>(pipe(pipe_fd)&lt;<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"pipe create error\n"</span>);</span><br><span class="line">              <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">if</span>((pid=fork())==<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">              close(pipe_fd[<span class="number">1</span>]);</span><br><span class="line">              <span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">              &#123;</span><br><span class="line">              	sleep(<span class="number">1</span>); </span><br><span class="line">              	rnum=read(pipe_fd[<span class="number">0</span>],r_buf,<span class="number">1000</span>);</span><br><span class="line">              	<span class="built_in">printf</span>(<span class="string">"child: readnum is %d\n"</span>,rnum);</span><br><span class="line">              &#125;</span><br><span class="line">              close(pipe_fd[<span class="number">0</span>]);</span><br><span class="line">              <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">else</span> <span class="keyword">if</span>(pid&gt;<span class="number">0</span>)</span><br><span class="line">       &#123;</span><br><span class="line">       close(pipe_fd[<span class="number">0</span>]);<span class="comment">//write</span></span><br><span class="line">       <span class="built_in">memset</span>(r_buf,<span class="number">0</span>,<span class="keyword">sizeof</span>(r_buf));    </span><br><span class="line">       <span class="keyword">if</span>((writenum=write(pipe_fd[<span class="number">1</span>],w_buf,<span class="number">1024</span>))==<span class="number">-1</span>)</span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"write to pipe error\n"</span>);</span><br><span class="line">       <span class="keyword">else</span> </span><br><span class="line">              <span class="built_in">printf</span>(<span class="string">"the bytes write to pipe is %d \n"</span>, writenum);</span><br><span class="line">       writenum=write(pipe_fd[<span class="number">1</span>],w_buf,<span class="number">4096</span>);</span><br><span class="line">       close(pipe_fd[<span class="number">1</span>]);</span><br><span class="line">       &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~/Documents/blog$ ./test</span><br><span class="line">the bytes write to pipe is 1024 </span><br><span class="line">maohao@maohao-HP-15-Notebook-PC:~/Documents/blog$ child: readnum is 1000</span><br><span class="line">child: readnum is 1000</span><br><span class="line">child: readnum is 1000</span><br><span class="line">child: readnum is 1000</span><br><span class="line">child: readnum is 1000</span><br><span class="line">child: readnum is 120</span><br><span class="line">child: readnum is 0</span><br><span class="line">child: readnum is 0</span><br><span class="line">child: readnum is 0</span><br><span class="line">child: readnum is 0</span><br><span class="line">^C</span><br></pre></td></tr></table></figure></p>
+<h3 id="管道应用实例"><a href="#管道应用实例" class="headerlink" title="管道应用实例"></a>管道应用实例</h3><p>实例:  用于shell<br>管道可用于输入输出重定向，它将一个命令的输出直接定向到另一个命令的输入。比如，当在某个shell程序（Bourneshell或C shell等）键入who│wc -l后，相应shell程序将创建who以及wc两个进程和这两个进程间的管道。考虑下面的命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ ls | grep Documents</span><br><span class="line">Documents</span><br></pre></td></tr></table></figure></p>
+<h3 id="管道的局限性"><a href="#管道的局限性" class="headerlink" title="管道的局限性"></a>管道的局限性</h3><p>管道的主要局限性正体现在它的特点上：</p>
+<ul>
+<li>只支持单向数据流；</li>
+<li>只能用于具有亲缘关系的进程之间；</li>
+<li>没有名字；</li>
+<li>管道的缓冲区是有限的（管道制存在于内存中，在管道创建时，为缓冲区分配一个页面大小）；</li>
+<li>管道所传送的是无格式字节流，这就要求管道的读出方和写入方必须事先约定好数据的格式，比如多少字节算作一个消息（或命令、或记录）等等；</li>
+</ul>
+<h2 id="有名管道概述及相关API应用"><a href="#有名管道概述及相关API应用" class="headerlink" title="有名管道概述及相关API应用"></a>有名管道概述及相关API应用</h2><h3 id="有名管道相关的关键概念"><a href="#有名管道相关的关键概念" class="headerlink" title="有名管道相关的关键概念"></a>有名管道相关的关键概念</h3><p>管道应用的一个重大限制是它没有名字，因此，只能用于具有亲缘关系的进程间通信，在有名管道（named pipe或FIFO）提出后，该限制得到了克服。FIFO不同于管道之处在于它提供一个路径名与之关联，以FIFO的文件形式存在于文件系统中。这样，即使与FIFO的创建进程不存在亲缘关系的进程，只要可以访问该路径，就能够彼此通过FIFO相互通信（能够访问该路径的进程以及FIFO的创建进程之间），因此，通过FIFO不相关的进程也能交换数据。值得注意的是，FIFO严格遵循先进先出（first in first out），对管道及FIFO的读总是从开始处返回数据，对它们的写则把数据添加到末尾。它们不支持诸如lseek()等文件定位操作。</p>
+<h3 id="有名管道的创建"><a href="#有名管道的创建" class="headerlink" title="有名管道的创建"></a>有名管道的创建</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/stat.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">mkfifo</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> * pathname, <span class="keyword">mode_t</span> mode)</span></span></span><br></pre></td></tr></table></figure>
+<p>该函数的第一个参数是一个普通的路径名，也就是创建后FIFO的名字。第二个参数与打开普通文件的open()函数中的mode 参数相同。如果mkfifo的第一个参数是一个已经存在的路径名时，会返回EEXIST错误，所以一般典型的调用代码首先会检查是否返回该错误，如果确实返回该错误，那么只要调用打开FIFO的函数就可以了。一般文件的I/O函数都可以用于FIFO，如close、read、write等等。</p>
+<h3 id="有名管道的打开规则"><a href="#有名管道的打开规则" class="headerlink" title="有名管道的打开规则"></a>有名管道的打开规则</h3><p>有名管道比管道多了一个打开操作：open。<br><strong>FIFO的打开规则：</strong><br>如果当前打开操作是为读而打开FIFO时，若已经有相应进程为写而打开该FIFO，则当前打开操作将成功返回；否则，可能阻塞直到有相应进程为写而打开该FIFO（当前打开操作设置了阻塞标志）；或者，成功返回（当前打开操作没有设置阻塞标志）。<br>如果当前打开操作是为写而打开FIFO时，如果已经有相应进程为读而打开该FIFO，则当前打开操作将成功返回；否则，可能阻塞直到有相应进程为读而打开该FIFO（当前打开操作设置了阻塞标志）；或者，返回ENXIO错误（当前打开操作没有设置阻塞标志）。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Linux多线程/" data-toggle="tooltip" data-placement="left"
+                     title="Linux多线程">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/以太坊之MPT/" data-toggle="tooltip" data-placement="top"
+                     title="以太坊之MPT">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/Linux进程间通信之管道/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#管道"><span class="toc-number">1.</span> <span class="toc-text">管道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#管道概述及相关API应用"><span class="toc-number">1.1.</span> <span class="toc-text">管道概述及相关API应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管道相关的关键概念"><span class="toc-number">1.1.1.</span> <span class="toc-text">管道相关的关键概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道的创建"><span class="toc-number">1.1.2.</span> <span class="toc-text">管道的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道的读写规则"><span class="toc-number">1.1.3.</span> <span class="toc-text">管道的读写规则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道应用实例"><span class="toc-number">1.1.4.</span> <span class="toc-text">管道应用实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#管道的局限性"><span class="toc-number">1.1.5.</span> <span class="toc-text">管道的局限性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有名管道概述及相关API应用"><span class="toc-number">1.2.</span> <span class="toc-text">有名管道概述及相关API应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#有名管道相关的关键概念"><span class="toc-number">1.2.1.</span> <span class="toc-text">有名管道相关的关键概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有名管道的创建"><span class="toc-number">1.2.2.</span> <span class="toc-text">有名管道的创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有名管道的打开规则"><span class="toc-number">1.2.3.</span> <span class="toc-text">有名管道的打开规则</span></a></li></ol></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

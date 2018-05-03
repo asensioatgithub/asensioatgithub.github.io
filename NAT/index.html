@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/NAT/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        NAT｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Oct 15, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#计算机网络"
+                                 title="计算机网络">计算机网络</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#NAT"
+                                 title="NAT">NAT</a>
+                              
+                              <a class="tag" href="/tags/#NAPT"
+                                 title="NAPT">NAPT</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">NAT</div><p>
+          <h1 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h1><p>网络地址转换(NAT,Network Address Translation)属接入广域网(WAN)技术，是一种将私有（保留）地址转化为合法IP地址的转换技术，它被广泛应用于各种类型Internet接入方式和各种类型的网络中。原因很简单，NAT不仅完美地解决了lP地址不足的问题，而且还能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机。<br><a id="more"></a><br>NAT最初的应用是：把一个地址空间中的每个地址映射到另一个地址空间的一个对应地址。现在NAT的大部分应用是：网络伪装与IP伪装技术（network masquerading or IP masquerading）相结合使用，IP伪装是一项隐藏整个IP地址空间的技术，这里的地址空间常常是指私有地址空间，这个私有空间通常处于一个属于另外一个公共地址空间的IP地址的背后。路由器就是实现了这种机制的设备，路由器使用状态转换表(stateful translation tables)把“隐藏”地址映射为单一的IP地址，并在出口改写外出IP封包头部的源地址信息，使得这些IP封包似乎是源自路由器。在反向的通信路径中，来自外部的响应封包，通过查询状态转换表中的rule条目，就被映射回源IP地址。状态转换表中的rule条目，如果在规定的时间内没有更新过，就会被冲刷掉。</p>
+<h2 id="NAT工作原理"><a href="#NAT工作原理" class="headerlink" title="NAT工作原理"></a>NAT工作原理</h2><p>NAT的基本工作原理是，当私有网主机和公共网主机通信的IP包经过NAT网关时，将IP包中的源IP或目的IP在私有IP和NAT的公共IP之间进行转换。NAT网关有2个网络端口，其中公共网络端口的IP地址是统一分配的公共IP，为202.204.65.2；私有网络端口的IP地址是保留地址，为192.168.1.1。私有网中的主机 192.168.1.2向公共网中的主机166.111.80.200发送了1个IP包（Des=166.111.80.200,Src=192.168.1.2）。当IP包经过NAT网关时，NAT会将IP包的源IP转换为NAT的公共 IP并转发到公共网，此时IP包（Des=166.111.80.200，Src=202.204.65.2）中已经不含任何私有网IP的信息。由于IP 包的源IP已经被转换成NAT的公共IP，响应的IP包（Des=202.204.65.2,Src=166.111.80.200）将被发送到NAT。 这时，NAT会将IP包的目的IP转换成私有网中主机的IP，然后将IP包（Des=192.168.1.2，Src=166.111.80.200）转 发到私有网。对于通信双方而言，这种地址的转换过程是完全透明的。<br>这类NAT，仅仅是改变IP地址、IP报头校验以及更高级的校验（由于是一对一的转换，所以没有必要添加其它的信息来帮助返回包识别回来的路）.</p>
+<h2 id="NAPT技术"><a href="#NAPT技术" class="headerlink" title="NAPT技术"></a>NAPT技术</h2><p>由于NAT实现是私有IP和NAT的公共IP之间的一对一的转换，那么，私有网中同时与公共网进行通信的主机数量就受到NAT的公共IP地址数量的限制，如果私有网有多台主机与外网通信时，为了避免处理（转发）返回数据包时出现模糊（不知道送到哪里），必须修改额外的信息（比如外出通信的TCP/UDP端口号）和维护一张转换表，这样返回数据包就可以正确寻址到最初发起会话的源主机，这类NAT被叫做一对多NAT。RFC 2663 使用术语“网络地址和端口转换（NAPT）”来命名这类NAT。<br>NAPT与NAT的区别在于，NAPT不仅转换IP包中的IP地址，还对IP包中TCP和UDP的Port进行转换。这使得多台私有网主机利用1个NAT公共IP就可以同时和公共网进行通信。（NAPT多了对TCP和UDP的端口号的转换）</p>
+<p>私有网主机192.168.1.2要访问公共网中的 Http服务器166.111.80.200。首先，要建立TCP连接，假设分配的TCP Port是1010，发送了1个IP包（Des=166.111.80.200:80,Src=192.168.1.2:1010）,当IP包经过NAT 网关时，NAT会将IP包的源IP转换为NAT的公共IP，同时将源Port转换为NAT动态分配的1个Port。然后，转发到公共网，此时IP包 （Des=166.111.80.200：80，Src=202.204.65.2:2010）已经不含任何私有网IP和Port的信息。由于IP包的源 IP和Port已经被转换成NAT的公共IP和Port，响应的IP包 （Des=202.204.65.2:,Src=2010166.111.80.200:80）将被发送到NAT。这时NAT会将IP包的目的IP转换成 私有网主机的IP，同时将目的Port转换为私有网主机的Port，然后将IP包 （Des=192.168.1.2:1010，Src=166.111.80.200:80）转发到私网。对于通信双方而言，这种IP地址和Port的转 换是完全透明的。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/iptables/" data-toggle="tooltip" data-placement="left"
+                     title="iptables">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/FTP主动模式和被动模式/" data-toggle="tooltip" data-placement="top"
+                     title="FTP主动模式和被动模式">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/NAT/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#NAT"><span class="toc-number">1.</span> <span class="toc-text">NAT</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT工作原理"><span class="toc-number">1.1.</span> <span class="toc-text">NAT工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAPT技术"><span class="toc-number">1.2.</span> <span class="toc-text">NAPT技术</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/apache2站点配置/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        apache2与myzoo站点配置｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Nov 24, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#WEB安全"
+                                 title="WEB安全">WEB安全</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#web安全"
+                                 title="web安全">web安全</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">apache2与myzoo站点配置</div><p>
+          <p>这篇博客记录了apache2在ubuntu系统下的文件结构，以及用apache2服务器搭建web站点。</p>
+<h1 id="apache2目录解析"><a href="#apache2目录解析" class="headerlink" title="apache2目录解析"></a>apache2目录解析</h1><p>/etc/apache2/目录结构如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/etc/apache2$ ls</span><br><span class="line">apache2.conf    conf-enabled  magic           mods-enabled  sites-available</span><br><span class="line">conf-available  envvars       mods-available  ports.conf    sites-enabled</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="apache2-conf"><a href="#apache2-conf" class="headerlink" title="apache2.conf"></a>apache2.conf</h2><p>Apache在启动时会自动读取这个文件的配置信息。而其他的一些配置文件，如 ports.conf等，则是通过Include指令包含进来。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># It is split into several files forming the configuration hierarchy outlined</span><br><span class="line"><span class="meta"># below, all located in the /etc/apache2/ directory:</span></span><br><span class="line">#</span><br><span class="line">#       /etc/apache2/</span><br><span class="line">#       |-- apache2.conf</span><br><span class="line">#       |       `--  ports.conf</span><br><span class="line">#       |-- mods-enabled</span><br><span class="line">#       |       |-- *.load</span><br><span class="line">#       |       `-- *.conf</span><br><span class="line">#       |-- conf-enabled</span><br><span class="line">#       |       `-- *.conf</span><br><span class="line">#       `-- sites-enabled</span><br><span class="line">#               `-- *.conf</span><br></pre></td></tr></table></figure></p>
+<p>apache2.conf里面的参数属于core module，这4个常用：<br><strong>Timeout</strong> 超时时间<br><strong>KeepAlive On/Off</strong> 启动或关闭KeepAlive。如果将KeepAlive设置为On，那么来自同一客户端的请求就不需要再一次连接，避免每次请求都要新建一个连接而加重服务器的负担。即用户完成一次访问后，不会立即断开连接，如果还有请求，那么会继续在这一次 TCP 连接中完成，而不用重复建立新的 TCP 连接和关闭TCP 连接，可以提高用户访问速度。<br><strong>MaxKeepAliveRequests</strong> 最大的KeepAlive连接数<br><strong>KeepAliveTimeout</strong><br>最大的KeepAlive时间，超时将关闭连接。也就是说，如果第二次请求和第一次请求之间超过KeepAliveTimeOut的时间的话，第一次连接就会中断，再新建第二个连接。  </p>
+<h2 id="sites-available和sites-enabled"><a href="#sites-available和sites-enabled" class="headerlink" title="sites-available和sites-enabled"></a>sites-available和sites-enabled</h2><p>/etc /apache2下有一个sites-available目录，里面存放的是网站的配置文件，而sites-enabled目录存放的只是一些指向这里的文件的符号链接，你可以用ls /etc/apache2/sites-enabled/来证实一下。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:/etc/apache2/sites-available$ ls</span><br><span class="line">000-default.conf  default-ssl.conf  myzoo.conf</span><br><span class="line">maohao@maohao-HP-15-Notebook-PC:/etc/apache2/sites-available$ ls ../sites-enabled/</span><br><span class="line">000-default.conf  myzoo.conf</span><br></pre></td></tr></table></figure></p>
+<p>如果apache上配置了多个虚拟主机，每个虚拟主机的配置文件都放在 sites-available下，那么对于虚拟主机的停用、启用就非常方便了：当在sites-enabled下建立一个指向某个虚拟主机配置文件的链接时，就启用了它；如果要关闭某个虚拟主机的话，只需删除相应的链接即可，根本不用去改配置文件。<br>所以可以通过建立删除链接来动态启用和关闭相应的站点:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /etc/apache2/sites-available/conf_name /etc/apache2/sites-enabled/conf_name</span><br><span class="line">sudo ln -s /etc/apache2/sites-available/conf_name /etc/apache2/sites-enabled/conf_name</span><br></pre></td></tr></table></figure></p>
+<p>或者直接用apache2自带的<strong>a2ensite conf_name</strong>和<strong>a2dissite conf_name conf_name</strong>实现配置文件的启用和关闭。</p>
+<h2 id="mods-available和mods-enabled"><a href="#mods-available和mods-enabled" class="headerlink" title="mods-available和mods-enabled"></a>mods-available和mods-enabled</h2><p>mods-available、mods-enabled和上面说的sites-available、sites-enabled类似，这两个目录是存放apache功能模块的配置文件和链接的。比如当用apt-get install php5安装了PHP模块后，在这两个目录里就有了php5.load、php5.conf和指向这两个文件的链接。这种目录结果对于启用、停用某个 Apache模块是非常方便的。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/etc/apache2/mods-enabled$ ls</span><br><span class="line">access_compat.load  authz_core.load  deflate.load  mime.load         php5<span class="number">.6</span>.load</span><br><span class="line">alias.conf          authz_host.load  dir.conf      mpm_prefork.conf  setenvif.conf</span><br><span class="line">alias.load          authz_user.load  dir.load      mpm_prefork.load  setenvif.load</span><br><span class="line">auth_basic.load     autoindex.conf   env.load      negotiation.conf  status.conf</span><br><span class="line">authn_core.load     autoindex.load   filter.load   negotiation.load  status.load</span><br><span class="line">authn_file.load     deflate.conf     mime.conf     php5<span class="number">.6</span>.conf</span><br></pre></td></tr></table></figure></p>
+<p>load后缀存放模块的路径，conf后缀表示该模块的配置。</p>
+<h2 id="ports-conf"><a href="#ports-conf" class="headerlink" title="ports.conf"></a>ports.conf</h2><p>这里面设置了Apache使用的端口。如果需要调整默认的端口设置，需要编辑这个文件。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># If you just change the port <span class="keyword">or</span> add more ports here, you will likely also</span><br><span class="line"><span class="meta"># have to change the VirtualHost statement in</span></span><br><span class="line"># /etc/apache2/sites-enabled/<span class="number">000</span>-<span class="keyword">default</span>.conf</span><br><span class="line"></span><br><span class="line">Listen <span class="number">80</span></span><br><span class="line">Listen <span class="number">81</span></span><br><span class="line">&lt;IfModule ssl_module&gt;</span><br><span class="line">        Listen <span class="number">443</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule mod_gnutls.c&gt;</span><br><span class="line">        Listen <span class="number">443</span></span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"><span class="meta"># vim: syntax=apache ts=4 sw=4 sts=4 sr noet</span></span><br></pre></td></tr></table></figure></p>
+<p>IfModule用于对指定的模块做出标记，指令仅处理匹配的模块，非匹配模块将会忽略。如果你加载了ssl模块，将会侦听443端口(HTTPS)。配置Apache侦听其他的端口，比如说8080，只需要简单的添加：<br><code>Listen 8080</code><br>一旦添加了这条并且重新启动Apache，就会侦听8080端口。</p>
+<h1 id="apache2站点配置"><a href="#apache2站点配置" class="headerlink" title="apache2站点配置"></a>apache2站点配置</h1><p>这里以搭建myzoo网站为例。myzoo的运行需要预先安装apache2, mysql, php5：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install apache2 php5 mysql php5-mysql</span><br></pre></td></tr></table></figure></p>
+<p>首先要在mysql中建立网站所需的数据库和表。请记住数据库的名字和表名，在修改zoobar网站源码时需要。(建议使用名字myzoo，否则需要修改common.php中的16行，将new Database的名字进行修改)<br>为网站创建数据库：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/var/www$ mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">mysql&gt; create database myzoo;</span><br><span class="line">mysql&gt; show databases;</span><br><span class="line">+--------------------+</span><br><span class="line">| Database           |</span><br><span class="line">+--------------------+</span><br><span class="line">| information_schema |</span><br><span class="line">| challenges         |</span><br><span class="line">| dvwa               |</span><br><span class="line">| keystone           |</span><br><span class="line">| mysql              |</span><br><span class="line">| myzoo              |</span><br><span class="line">| performance_schema |</span><br><span class="line">| security           |</span><br><span class="line">| sys                |</span><br><span class="line">+--------------------+</span><br><span class="line"><span class="number">9</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.30</span> sec)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>在myzoo数据库里创建Person表:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; use myzoo;</span><br><span class="line">Reading table information <span class="keyword">for</span> completion of table <span class="keyword">and</span> column names</span><br><span class="line">You can turn off <span class="keyword">this</span> feature to get a quicker startup with -A</span><br><span class="line">mysql&gt;create table Person(PersonID int primary key auto_increment, Password varchar(100),Salt varchar(100),Username varchar(100),Token varchar(100),Zoobars int default 10, Profile varchar(5000));</span><br><span class="line">Database changed</span><br><span class="line">mysql&gt; show tables;</span><br><span class="line">+-----------------+</span><br><span class="line">| Tables_in_myzoo |</span><br><span class="line">+-----------------+</span><br><span class="line">| Person          |</span><br><span class="line">+-----------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>创建号之后，在myzoo的includes文件夹中， 修改database.class.php文件，将数据库的用户名、密码和数据库名赋值给相应的变量。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Database</span>&#123;</span></span><br><span class="line"></span><br><span class="line">        private $db_host = 'localhost';</span><br><span class="line">        private $db_user = 'root';</span><br><span class="line">        <span class="keyword">private</span> $db_pass = <span class="string">"your_passwd"</span>;</span><br><span class="line">        <span class="keyword">private</span> $db_dbname = <span class="string">"myzoo"</span>;</span><br></pre></td></tr></table></figure></p>
+<p>数据库配置完后，就开始在apache2中配置myzoo了，首先将myzoo的代码拷贝到/var/www/目录下或者其他任意指定的路径里。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/var/www$ ls</span><br><span class="line">html  myzoo</span><br></pre></td></tr></table></figure></p>
+<p>在/etc/apache2/sites-available目录下单独为myzoo创建一个配置文件，命名为<code>myzoo.conf</code><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp <span class="number">000</span>-<span class="keyword">default</span>.conf myzoo.conf</span><br></pre></td></tr></table></figure></p>
+<p>编辑myzoo.conf文件，并为网站分配一个独立的端口，000-default.conf 的默认http端口为80，这里设定myzoo的端口为81；同时把网站源码根目录所在路径（ /var/www）赋值给变量DocumentRoot <strong>(DocumentRoot末尾不要加 /)</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;VirtualHost *:<span class="number">81</span>&gt;</span><br><span class="line"></span><br><span class="line">        ServerAdmin webmaster@localhost</span><br><span class="line">        DocumentRoot /var/www #配置访问跟目录</span><br></pre></td></tr></table></figure>
+<p>这里如果之前不是把网站源码放到/var/www目录下，还需到主配置文件apache2.conf中为源码路径添加如下代码:<br><strong>允许所有请求访问资源</strong><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Directory your_path&gt;</span><br><span class="line">        Options Indexes FollowSymLinks </span><br><span class="line">        AllowOverride None #不允许别人修改我们的页面 </span><br><span class="line">        Require all granted #设置访问权限 </span><br><span class="line">&lt;/Directory&gt;</span><br><span class="line">Directory标签对目录进行访问控制设置。Options中：</span><br><span class="line">**Indexes**表示：如果该虚拟目录下没有 index.html，浏览器也会显示该虚拟目录的目录结构，列出该虚拟目录下的文件和子目录。</span><br><span class="line">**FollowSymLinks**表示:就是允许你的网页文件夹下的链接文件链接到首页目录以外的文件。举例来说，如果你把首页目录设置为/var/www/html，那么你的网页程序最多只能访问到/var/www/html目录，上层目录是不可见的。但是你可以通过链接把文件链接到/var/www/html目录以外的文件以访问该文件。</span><br></pre></td></tr></table></figure></p>
+<p>将配置好的myzoo.conf文件链接到sites-enbaled目录里，让其生效。查看sites-enabled/已经存在myzoo.conf了。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/etc/apache2$ sudo a2ensite myzoo.conf </span><br><span class="line">Enabling site myzoo.</span><br><span class="line">To activate the <span class="keyword">new</span> configuration, you need to run:</span><br><span class="line">  service apache2 reload</span><br><span class="line">maohao@maohao-HP<span class="number">-15</span>-Notebook-PC:/etc/apache2$ ls sites-enabled/</span><br><span class="line"><span class="number">000</span>-<span class="keyword">default</span>.conf  myzoo.conf</span><br></pre></td></tr></table></figure></p>
+<p>同事分配了新的端口号后，还要告知ports.conf，让apache2开始监听该端口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># If you just change the port or add more ports here, you will likely also</span><br><span class="line"># have to change the VirtualHost statement in</span><br><span class="line"># /etc/apache2/sites-enabled/000-default.conf</span><br><span class="line"></span><br><span class="line">Listen 80</span><br><span class="line">Listen 81</span><br><span class="line">&lt;IfModule ssl_module&gt;</span><br><span class="line">        Listen 443</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line">&lt;IfModule mod_gnutls.c&gt;</span><br><span class="line">        Listen 443</span><br><span class="line">&lt;/IfModule&gt;</span><br><span class="line"></span><br><span class="line"># vim: syntax=apache ts=4 sw=4 sts=4 sr noet</span><br></pre></td></tr></table></figure></p>
+<p>重启apache2服务：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo service apache2 restart</span><br></pre></td></tr></table></figure></p>
+<p>此时，使用<a href="http://localhost:81/myzoo应该可以访问zoobar网站。" target="_blank" rel="noopener">http://localhost:81/myzoo应该可以访问zoobar网站。</a></p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/计算机网络之http协议/" data-toggle="tooltip" data-placement="left"
+                     title="计算机网络之http协议">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Linux文件权限/" data-toggle="tooltip" data-placement="top"
+                     title="Linux用户和用户权限">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/apache2站点配置/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#apache2目录解析"><span class="toc-number">1.</span> <span class="toc-text">apache2目录解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#apache2-conf"><span class="toc-number">1.1.</span> <span class="toc-text">apache2.conf</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sites-available和sites-enabled"><span class="toc-number">1.2.</span> <span class="toc-text">sites-available和sites-enabled</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mods-available和mods-enabled"><span class="toc-number">1.3.</span> <span class="toc-text">mods-available和mods-enabled</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ports-conf"><span class="toc-number">1.4.</span> <span class="toc-text">ports.conf</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#apache2站点配置"><span class="toc-number">2.</span> <span class="toc-text">apache2站点配置</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/ICMP协议与常见攻击/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        ICMP协议与常见攻击｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Oct 1, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#计算机网络"
+                                 title="计算机网络">计算机网络</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#ICMP　"
+                                 title="ICMP　">ICMP　</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">ICMP协议与常见攻击</div><p>
+          <h1 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h1><p>ICMP报文主要有两大功能：<strong>查询报文和差错报文</strong>．协议号为１．<br>差错报文可用来诊断网络故障.我们已经知道,IP协议的工作方式是”best effort”.如果IP包没有被传输到目的地,或者IP包发生错误,IP协议本身不会做进一步的努力.但是上游发送IP包的主机和接力的路由器并不知道下游发生了错误和故障,它们可能继续发送IP包.通过ICMP包,下游的的路由器和主机可以将错误信息汇报给上游,从而让上游的路由器和主机进行调整,需要主要的是,ICMP只提供特定类型的错误汇报,它不能帮助IP协议成为”可靠(reliable)”的协议.<br><a id="more"></a><br>尽管在大多数情况下，错误的包传送应该给出ICMP报文，但是在特殊情况下，是不产生ICMP错误报文的。如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> 1.ICMP差错报文不会产生ICMP差错报文（出IMCP查询报文）（防止IMCP的无限产生和传送）</span><br><span class="line"> 2.目的地址是广播地址或多播地址的IP数据报。</span><br><span class="line"> 3.作为链路层广播的数据报。</span><br><span class="line"> 4.不是IP分片的第一片。</span><br><span class="line"> 5.源地址不是单个主机的数据报。这就是说，源地址不能为零地址、环回地址、广播地 址或多播地址。</span><br><span class="line">这些设置的目的是 防止过去允许ICMP差错报文对广播分组影响带来的广播风暴</span><br></pre></td></tr></table></figure></p>
+<p>另一类信息是咨询性质的,比如某台计算机询问路径上的每个路由器都是谁,然后各个路由器同样用ICMP包回答</p>
+<h1 id="ICMP报文格式"><a href="#ICMP报文格式" class="headerlink" title="ICMP报文格式"></a>ICMP报文格式</h1><p>不同类型的报文有不同的报文格式，但都拥有固定的类型，代码，检验和字段：<br><img src="/home/maohao/文档/blog/source/images/720RJ8NUMIBI.png" alt=""><br><strong>类型</strong>：一个８位类型字段，表示ICMP数据包类型．<br><strong>代码</strong>：一个８位代码域，表示指定类型中的一个功能，如果一个类型中只有一个功能，代码域位０．<br><strong>检验和</strong>：数据包中ICMP部分上的一个16位检验和．<br>各种类型的ICMP报文如图所示：<br><img src="/images/ICMP-type.png" alt=""> </p>
+<h2 id="请求会先和回显应答（Echo-or-Echo-Reply-Message）"><a href="#请求会先和回显应答（Echo-or-Echo-Reply-Message）" class="headerlink" title="请求会先和回显应答（Echo or Echo Reply Message）"></a>请求会先和回显应答（Echo or Echo Reply Message）</h2><p><img src="/images/ICMP-echo.png" alt=""> </p>
+<h2 id="目的不可达（Destination-Unreachable-Message）"><a href="#目的不可达（Destination-Unreachable-Message）" class="headerlink" title="目的不可达（Destination Unreachable Message）"></a>目的不可达（Destination Unreachable Message）</h2><p>When a router can not forward or deliver an IP datagram, it sends a destination unreachable message back to the original source.<br>The format of the packet is the following:<br><img src="/images/ICMP-DUM.png" alt=""> </p>
+<h2 id="ICMP重定向"><a href="#ICMP重定向" class="headerlink" title="ICMP重定向"></a>ICMP重定向</h2><p>When a router detects a host using a nonoptimal route, it sends the host ICMP redirect message; requesting host change its route<br>An example:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Gateway G1, receives an Internet  datagram from a host ;</span><br><span class="line">G1 checks its routing table and obtains the address of the next gateway, G2, the next hop on the route of the packet;</span><br><span class="line">However, if G2  and the host are on the same network, a redirect message is sent to the host</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/ICMP-RM.png" alt=""><br>例如：<br><img src="/images/icmp-rm-example.png" alt=""><br>过程分析如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1). server2如果要与internet通讯，首先是要把报文发送给server1的，因为server2</span><br><span class="line">的网关指向server1的。</span><br><span class="line">2). server1收到报文并检查它的路由表，发现router是发送改报文的下一跳。当它把</span><br><span class="line">报文发送给router时，server1检测到这个报文的发送出去的接口与接收到的接口是相</span><br><span class="line">同的，这样ICMP重定向就触发了。</span><br><span class="line">3). server1认为server2应该把默认路由指向router，所以就发送ICMP重定向报文给</span><br><span class="line">server2，告诉它以后把报文发送给router。</span><br></pre></td></tr></table></figure></p>
+<h1 id="ICMP应用"><a href="#ICMP应用" class="headerlink" title="ICMP应用"></a>ICMP应用</h1><h2 id="Ping"><a href="#Ping" class="headerlink" title="Ping"></a>Ping</h2><p>原理是用类型码为0的ICMP发请 求，受到请求的主机则用类型码为8的ICMP回应。ping程序来计算间隔时间，并计算有多少个包被送达。用户就可以判断网络大致的情况。我们可以看到， ping给出来了传送的时间和TTL的数据。<br>ping还给我们一个看主机到目的主机的路由的机会。这是因为，ICMP的ping请求数据报在每经过一个路由器的时候，路由器都会把自己的ip放到该数 据报中。而目的主机则会把这个ip列表复制到回应icmp数据包中发回给主机。但是，无论如何，ip头所能纪录的路由列表是非常的有限。如果要观察路由， 我们还是需要使用更好的工具，就是要讲到的Traceroute(windows下面的名字叫做tracert)。</p>
+<h2 id="Traceroutr"><a href="#Traceroutr" class="headerlink" title="Traceroutr"></a>Traceroutr</h2><p>Traceroute是用来侦测主机到目的主机之间所经路由情况的重要工具，也是最便利的工具。前面说到，尽管ping工具也可以进行侦测，但是，因为ip头的限制，ping不能完全的记录下所经过的路由器。所以Traceroute正好就填补了这个缺憾。<br>Traceroute的原理是非常非常的有意思，它受到目的主机的IP后，首先给目的主机发送一个TTL=1（还记得TTL是什么吗？）的UDP(后面就 知道UDP是什么了)数据包，而经过的第一个路由器收到这个数据包以后，就自动把TTL减1，而TTL变为0以后，路由器就把这个包给抛弃了，并同时产生 一个主机不可达的ICMP数据报给主机。主机收到这个数据报以后再发一个TTL=2的UDP数据报给目的主机，然后刺激第二个路由器给主机发ICMP数据 报。如此往复直到到达目的主机。这样，traceroute就拿到了所有的路由器ip。从而避开了ip头只能记录有限路由IP的问题。</p>
+<p>有人要问，我怎么知道UDP到没到达目的主机呢？这就涉及一个技巧的问题，TCP和UDP协议有一个端口号定义，而普通的网络程序只监控少数的几个号码较 小的端口，比如说80,比如说23,等等。而traceroute发送的是端口号&gt;30000(真变态)的UDP报，所以到达目的主机的时候，目的 主机只能发送一个端口不可达的ICMP数据报给主机。主机接到这个报告以后就知道，主机到了。</p>
+<h1 id="Smurf攻击"><a href="#Smurf攻击" class="headerlink" title="Smurf攻击"></a>Smurf攻击</h1><p>Smurf攻击是以最初发动这种攻击的程序名＂Smurf＂来命名的，是DDOS攻击中较为常见的一种．<br>该攻击方式利用TCP/IP协议自身的缺陷，结合使用IP欺骗和ICMP回复方法，使网络因响应ICMP回复请求而产生大量的数据流量，导致网络严重的拥塞或资源消耗，引起目标系统拒绝位合法用户提供服务，从而对网络安全构成重大威胁．<br>攻击这在远程机器上或在本网段主机上发送ICMP应答请求服务，其目标主机不是某一个主机的IP地址，而是某一个网络的广播地址，其请求包的源IP不是发起攻击的IP地址，而是加以伪装的将要攻击的主机的IP地址．大量主机收到ICMP应答请求服务包后，按源IP返回请求信息，从而导致受攻击主机的服务性能下降，甚至崩溃．</p>
+<h2 id="Smurf攻击-1"><a href="#Smurf攻击-1" class="headerlink" title="Smurf攻击"></a>Smurf攻击</h2><p>攻击通常分为以下五步：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1&gt;黑客锁定一个被攻击的主机（通常是一些Web服务器）；</span><br><span class="line">2&gt;黑客寻找可做为中间代理的站点，用来对攻击实施放大（通常会选择多个，以便更好地隐藏自己，伪装攻击）；</span><br><span class="line">3&gt;黑客给中间代理站点的广播地址发送大量的ICMP包。这些数据包全都以被攻击的主机的IP地址做为IP包的源地址；</span><br><span class="line">4&gt;中间代理向其所在的子网上的所有主机发送源IP地址欺骗的数据包；</span><br><span class="line">5&gt;中间代理主机对被攻击的网络进行响应。</span><br></pre></td></tr></table></figure></p>
+<h2 id="Smurf防范"><a href="#Smurf防范" class="headerlink" title="Smurf防范"></a>Smurf防范</h2><p>1 配置路由器禁止IP广播包进网<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">第一种方法是在路由器端加以配置，拒绝接受带有广播地址的ICMP请求包，防止这些分组到达自己的网络．</span><br><span class="line">第二种方法时用户禁止路由器吧网络广播地址映射成为局域网广播地址．制止了这个映射过程，自己的系统就不会再收到这些echo请求．</span><br></pre></td></tr></table></figure></p>
+<p>2 配置网络上所有计算机的操作系统，禁止对目标地址为广播地址的ICMP包响应。<br>3 避免站内主机成为攻击者：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">对于从本网络向外部网络发送的数据包，本网络应该将其源地址为其他网络的这部分</span><br><span class="line">数据包过滤掉。比如在哭又端通过向某一ICMP包的源IP发送一个确认包来判断此包</span><br><span class="line">是否是欺骗的IP包，保证内部网络中发出的所有传输信息都具有合法的源地址.</span><br></pre></td></tr></table></figure></p>
+<h1 id="ICMP重定向攻击"><a href="#ICMP重定向攻击" class="headerlink" title="ICMP重定向攻击"></a>ICMP重定向攻击</h1><p>ICMP重定向报文是当主机采用非最优路由发送数据报时，路由器会发回ICMP重定向报文来通知主机最优路由的存在。并且重定向报文必须由路由器生成，当主机作为路由器使用时，必须将其内核配置成可以发送重定向报文。</p>
+<p>ICMP重定向攻击也可以达到类似ARP欺骗的攻击效果。假设主机A(IP地址为172.16.1.2)经默认路由器(IP地址为172.16.1.1)与另一个网络中的主机D(IP地址为172.16.2.2)通信，与主机A同属一个网络的攻击者(IP地址为172.16.1.4)，通过修改内核设置，充当与主机A直接相连的路由器。攻击者要想监听主机A 的通信内容，可以构造ICMP重定向报文，指示主机A将数据包转发到攻击者的机器上，攻击者对所有的数据进行过滤后再转发给默认路由器，这就是“中间人”攻击。同样，ICMP重定向攻击也可以达到拒绝服务(DoS)攻击的目的。</p>
+<p>在实际应用中，无论ARP欺骗抑或是ICMP重定向攻击，都有可能出现攻击者的机器自动发送ICMP 重定向报文给目标主机的情况。这种自动生成的 ICMP 重定向报文与攻击者 发送的伪ICMP 重定向报文有所不同，其原理是同一网段内的攻击者为监听网络而开启了IP 路由功能，对数据包过滤后转发给默认路由器，默认路由器再转发数据包至主机D。但由于IP 寻址的原理，攻击者的机器(在此充当路由器)会发现下一跳路由器(即默认路由器)与源主机处在同一子网中，即有一条更优路由的存在，此时攻击者的机器会自动发送ICMP 重定向报文来指示主机A 通往网外的主机D(172.16.2.2)的最优路由是经由默认路由器而不是经由攻击者的机器，结果是使ARP 欺骗或ICMP 重定向攻击失败。对ARP 欺骗来说，可以通过个人防火墙等手段限制有关 ICMP 报文的出包，但对ICMP 重定向攻击来说，限制ICMP 报文的出包后也就意 味着攻击者也无法发送伪造的ICMP 重定向报文给目标主机，实现起来更为复杂。</p>
+<h1 id="死亡之ping"><a href="#死亡之ping" class="headerlink" title="死亡之ping"></a>死亡之ping</h1><p>ICMP echo request with fragmented packets<br>Maximum legal size of an ICMP echo request packet:<br>65536 - 20- 8 = 65507<br>Fragmentation allows the bypass of the maximum size. For the last piece of the fragment, the following is possible: (offset + size) &gt;65535<br>Impact: some operating systems will crash<br>Same attack with different IP protocol</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Leetcode-深度优先搜索/" data-toggle="tooltip" data-placement="left"
+                     title="Leetcode-深度优先搜索">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/计算机网络之ARP协议/" data-toggle="tooltip" data-placement="top"
+                     title="ARP协议与常见攻击">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/ICMP协议与常见攻击/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP协议"><span class="toc-number">1.</span> <span class="toc-text">ICMP协议</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP报文格式"><span class="toc-number">2.</span> <span class="toc-text">ICMP报文格式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#请求会先和回显应答（Echo-or-Echo-Reply-Message）"><span class="toc-number">2.1.</span> <span class="toc-text">请求会先和回显应答（Echo or Echo Reply Message）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目的不可达（Destination-Unreachable-Message）"><span class="toc-number">2.2.</span> <span class="toc-text">目的不可达（Destination Unreachable Message）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ICMP重定向"><span class="toc-number">2.3.</span> <span class="toc-text">ICMP重定向</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP应用"><span class="toc-number">3.</span> <span class="toc-text">ICMP应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Ping"><span class="toc-number">3.1.</span> <span class="toc-text">Ping</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Traceroutr"><span class="toc-number">3.2.</span> <span class="toc-text">Traceroutr</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Smurf攻击"><span class="toc-number">4.</span> <span class="toc-text">Smurf攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Smurf攻击-1"><span class="toc-number">4.1.</span> <span class="toc-text">Smurf攻击</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Smurf防范"><span class="toc-number">4.2.</span> <span class="toc-text">Smurf防范</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ICMP重定向攻击"><span class="toc-number">5.</span> <span class="toc-text">ICMP重定向攻击</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#死亡之ping"><span class="toc-number">6.</span> <span class="toc-text">死亡之ping</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

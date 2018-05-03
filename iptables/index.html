@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/iptables/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        iptables｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Oct 15, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">iptables</div><p>
+          <p> Iptabels是与Linux内核集成的包过滤防火墙系统，几乎所有的linux发行版本都会包含Iptables的功能。如果 Linux 系统连接到因特网或 LAN、服务器或连接 LAN 和因特网的代理服务器， 则Iptables有利于在 Linux 系统上更好地控制 IP 信息包过滤和防火墙配置。<br>netfilter/iptables过滤防火墙系统是一种功能强大的工具，可用于添加、编辑和除去规则，这些规则是在做信息包过滤决定时，防火墙所遵循和组成的规则。这些规则存储在专用的信 息包过滤表中，而这些表集成在 Linux 内核中。在信息包过滤表中，规则被分组放在我们所谓的链（chain）中。<br>虽然netfilter/iptables包过滤系统被称为单个实体，但它实际上由两个组件netfilter 和 iptables 组成。<br>netfilter 组件也称为内核空间（kernelspace），是内核的一部分，由一些信息包过滤表组成，这些表包含内核用来控制信息包过滤处理的规则集。<br>iptables 组件是一种工具，也称为用户空间（userspace），它使插入、修改和除去信息包过滤表中的规则变得容易。<br><a id="more"></a></p>
+<h1 id="状态防火墙和传统包过滤防火墙"><a href="#状态防火墙和传统包过滤防火墙" class="headerlink" title="状态防火墙和传统包过滤防火墙"></a>状态防火墙和传统包过滤防火墙</h1><h2 id="传统包过滤防火墙"><a href="#传统包过滤防火墙" class="headerlink" title="传统包过滤防火墙"></a>传统包过滤防火墙</h2><p><strong>Advantages</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">One screening router can protect entire network</span><br><span class="line">Can be efficient if filtering rules are kept simple</span><br><span class="line">Widely available. Almost any router, even  Linux boxes</span><br></pre></td></tr></table></figure></p>
+<p><strong>Disadvantages</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Can possibly be penetrated</span><br><span class="line">Cannot enforce some policies. For example, permit certain users. </span><br><span class="line">Rules can get complicated and difficult to test</span><br></pre></td></tr></table></figure></p>
+<h2 id="状态防火墙"><a href="#状态防火墙" class="headerlink" title="状态防火墙"></a>状态防火墙</h2><p>状态防火墙保持对连接状态的跟踪：连接是否处于初始化、数据传输或终止状态。<br><strong>状态表</strong><br>状态防火墙使用一种机制保持跟踪连接的状态。</p>
+<p>假设内部PC发送流量到外部Web服务器，使用一个源端口使10000、目的端口是80的TCP报文，并在控制域中使用了SYN标记。当状态防火墙收到这样的流量时，首先检查是否允许报文出去。不象包过滤防火墙，简单地进行转发，状态防火墙增加一个过滤规则到其配置。这些信息要么添加到已存在的过滤规则集的顶部，要么被放进一个状态表。这个状态表可以用来跟踪连接的状态。在外部Web服务器接收到请求之后，使用SYN/ACK响应。当这个报文到达状态防火墙时，首先访状态表，以查看该连接是否存在。然后在接口上处理过滤规则。</p>
+<p>状态处理过程的一个优点是当连接终止时，源和目的设备拆除连接，状态防火墙通过检查TCP头的控制标记注意到这个过程，并动态地将该连接从状态表中删除。<br><strong>状态防火墙的优点</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">知道连接的状态；</span><br><span class="line">无需打开很大范围的端口以允许通信；</span><br><span class="line">比包过滤防火墙阻止更多类型的DoS攻击，并有更丰富的日志功能。</span><br></pre></td></tr></table></figure></p>
+<p><strong>状态防火墙的局限性</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">可能很复杂，不易配置；</span><br><span class="line">不能阻止应用层的攻击；</span><br><span class="line">不支持用户的连接认证；</span><br><span class="line">不是所有的协议包含状态信息；</span><br><span class="line">一些应用会打开多个连接，其中的一些为附加连接使用动态端口号；</span><br><span class="line">在维护状态表时会涉及到其他开销。</span><br></pre></td></tr></table></figure></p>
+<h1 id="iptables的状态机制"><a href="#iptables的状态机制" class="headerlink" title="iptables的状态机制"></a>iptables的状态机制</h1><p>netfilter/iptables的最大优点是它可以配置有状态的防火墙。<strong>有状态的防火墙能够指定并记住为发送或接收信息包所建立的连接的状态。防火墙可以从信息包的连接跟踪状态获得该信息。在决定新的信息包过滤时，防火墙所使用的这些状态信息可以增加其效率和速度。这里有四种有效状态，名称分别为 ESTABLISHED 、 INVALID 、 NEW 和 RELATED 。</strong></p>
+<p><strong>NEW</strong>：<br>NEW说明这个包是我们看到的第一个包。意思就是，这是conntrack模块看到的某个连接的第一个包，它即将被匹配了。比如，我们看到一个SYN 包，是我们所留意的连接的第一个包，就要匹配它。<br><strong>ESTABLISHED</strong><br> ESTABLISHED已经注意到两个方向上的数据传输，而且会继续匹配这个连接的包。处于ESTABLISHED状态的连接是非常容易理解的。只要发送并接到应答，连接就是ESTABLISHED的了。一个连接要从NEW变为ESTABLISHED，只需要接到应答包即可，不管这个包是发往防火墙的，还是要由防火墙转发的。ICMP的错误和重定向等信息包也被看作是ESTABLISHED，只要它们是我们所发出的信息的应答。<br><strong>RELATED</strong><br> RELATED是个比较麻烦的状态。当一个连接和某个已处于ESTABLISHED状态的连接有关系时，就被认为是RELATED的了。换句话说，一个连接要想是RELATED的，首先要有一个ESTABLISHED的连接。这个ESTABLISHED连接再产生一个主连接之外的连接，这个新的连接就是 RELATED的了，当然前提是conntrack模块要能理解RELATED。ftp是个很好的例子，FTP-data 连接就是和FTP-control有关联的，如果没有在iptables的策略中配置RELATED状态，FTP-data的连接是无法正确建立的，还有其他的例子，比如，通过IRC的DCC连接。有了这个状态，ICMP应答、FTP传输、DCC等才能穿过防火墙正常工作。注意，大部分还有一些UDP协议都依赖这个机制。这些协议是很复杂的，它们把连接信息放在数据包里，并且要求这些信息能被正确理解。<br><strong>INVALID</strong><br>INVALID说明数据包不能被识别属于哪个连接或没有任何状态。有几个原因可以产生这种情况，比如，内存溢出，收到不知属于哪个连接的ICMP错误信息。一般地，我们DROP这个状态的任何东西，因为防火墙认为这是不安全的东西。</p>
+<p>netfilter/iptables的另一个重要优点是，它使用户可以完全控制防火墙配置和信息包过滤。您可以定制自己的规则来满足您的特定需求，从而只允许您想要的网络流量进入系统。</p>
+<p>另外，netfilter/iptables是免费的，这对于那些想要节省费用的人来说十分理想，它可以代替昂贵的防火墙解决方案。<br>数据包在防火墙的处理流程：<br><img src="/images/iptables_process.png" alt=""> </p>
+<h1 id="链"><a href="#链" class="headerlink" title="链"></a>链</h1><p>链（chains）是数据包传播的路径，每一条链其实就是众多规则中的一个检查清单，每一条链中可以有一条或数条规则。当一个数据包到达一个链时，iptables就会从链中第一条规则开始检查，看该数据包是否满足规则所定义的条件。如果满足，系统就会根据该条规则所定义的方法处理该数据包；否则iptables将继续检查下一条规则，如果该数据包不符合链中任一条规则，iptables就会根据该链预先定义的默认策略来处理数据包。<br>netfilter内置的五条链：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">PREROUTING：路由决策前</span><br><span class="line">INPUT：到达本机内部的报文必经之路</span><br><span class="line">FORWARD：由本机转发的报文必经之路</span><br><span class="line">OUTPUT：由本机发出的报文的必经之路</span><br><span class="line">POSTROUTING：路由决策后</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/iptables_chain.png" alt=""> </p>
+<h1 id="表"><a href="#表" class="headerlink" title="表"></a>表</h1><p>netfilter由一些按功能分类的信息包处理表组成，这些表是内核用来控制信息包处理的规则集。</p>
+<h2 id="mangle表"><a href="#mangle表" class="headerlink" title="mangle表"></a>mangle表</h2><p>这个表主要用来mangle包，你可以使用mangle匹配来改变包的TOS等特性。<br>强烈建议你不要在这个表里做任何过滤，不管是DANT，SNAT或者Masquerade。<br>以下是mangle表中仅有的几种操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">TOS</span><br><span class="line">TTL</span><br><span class="line">MARK</span><br></pre></td></tr></table></figure></p>
+<p>TOS操作用来设置或改变数据包的服务类型域。这常用来设置网络上的数据包如何被路由等策略。 注意这个操作并不完善，有时得不所愿。它在Internet上还不能使用，而且很多路由器不会注意到 这个域值。换句话说，不要设置发往Internet的包，除非你打算依靠TOS来路由，比如用iproute2。</p>
+<p>TTL操作用来改变数据包的生存时间域，我们可以让所有数据包只有一个特殊的TTL。它的存在有 一个很好的理由，那就是我们可以欺骗一些ISP。为什么要欺骗他们呢？因为他们不愿意让我们共享 一个连接。那些ISP会查找一台单独的计算机是否使用不同的TTL，并且以此作为判断连接是否被共享 的标志。</p>
+<p>MARK用来给包设置特殊的标记。iproute2能识别这些标记，并根据不同的标记（或没有标记） 决定不同的路由。用这些标记我们可以做带宽限制和基于请求的分类。</p>
+<h2 id="NAT表"><a href="#NAT表" class="headerlink" title="NAT表"></a>NAT表</h2><p>此表仅用于NAT，也就是转换包的源或目标地址。注意，就象我们前面说过的，只有流的第一个 包会被这个链匹配，其后的包会自动被做相同的处理。实际的操作分为以下几类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DNAT</span><br><span class="line">SNAT</span><br><span class="line">MASQUERADE</span><br></pre></td></tr></table></figure></p>
+<p>DNAT操作主要用在这样一种情况，你有一个合法的IP地址，要把对防火墙的访问 重定向到其他的机子上（比如DMZ）。也就是说，我们改变的是目的地址，以使包能重路由到某台主机。</p>
+<p>SNAT改变包的源地址，这在极大程度上可以隐藏你的本地网络或者DMZ等。一个 很好的例子是我们知道防火墙的外部地址，但必须用这个地址替换本地网络地址。有了这个操作，防火墙就 能自动地对包做SNAT和De-SNAT(就是反向的SNAT),以使LAN能连接到Internet。如果使用类似 192.168.0.0/24这样的地址，是不会从Internet得到任何回应的。因为IANA定义这些网络（还有其他的）为 私有的，只能用于LAN内部。</p>
+<p>MASQUERADE的作用和MASQUERADE完全一样，只是计算机 的负荷稍微多一点。因为对每个匹配的包，MASQUERADE都要查找可用的IP地址，而 不象SNAT用的IP地址是配置好的。当然，这也有好处，就是我们可以使用通过PPP、 PPPOE、SLIP等拨号得到的地址，这些地址可是由ISP的DHCP随机分配的。</p>
+<h2 id="Filter-表"><a href="#Filter-表" class="headerlink" title="Filter 表"></a>Filter 表</h2><p>filter 表用来过滤数据包，我们可以在任何时候匹配包并过滤它们。 我们就是在这里根据包的内容对包做DROP或ACCEPT的。当然，我们也可以预先在其他地方做些过滤，但是这 个表才是设计用来过滤的。几乎所有的target都可以在这儿使用。大量具体的介绍在后面，现在你只要知道 过滤工作主要是在这儿完成的就行了。<br><strong>各表的优先级为：Raw&gt;mangle&gt;nat&gt;filter</strong><br><img src="/images/iptables_table.png" alt=""> </p>
+<h2 id="表和链的对应关系："><a href="#表和链的对应关系：" class="headerlink" title="表和链的对应关系："></a>表和链的对应关系：</h2><p>filter：INPUT，FORWARD，OUTPUT<br>nat：PREROUTING(DNAT)，POSTROUTING(SNAT)，OUTPUT<br> mangle：PREROUTING，INPUT，FORWARD，OUTPUT，POSTROUTING<br>raw：PREROUTING，OUTPUT<br><img src="/images/iptables_chains&amp;tables.png" alt=""> </p>
+<h1 id="防火墙处理流程"><a href="#防火墙处理流程" class="headerlink" title="防火墙处理流程"></a>防火墙处理流程</h1><p>综合锁所上描述．我们可以将数据包通过防火墙的流程总结如下：<br><img src="/images/iatables.png" alt=""><br><strong>第一种情况：入站数据流向</strong><br>从外界到达防火墙的数据包，先被PREROUTING规则链处理（是否修改数据包地址等），之后会进行路由选择（判断该数据包应该发往何处），如果数据包 的目标主机是防火墙本机（比如说Internet用户访问防火墙主机中的web服务器的数据包），那么内核将其传给INPUT链进行处理（决定是否允许通 过等），通过以后再交给系统上层的应用程序（比如Apache服务器）进行响应。</p>
+<p><strong>第二冲情况：转发数据流向</strong><br>来自外界的数据包到达防火墙后，首先被PREROUTING规则链处理，之后会进行路由选择，如果数据包的目标地址是其它外部地址（比如局域网用户通过网 关访问QQ站点的数据包），则内核将其传递给FORWARD链进行处理（是否转发或拦截），然后再交给POSTROUTING规则链（是否修改数据包的地 址等）进行处理。</p>
+<p><strong>第三种情况：出站数据流向</strong><br>防火墙本机向外部地址发送的数据包（比如在防火墙主机中测试公网DNS服务器时），首先被OUTPUT规则链处理，之后进行路由选择，然后传递给POSTROUTING规则链（是否修改数据包的地址等）进行处理。</p>
+<h1 id="iptables命令"><a href="#iptables命令" class="headerlink" title="iptables命令"></a>iptables命令</h1><h2 id="选项"><a href="#选项" class="headerlink" title="选项"></a>选项</h2><p><strong>-t(–table)</strong>：<br>对指定的表 table 进行操作， table 必须是 raw， nat，filter，mangle 中的一个。如果不指定此选项，默认的是 filter 表。<br><strong>-A(–append</strong>)：<br>在指定链 chain 的末尾插入指定的规则，也就是说，这条规则会被放到最后，最后才会被执行。规则是由后面的匹配来指定。<br><strong>-I(–insert)</strong> ：<br>在链 chain 中的指定位置插入一条或多条规则。如果指定的规则号是1，则在链的头部插入，这也是默认的情况（如果没有指定规则号）。<br>(iptables -I 和 -A的区别：首先都是对链添加规则 -A参数是将规则写到现有链规则的最后 -I参数默认是将一条规则添加到现有规则链的最前面当然也可以指定插入到第几行 行数可以用数字来指定 比如说将一条规则添加到某一条链的第三行 那么原来在第三行的规则就会降到下一行第四行. )<br><strong>-D(–delete)</strong>：<br>在指定的链 chain 中删除一个或多个指定规则。如上所示，它有两种格式的用法。例子：<br>iptables -D INPUT –dport 80 -j DROP<br>iptables -D INPUT 1；<br><strong>-R(–replace)</strong>：<br>用新规则替换指定链 chain 上面的指定规则，规则号从1开始。例子：iptables -R INPUT 1 -s 192.168.1.41 -j DROP；<br><strong>-L(–list)</strong>：<br>列出链 chain 上面的所有规则，如果没有指定链，列出表上所有链的所有规则。；<br><strong>-F(–flush)</strong>：<br>清空指定链 chain 上面的所有规则。如果没有指定链，清空该表上所有链的所有规则。。<br><strong>-Z(–zero)</strong>：<br>把 chain 或者所有 chain（当未指定 chain 名称时）的包及字节的计数器清空。<br><strong>-N(–new)</strong>：<br>创建新的用户自定义规则链； 例子：iptables -N mychain<br><strong>-X(–delete-chain)</strong>：<br>删除指定的链，这个链必须没有被其它任何规则引用，而且这条上必须没有任何规则。如果没有指定链名，则会删除该表中所有非内置的链。例子：iptables -X mychain。<br><strong>-E( –rename-chain)</strong><br>用指定的新名字去重命名指定的链。这并不会对链内部照成任何影响。例子：iptables -E mychain yourchain<br><strong>–P(–policy)</strong>-：<br>为指定的链 chain 设置策略 target。注意，只有内置的链才允许有策略，用户自定义的是不允许的。例子：iptables -P INPUT DROP</p>
+<p>上面列出的都是对链或者表的操作，下面我们再来看一下对规则进行操作的基本选项：</p>
+<p><strong>-p, –protocol [!] proto</strong><br>指定使用的协议为 proto ，其中 proto 必须为 tcp udp icmp 或者 all ，或者表示某个协议的数字。 如果 proto 前面有“!”，表示对取反。例子：<br>iptables -A INPUT -p tcp […]<br><strong>-j, –jump target</strong><br>指定目标，即满足某条件时该执行什么样的动作。target 可以是内置的目标，比如 ACCEPT，<strong>也可以是用户自定义的链</strong>。例子：<br>iptables -A INPUT -p tcp -j ACCEPT<br><strong>-s, –source [!] address[/mask]</strong><br>把指定的一个／一组地址作为源地址，按此规则进行过滤。当后面没有 mask 时，address 是一个地址，比如：192.168.1.1；当 mask 指定时，可以表示一组范围内的地址，比如：192.168.1.0/255.255.255.0。一个完整的例子：<br>iptables -A INPUT -s 192.168.1.1/24 -p tcp -j DROP<br><strong>-d, –destination [!] address[/mask]</strong><br>地址格式同上，但这里是指定地址为目的地址，按此进行过滤。例如：<br>iptables -A INPUT -d 192.168.1.254 -p tcp -j ACCEPT<br><strong>-i, –in-interface [!] name</strong><br>指定数据包的来自来自网络接口，比如最常见的 eth0 。注意：它只对 <strong>INPUT，FORWARD，PREROUTING</strong>这三个链起作用。如果没有指定此选项， 说明可以来自任何一个网络接口。同前面类似，”!” 表示取反。例子：<br>iptables -A INPUT -i eth0<br><strong>-o, –out-interface [!] name</strong><br>指定数据包出去的网络接口。只对<strong>OUTPUT，FORWARD，POSTROUTING</strong>三个链起作用。例如：<br>iptables -A FORWARD -o eth0<br><strong>–source-port,–sport port[:port]</strong><br>在 tcp/udp/sctp 中，指定源端口。冒号分隔的两个 port 表示指定一段范围内的所有端口，大的小的哪个在前都可以，比如： “1:100” 表示从1号端口到100号（包含边界），而 <strong>“:100” 表示从 0 到 100</strong>，<strong>“100:”表示从100到65535</strong>。一个完整的例子如下：<br>iptables -A INPUT -p tcp –sport 22 -j REJECT<br><strong>–destination-port,–dport port[,port]</strong><br>指定目的端口，用法和上面类似，但如果要指定一组端口，格式可能会因协议不同而不同，注意浏览 iptables 的手册页。例如：<br>iptables -A INPUT -p tcp –dport 22 -j ACCEPT</p>
+<p>iptables命令选项输入顺序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -t 表名 &lt;-A/I/D/R&gt; 规则链名 [规则号] &lt;-i/o 网卡名&gt; -p 协议名 &lt;-s 源IP/源子网&gt; --sport 源端口 &lt;-d 目标IP/目标子网&gt; --dport 目标端口 -j 动作</span><br></pre></td></tr></table></figure></p>
+<p>表名包括：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">raw：高级功能，如：网址过滤。 </span><br><span class="line">mangle：数据包修改（QOS），用于实现服务质量。 </span><br><span class="line">nat：地址转换，用于网关路由器。 </span><br><span class="line">filter：包过滤，用于防火墙规则。</span><br><span class="line">``` </span><br><span class="line">规则链名包括：</span><br></pre></td></tr></table></figure></p>
+<p>INPUT链：处理输入数据包。<br>OUTPUT链：处理输出数据包。<br>PORWARD链：处理转发数据包。<br>PREROUTING链：用于目标地址转换（DNAT）。<br>POSTOUTING链：用于源地址转换（SNAT）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">动作包括：</span><br><span class="line">``` </span><br><span class="line">accept：接收数据包。 </span><br><span class="line">DROP：丢弃数据包。 </span><br><span class="line">REDIRECT：重定向、映射、透明代理。 </span><br><span class="line">SNAT：源地址转换。 </span><br><span class="line">DNAT：目标地址转换。</span><br><span class="line">MASQUERADE：IP伪装（NAT），用于ADSL。 </span><br><span class="line">LOG：日志记录。</span><br></pre></td></tr></table></figure></p>
+<h2 id="扩展匹配"><a href="#扩展匹配" class="headerlink" title="扩展匹配"></a>扩展匹配</h2><h3 id="隐含扩展：对协议的扩展"><a href="#隐含扩展：对协议的扩展" class="headerlink" title="隐含扩展：对协议的扩展"></a>隐含扩展：对协议的扩展</h3><p>-p tcp :TCP协议的扩展。一般有三种扩展<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">--dport XX-XX：指定目标端口,不能指定多个非连续端口,只能指定单个端口，比如</span><br><span class="line">--dport 21  或者 --dport 21-23 (此时表示21,22,23)</span><br><span class="line">--sport：指定源端口</span><br><span class="line">--tcp-fiags：TCP的标志位（SYN,ACK，FIN,PSH，RST,URG）</span><br><span class="line">    对于它，一般要跟两个参数：</span><br><span class="line">	1.检查的标志位</span><br><span class="line">	2.必须为1的标志位</span><br><span class="line">	--tcpflags syn,ack,fin,rst syn   =    --syn</span><br><span class="line">	表示检查这4个位，这4个位中syn必须为1，其他的必须为0。所以这个意思就是用于检测三次握手的第一次包的。对于这种专门匹配第一包的SYN为1的包，还有一种简写方式，叫做--syn</span><br></pre></td></tr></table></figure></p>
+<p>-p udp：UDP协议的扩展<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">--dport</span><br><span class="line">--sport</span><br></pre></td></tr></table></figure></p>
+<p> -p icmp：icmp数据报文的扩展</p>
+<pre><code>--icmp-type：
+echo-request(请求回显)，一般用8 来表示
+所以 --icmp-type 8 匹配请求回显数据包
+echo-reply （响应的数据包）一般用0来表示
+</code></pre><h3 id="显式扩展（-m）"><a href="#显式扩展（-m）" class="headerlink" title="显式扩展（-m）"></a>显式扩展（-m）</h3><p>扩展各种模块<br>      -m multiport：表示启用多端口扩展<br>      之后我们就可以启用比如 –dports 21,23,80</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>1、清除所有的规则。<br>1）清除预设表filter中所有规则链中的规则。<br>iptables -F<br>2）清除预设表filter中使用者自定链中的规则。<br>iptables -X<br>iptables -Z</p>
+<p>2、设置链的默认策略。一般有两种方法。<br>1）首先允许所有的包，然后再禁止有危险的包通过放火墙。<br>iptables -P INPUT ACCEPT<br>iptables -P OUTPUT ACCEPT<br>iptables -P FORWARD ACCEPT<br>2）首先禁止所有的包，然后根据需要的服务允许特定的包通过防火墙。<br>iptables -P INPUT DROP<br>iptables -P OUTPUT DROP<br>iptables -P FORWARD DROP</p>
+<p>3、列出表/链中的所有规则。默认只列出filter表。<br>iptables -L</p>
+<p>4、多端口匹配。<br>1）匹配多个源端口。<br>iptables -A INPUT -p tcp -m multiport –sport 22,53,80,110<br>2）匹配多个目的端口。<br>iptables -A INPUT -p tcp -m multiport –dpoort 22,53,80<br>3）匹配多端口(无论是源端口还是目的端口）<br>iptables -A INPUT -p tcp -m multiport –port 22,53,80,110</p>
+<p>5、使用 –tcp-flags 选项可以根据tcp包的标志位进行过滤。<br>iptables -A INPUT -p tcp –tcp-flags SYN,FIN,ACK SYN<br>iptables -A FROWARD -p tcp –tcp-flags ALL SYN,ACK<br>上实例中第一个表示SYN、ACK、FIN的标志都检查，但是只有SYN匹配。第二个表示ALL（SYN，ACK，FIN，RST，URG，PSH）的标志都检查，但是只有设置了SYN和ACK的匹配。<br>iptables -A FORWARD -p tcp –syn<br>选项—syn相当于”–tcp-flags SYN,RST,ACK SYN”的简写。</p>
+<p>6、ping相关设置<br>一.当INPUT和OUTPUT规则默认为ACCEPT时:<br>1) 禁止ping其他主机和禁止其他主机ping本机:<br>iptables -A INPUT -p icmp –icmp-type echo-reply -j DROP (–icmp-type echo-reply是指ping的回显应答,就是其他主机ping本机时是否给予应答)<br>iptables -A OUTPUT -p icmp –icmp-type echo-request -j DROP (–icmp-type echo-request是指回显请求,就是本机向其他机器发出ping的请求)<br>2) 禁止其他主机ping本机,允许本机ping其他主机:<br>iptables -A INPUT -p icmp –icmp-type 8 -s 0/0 -j DROP (–icmp-type 后面0代表echo-reply,8代表echo-request,-s 0/0是指任意地址,这个规则就是说当有其他主机向本机发出ping请求包时拒绝掉)</p>
+<p>二.当INPUT和OUTPUT规则默认为DROP时:<br>设置可以ping本机,可以ping外部其他主机:<br>iptables –A INPUT –p icmp –icmp-type echo-reply –j ACCEPT<br>iptables –A OUTPUT –p icmp –icmp-type echo-request –j ACCEPT<br>iptables –A INPUT –i lo –p all –j ACCEPT<br>iptables –A OUTPUT –o lo –p all –j ACCEPT<br>上面做完后可以ping 外部的IP地址和本机127.0.0.1了,但是不能ping域名,如<a href="http://www.baidu.com等,这个时候需要增加如下规则" target="_blank" rel="noopener">www.baidu.com等,这个时候需要增加如下规则</a>:<br>iptables –A INPUT –p udp –sport 53 –j ACCEPT<br>iptables –A OUTPUT –p udp –dport 53 –j ACCEPT  </p>
+<p>7、拒绝转发来自192.168.1.10主机的数据，允许转发来自192.168.0.0/24网段的数据<br>iptables -A FORWARD -s 192.168.1.11 -j REJECT<br>iptables -A FORWARD -s 192.168.0.0/24 -j ACCEPT<br>说明：注意要把拒绝的放在前面不然就不起作用了啊。</p>
+<p>8、丢弃从外网接口（eth1）进入防火墙本机的源地址为私网地址的数据包<br>iptables -A INPUT -i eth1 -s 192.168.0.0/16 -j DROP<br>iptables -A INPUT -i eth1 -s 172.16.0.0/12 -j DROP<br>iptables -A INPUT -i eth1 -s 10.0.0.0/8 -j DROP</p>
+<p>9、只允许管理员从202.13.0.0/16网段使用SSH远程登录防火墙主机。<br>iptables -A INPUT -p tcp –dport 22 -s 202.13.0.0/16 -j ACCEPT<br>iptables -A INPUT -p tcp –dport 22 -j DROP<br>说明：这个用法比较适合对设备进行远程管理时使用，比如位于分公司中的SQL服务器需要被总公司的管理员管理时。</p>
+<p>7、允许本机开放从TCP端口20-1024提供的应用服务。<br>iptables -A INPUT -p tcp –dport 20:1024 -j ACCEPT<br>iptables -A OUTPUT -p tcp –sport 20:1024 -j ACCEPT</p>
+<p>8、允许转发来自192.168.0.0/24局域网段的DNS解析请求数据包。<br>iptables -A FORWARD -s 192.168.0.0/24 -p udp –dport 53 -j ACCEPT<br>iptables -A FORWARD -d 192.168.0.0/24 -p udp –sport 53 -j ACCEPT</p>
+<p>10.禁止转发来自MAC地址为00：0C：29：27：55：3F的和主机的数据包<br>iptables -A FORWARD -m mac –mac-source 00:0c:29:27:55:3F -j DROP<br>说明：iptables中使用“-m 模块关键字”的形式调用显示匹配。咱们这里用“-m mac –mac-source”来表示数据包的源MAC地址。</p>
+<p>11.允许防火墙本机对外开放TCP端口20、21、25、110以及被动模式FTP端口1250-1280<br>iptables -A INPUT -p tcp -m multiport –dport 20,21,25,110,1250:1280 -j ACCEPT<br>说明：这里用“-m multiport –dport”来指定目的端口及范围</p>
+<p>12.禁止转发源IP地址为192.168.1.20-192.168.1.99的TCP数据包。<br>iptables -A FORWARD -p tcp -m iprange –src-range 192.168.1.20-192.168.1.99 -j DROP<br>说明：此处用“-m –iprange –src-range”指定IP范围。</p>
+<p>13.禁止转发与正常TCP连接无关的非—syn请求数据包。<br>iptables -A FORWARD -m state –state NEW -p tcp ! –syn -j DROP<br>说明：“-m state”表示数据包的连接状态，“NEW”表示与任何连接无关的，新的嘛！</p>
+<p>14.拒绝访问防火墙的新数据包，但允许响应连接或与已有连接相关的数据包<br>iptables -A INPUT -p tcp -m state –state NEW -j DROP<br>iptables -A INPUT -p tcp -m state –state ESTABLISHED,RELATED -j ACCEPT<br>说明：“ESTABLISHED”表示已经响应请求或者已经建立连接的数据包，“RELATED”表示与已建立的连接有相关性的，比如FTP数据连接等。</p>
+<h1 id="DMZ"><a href="#DMZ" class="headerlink" title="DMZ"></a>DMZ</h1><p><strong>Empty firewall</strong><br>iptables -F<br>iptables -t nat -F<br>iptables -X<br><strong>Modify the default policy</strong><br>iptables -P INPUT DROP<br>iptables -P FORWARD DROP<br>iptables -P OUTPUT DROP<br><strong>允许内网主机访问外网</strong><br>iptables -t filter -A FORWARD -s [内网IP] -i eth1 -o eth0 -j ACCEPT<br>iptables -t nat -A POSTROUTING -s [内网IP] -o eth0 -j SNAT –to-source [公网IP]<br>iptables -t filter -A FORWARD -d [内网IP] -i eth0 -o eth1 -m state –state RELATED,ESTABLISHED -j ACCEPT<br><strong>不允许外网主机访问内网主机</strong><br>iptables -t nat -A PREROUTING -s [外网IP] -d [内网IP] -i eth0 -m state –state  NEW -j DROP<br><strong>允许内网主机访问内网DMZ区域的服务器，可以通过公网IP访问也可以通过内部私网访问，DMZ区域的服务器不允许访问内网主机</strong><br>iptables -t filter -A FORWARD -s [内网IP] -i eth1 -o eth2 -m state –state NEW,ESTABLISHED -j ACCEPT<br>iptables -t filter -A FORWARD -d [内网IP]  -i eth2 -o eth1 -m state –state ESTABLISHED  -j ACCEPT<br>iptables -t nat -A PREROUTING -d [公网IP] -i eth1 -p tcp –dport 80 -m state –state NEW,ESTABLISHED -j DNAT –to-destination [HTTP_SERVER_IP]<br><strong>允许外网通过公网IP访问DMZ区域中Web服务</strong><br>iptables -t nat -A PREROUTING -d [公网IP] -i eth0 -p tcp –dport 80 -m state –state NEW,ESTABLISHED -j DNAT –to-destination [HTTP_SERVER_IP]</p>
+<p>iptables -t filter -I FORWARD -d  [HTTP_SERVER_IP] -p tcp  -i eth0 -o eth2 -j ACCEPT<br>iptables -t filter -I FORWARD -s  [HTTP_SERVER_IP] -p tcp -i eth2 -o eth0 -m state –state ESTABLISHED -j ACCEPT</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Socket编程/" data-toggle="tooltip" data-placement="left"
+                     title="Socket编程">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/NAT/" data-toggle="tooltip" data-placement="top"
+                     title="NAT">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/iptables/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#状态防火墙和传统包过滤防火墙"><span class="toc-number">1.</span> <span class="toc-text">状态防火墙和传统包过滤防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#传统包过滤防火墙"><span class="toc-number">1.1.</span> <span class="toc-text">传统包过滤防火墙</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#状态防火墙"><span class="toc-number">1.2.</span> <span class="toc-text">状态防火墙</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iptables的状态机制"><span class="toc-number">2.</span> <span class="toc-text">iptables的状态机制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链"><span class="toc-number">3.</span> <span class="toc-text">链</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#表"><span class="toc-number">4.</span> <span class="toc-text">表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mangle表"><span class="toc-number">4.1.</span> <span class="toc-text">mangle表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NAT表"><span class="toc-number">4.2.</span> <span class="toc-text">NAT表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filter-表"><span class="toc-number">4.3.</span> <span class="toc-text">Filter 表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#表和链的对应关系："><span class="toc-number">4.4.</span> <span class="toc-text">表和链的对应关系：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#防火墙处理流程"><span class="toc-number">5.</span> <span class="toc-text">防火墙处理流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#iptables命令"><span class="toc-number">6.</span> <span class="toc-text">iptables命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#选项"><span class="toc-number">6.1.</span> <span class="toc-text">选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#扩展匹配"><span class="toc-number">6.2.</span> <span class="toc-text">扩展匹配</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#隐含扩展：对协议的扩展"><span class="toc-number">6.2.1.</span> <span class="toc-text">隐含扩展：对协议的扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#显式扩展（-m）"><span class="toc-number">6.2.2.</span> <span class="toc-text">显式扩展（-m）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例"><span class="toc-number">6.3.</span> <span class="toc-text">实例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DMZ"><span class="toc-number">7.</span> <span class="toc-text">DMZ</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

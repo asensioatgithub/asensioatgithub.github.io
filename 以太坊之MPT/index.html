@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/以太坊之MPT/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        以太坊之MPT｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Feb 19, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#区块链"
+                                 title="区块链">区块链</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#区块链"
+                                 title="区块链">区块链</a>
+                              
+                              <a class="tag" href="/tags/#以太坊"
+                                 title="以太坊">以太坊</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">以太坊之MPT</div><p>
+          <p>Merkle Patricia Tree(简称MPT树，实际上是一种trie前缀树)是以太坊中的一种加密认证的数据结构，可以用来存储所有的(key，value)对。以太坊区块的头部包括一个区块头，一个交易的列表和一个uncle区块的列表。在区块头部包括了交易的hash树根，用来校验交易的列表。在p2p网络上传输的交易是一个简单的列表，它们被组装成一个叫做trie树的特殊数据结构，来计算根hash。值得注意的是，除了校验区块外，这个数据结构并不是必须的，一旦区块被验证正确，那么它在技术上是可以忽略的。但是，这意味着交易列表在本地以trie树的形式存储，发送给客户端的时候序列化成列表。客户端接收到交易列表后重新构建交易列表trie树来验证根hash。RLP(Recursive length prefix encoding,递归长度前缀编码)，用来对trie树种所有的条目进行编码(参考：<a href="http://www.cnblogs.com/fengzhiwu/p/5565559.html)。" target="_blank" rel="noopener">http://www.cnblogs.com/fengzhiwu/p/5565559.html)。</a><br><a id="more"></a></p>
+<h1 id="Trie树"><a href="#Trie树" class="headerlink" title="Trie树"></a>Trie树</h1><h2 id="Trie树的定义"><a href="#Trie树的定义" class="headerlink" title="Trie树的定义"></a>Trie树的定义</h2><p>Trie树也叫作Radix树，又称前缀树或字典树，是一种有序树，用于保存关联数组，其中的键通常是字符串。与二叉查找树不同，键不是直接保存在节点中，而是由节点在树中的位置决定。一个节点的所有子孙都有相同的前缀，也就是这个节点对应的字符串，而根节点对应空字符串。一般情况下，不是所有的节点都有对应的值，只有叶子节点和部分内部节点所对应的键才有相关的值。key是从树根到对应value得真实的路径。即从根节点开始，key中的每个字符会标识走那个子节点从而到达相应value。Value被存储在叶子节点，是每条路径的终止。假如key来自一个包含N个字符的字母表，那么树中的每个节点都可能会有多达N个孩子，树的最大深度是key的最大长度。<br> 在图示中，键标注在节点中，值标注在节点之下。每一个完整的英文单词对应一个特定的整数。键不需要被显式地保存在节点中。图示中标注出完整的单词，只是为了演示trie的原理。trie中的键通常是字符串，但也可以是其它的结构。<br><img src="/images/trie.png" alt=""><br>上图是一个简略视图，实际上trie每个节点是一个确定长度的数组，数组中每个节点的值是一个指向子节点的指针，最后有个标志域，标识这个位置为止是否是一个完整的字符串，并且有几个这样的字符串<br>常见的用来存英文单词的trie每个节点是一个长度为27的指针数组，index0-25代表a-z字符，26为标志域。如图：<br><img src="/images/trie1.jpeg" alt=""> </p>
+<h2 id="Trie树的局限性"><a href="#Trie树的局限性" class="headerlink" title="Trie树的局限性"></a>Trie树的局限性</h2><p><strong>1.高度不可控</strong><br><img src="/images/Trie2.jpeg" alt=""><br>如上图所示，如果有一个字符串很长，且跟其他字符串没有公共前缀，就会形成这样的一棵极其不平衡的树，整棵树的性能会被少量的这样的字符串拖慢，并且给攻击者提供了可能<br><strong>2.安全系数不高</strong><br>传统的trie是由内存指针来连接节点，并且字符串的值就相当于存储在这棵树中，两者完全暴露在外，毫无安全性可言</p>
+<h1 id="Patricia树"><a href="#Patricia树" class="headerlink" title="Patricia树"></a>Patricia树</h1><p>  Patricia树，或称Patricia trie，或crit bit tree，压缩前缀树，是一种更节省空间的Trie。对于基数树的每个节点，如果该节点是唯一的儿子的话，就和父节点合并。<br>  <img src="/images/patracial.png" alt=""> </p>
+<h1 id="Merkcle-Tree"><a href="#Merkcle-Tree" class="headerlink" title="Merkcle Tree"></a>Merkcle Tree</h1><p> 区块链本质上就是一个分布式的账本，每个区块记录了一定时间内的所有交易，比如比特币是讲每10min内的所有交易合成一个区块，放在总链上，交易成百上千，并且区块分布存储在不同的节点上，我们并不是每次都从某个受信任的源得到整个区块，于是我们面临两个问题：<br>1 如何确定我得到的区块是否被篡改过？<br>2 如何快速确定某交易是否存在于区块？ </p>
+<h2 id="Hash-List"><a href="#Hash-List" class="headerlink" title="Hash List"></a>Hash List</h2><p>Merkle Tree，通常也被称作Hash Tree，顾名思义，就是存储hash值的一棵树。Merkle树的叶子是数据块(例如，文件或者文件的集合)的hash值。非叶节点是其对应子节点串联字符串的hash。要了解Merkle Tree就要先从Hash List说起：<br>在点对点网络中作数据传输的时候，会同时从多个机器上下载数据，而且很多机器可以认为是不稳定或者不可信的。为了校验数据的完整性，更好的办法是把大的文件分割成小的数据块（例如，把分割成2K为单位的数据块）。这样的好处是，如果小块数据在传输过程中损坏了，那么只要重新下载这一快数据就行了，不用重新下载整个文件。<br>怎么确定小的数据块没有损坏哪？只需要为每个数据块做Hash。BT下载的时候，在下载到真正数据之前，我们会先下载一个Hash列表。那么问题又来了，怎么确定这个Hash列表本事是正确的哪？答案是把每个小块数据的Hash值拼到一起，然后对这个长字符串在作一次Hash运算，这样就得到Hash列表的根Hash(Top Hash or Root Hash)。下载数据的时候，首先从可信的数据源得到正确的根Hash，就可以用它来校验Hash列表了，然后通过校验后的Hash列表校验数据块。<br><img src="/images/HashList.jpg" alt=""> </p>
+<h2 id="Merkle-Tree"><a href="#Merkle-Tree" class="headerlink" title="Merkle Tree"></a>Merkle Tree</h2><p> Merkle Tree可以看做Hash List的泛化（Hash List可以看作一种特殊的Merkle Tree，即树高为2的多叉Merkle Tree。在最底层，和哈希列表一样，我们把数据分成小的数据块，有相应地哈希和它对应。但是往上走，并不是直接去运算根哈希，而是把相邻的两个哈希合并成一个字符串，然后运算这个字符串的哈希，这样每两个哈希就结婚生子，得到了一个”子哈希“。于是往上推，依然是一样的方式，可以得到数目更少的新一级哈希，最终必然形成一棵倒挂的树，到了树根的这个位置，这一代就剩下一个根哈希了，我们把它叫做 Merkle Root。<br><img src="/images/MerkcleTree.jpg" alt=""><br>在p2p网络下载网络之前，先从可信的源获得文件的Merkle Tree树根。一旦获得了树根，就可以从其他从不可信的源获取Merkle tree。通过可信的树根来检查接受到的MerkleTree。如果Merkle Tree是损坏的或者虚假的，就从其他源获得另一个Merkle Tree，直到获得一个与可信树根匹配的MerkleTree。<br>merkle tree中的指针并不是传统的内存地址，而是一个hash，也就是说，节点的信息即值也是地址。首先，树的叶子是每个区块的hash值 ，比特币用的是双SHA256，即<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashL1 = SHA256(SHA256(L1))</span><br></pre></td></tr></table></figure></p>
+<p>然后每两两交易的hash直接拼接成一个512bit的串，然后再次计算hash，即<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash0 =  SHA256(SHA256(L1+L2))</span><br></pre></td></tr></table></figure></p>
+<p>从底至上，如此往复，直到计算出一个根<br>在我们讨论merkel树的优点之前，先解决一个问题，图中的树看起来很完美，一个完全二叉树，但是，节点数很难刚好就是2^n个，这里有三种解决方案：</p>
+<p>1 每层计算时，首先判断当前层的节点是否是偶数，如果不是，那么讲最后一个节点复制，添加在尾部，凑成偶数<br>2 类似哈弗曼树，建立一个列表，从表头取两个节点，计算hash 然后压入表尾，直到表空<br>3 将不足2^n的节点序列直接复制最后一个节点直到正好达到2^n个</p>
+<p>从二叉树的性质可以看出，显然以上3中方法虽然添加的节点数目不同，但是树的高度都在数量级，整个数据结构的空间占用也在3N以内。<br><strong>信任检测</strong><br>树根由所有节点一步步hash生成，那么树根就成了整个树的签名，跟hashlist一样，树种任何一个节点的任何一点改动都会引起根hash的变化，如此一来，我只需要在信任的源获取根hash，就可以快速检测自己的整个区块是否正确<br>merkle树的优势在于，可以在log2N的时间复杂度下判断一个节点是否正确（交易是否存在），当节点发生变化时定位该节点<br><strong>节点检测</strong><br>我手里有L2这个节点，我只需要L1 hash1两个点就能计算出树根hash，再与可信任的根hash比较，就可以确定节点是否正确，这点在hashlist里完全做不到，hashlist需要所有其他节点<br><strong>修改定位</strong><br>如果L2节点遭到篡改或失效，我只需要tophash、hash1 、hash0、hashl1、hashl2就可以定位，此处看起来检测了几乎所有节点，实际上，当树非常大的时候，我只需要检测一个分支以及兄弟子树的根，显然，这也只需要Log2N的时间复杂度<br><strong>Merkle Tree和HashList的主要区别是</strong>，可以直接下载并立即验证Merkle Tree的一个分支。因为可以将文件切分成小的数据块，这样如果有一块数据损坏，仅仅重新下载这个数据块就行了。如果文件非常大，那么Merkle tree和Hash list都很大，但是Merkle tree可以一次下载一个分支，然后立即验证这个分支，如果分支验证通过，就可以下载数据了。而Hash list只有下载整个hash list才能验证。</p>
+<p>merkel树具有安全、迅速、复杂度可控等优势，在区块链中有非常重要的应用，但是也有缺点–功能太少，<strong>比如merkle树的一个特别的限制是</strong>，它们虽然可以证明包含此交易，但无法证明任何当前的状态（例如：数字资产的持有，名称注册，金融合约的状态等）。你现在拥有了多少个比特币？一个比特币轻客户端，可以使用一种涉及查询多个节点的协议，并相信其中至少会有一个节点会通知你关于你的地址中任何特定的交易支出，而这可以让你实现更多的功能。但对于其他更为复杂的应用而言，这些远远是不够的。一笔交易影响的确切性质（precisenature），可以取决于此前的几笔交易，而这些交易本身则依赖于更为前面的交易，所以最终你可以验证整个链上的每一笔交易。为了解决这个问题，以太坊在此基础结合Trie树开发了MPT。</p>
+<h1 id="MPT-Merkle-Patricia-Tree"><a href="#MPT-Merkle-Patricia-Tree" class="headerlink" title="MPT(Merkle Patricia Tree)"></a>MPT(Merkle Patricia Tree)</h1><p>知道了Merkle Tree，知道了Patricia Tree，顾名思义，MPT（Merkle Patricia Tree）就是这两者混合后的产物。<br>以太坊的每一个区块头，并非只包含一颗梅克尔树，而是包含了三颗梅克尔树，分别对应了三种对象：<br><strong>交易(Transactions)</strong><br><strong>收据(Receipts，基本上，它是展示每一笔交易影响的数据条）</strong><br><strong>状态(State)</strong><br><img src="/images/state -tree.jpg" alt=""><br>它允许轻客户端轻松地进行并核实以下类型的查询答案：</p>
+<pre><code>这笔交易被包含在特定的区块中了么？
+告诉我这个地址在过去30天中，发出X类型事件的所有实例（例如，一个众筹合约完成了它的目标）
+目前我的账户余额是多少？
+这个账户是否存在？
+假装在这个合约中运行这笔交易，它的输出会是什么？
+</code></pre><p>第一种是由交易树（transaction tree）来处理的；第三和第四种则是由状态树（state tree）负责处理，第二种则由收据树（receipt tree）处理。计算前四个查询任务是相当简单的。服务器简单地找到对象，获取梅克尔分支，并通过分支来回复轻客户端。</p>
+<p>第五种查询任务同样也是由状态树处理，但它的计算方式会比较复杂。<br>MPT树中的节点包括空节点、叶子节点、扩展节点和分支节点:<br><strong>叶子节点(leaf)</strong>，表示为[key,value]的一个键值对，其中key是key的一种特殊十六进制编码，value是value的RLP编码。<br><strong>扩展节点(extension)</strong>，也是[key，value]的一个键值对，但是这里的value是其他节点的hash值，这个hash可以被用来查询数据库中的节点。也就是说通过hash链接到其他节点。<br><strong>分支节点(branch)</strong>，因为MPT树中的key被编码成一种特殊的16进制的表示，再加上最后的value，所以分支节点是一个长度为17的list，前16个元素对应着key中的16个可能的十六进制字符，如果有一个[key,value]对在这个分支节点终止，最后一个元素代表一个值，即分支节点既可以搜索路径的终止也可以是路径的中间节点。</p>
+<p>MPT树中另外一个重要的概念是一个特殊的<strong>十六进制前缀(hex-prefix, HP)编码，用来对key进行编码</strong>。因为字母表是16进制的，所以每个节点可能有16个孩子。因为有两种[key,value]节点(叶节点和扩展节点)，引进一种特殊的终止符标识来标识key所对应的是值是真实的值，还是其他节点的hash。如果终止符标记被打开，那么key对应的是叶节点，对应的值是真实的value。如果终止符标记被关闭，那么值就是用于在数据块中查询对应的节点的hash。无论key奇数长度还是偶数长度，HP都可以对其进行编码。最后我们注意到一个单独的hex字符或者4bit二进制数字，即一个nibble。<br><img src="/images/state-tree1.png" alt=""> </p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/Linux进程间通信之管道/" data-toggle="tooltip" data-placement="left"
+                     title="Linux进程间通信之管道">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Linux进程间通信之共享内存/" data-toggle="tooltip" data-placement="top"
+                     title="Linux进程间通信之共享内存">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/以太坊之MPT/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Trie树"><span class="toc-number">1.</span> <span class="toc-text">Trie树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Trie树的定义"><span class="toc-number">1.1.</span> <span class="toc-text">Trie树的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trie树的局限性"><span class="toc-number">1.2.</span> <span class="toc-text">Trie树的局限性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Patricia树"><span class="toc-number">2.</span> <span class="toc-text">Patricia树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Merkcle-Tree"><span class="toc-number">3.</span> <span class="toc-text">Merkcle Tree</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Hash-List"><span class="toc-number">3.1.</span> <span class="toc-text">Hash List</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Merkle-Tree"><span class="toc-number">3.2.</span> <span class="toc-text">Merkle Tree</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MPT-Merkle-Patricia-Tree"><span class="toc-number">4.</span> <span class="toc-text">MPT(Merkle Patricia Tree)</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

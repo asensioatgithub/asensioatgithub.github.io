@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/TCP协议与相关攻击/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        计算机网络之TCP协议｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Sep 17, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#网络安全"
+                                 title="网络安全">网络安全</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#计算机网络"
+                                 title="计算机网络">计算机网络</a>
+                              
+                              <a class="tag" href="/tags/#TCP协议"
+                                 title="TCP协议">TCP协议</a>
+                              
+                              <a class="tag" href="/tags/#SYN Flood"
+                                 title="SYN Flood">SYN Flood</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">计算机网络之TCP协议</div><p>
+          <h1 id="TCP协议简介"><a href="#TCP协议简介" class="headerlink" title="TCP协议简介"></a>TCP协议简介</h1><p>TCP（Transmission Control Protocol 传输控制协议）是一种面向连接的、可靠的、基于字节流的传输层通信协议，由IETF的RFC 793定义。在简化的计算机网络OSI模型中，它完成第四层传输层所指定的功能，用户数据报协议（UDP）是同一层内 另一个重要的传输协议。在因特网协议族（Internet protocol suite）中，TCP层是位于IP层之上，应用层之下的中间层。<br><a id="more"></a><br>TCP把数据流分区成适当长度的报文段（通常受该计算机连接的网络的数据链路层的最大传输单元（MTU）的限制）。之后TCP把结果包传给IP层，由它来通过网络将包传送给接收端实体的TCP层。TCP为了保证不发生丢包，就给每个包一个序号，同时序号也保证了传送到接收端实体的包的按序接收。然后接收端实体对已成功收到的包发回一个相应的确认（ACK）；如果发送端实体在合理的往返时延（RTT）内未收到确认，那么对应的数据包就被假设为已丢失将会被进行重传。TCP用一个校验和函数来检验数据是否有错误；在发送和接收时都要计算校验和.</p>
+<h1 id="TCP头部格式"><a href="#TCP头部格式" class="headerlink" title="TCP头部格式"></a>TCP头部格式</h1><p><img src="/images/TCP-head.jpg" alt=""><br>下面就将每个字段的信息都详细的说明一下：<br>1.Source Port和Destination Port:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">分别占用16位，表示源端口号和目的端口号；用于区别主机中的不同进程，而IP地址是用来区分不同的主机的，源端口号和目的端口号配合上IP首部中的源IP地址和目的IP地址就能唯一的确定一个TCP连接；</span><br></pre></td></tr></table></figure></p>
+<p>2.equence Number:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用来标识从TCP发端向TCP收端发送的数据字节流，它表示在这个报文段中的的第一个数据字节在数据流中的序号；主要用来解决网络报乱序的问题；</span><br></pre></td></tr></table></figure></p>
+<p>3.Acknowledgment Number:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">32位确认序列号包含发送确认的一端所期望收到的下一个序号，因此，确认序号应当是上次已成功收到数据字节序号加1。不过，只有当标志位中的ACK标志（下面介绍）为1时该确认序列号的字段才有效。主要用来解决不丢包的问题；</span><br></pre></td></tr></table></figure></p>
+<p>4.Offset:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给出首部中32 bit字的数目，需要这个值是因为任选字段的长度是可变的。这个字段占4bit（最多能表示15个32bit的的字，即4*15=60个字节的首部长度），因此TCP最多有60字节的首部。然而，没有任选字段，正常的长度是20字节；</span><br></pre></td></tr></table></figure></p>
+<p>5.TCP Flags:<br>TCP首部中有6个标志比特，它们中的多个可同时被设置为1，主要是用于操控TCP的状态机的，依次为URG，ACK，PSH，RST，SYN，FIN。每个标志位的意思如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">URG：此标志表示TCP包的紧急指针域（后面马上就要说到）有效，用来保证TCP连接不被中断，并且督促中间层设备要尽快处理这些数据；</span><br><span class="line">ACK：此标志表示应答域有效，就是说前面所说的TCP应答号将会包含在TCP数据包中；有两个取值：0和1，为1的时候表示应答域有效，反之为0；</span><br><span class="line">PSH：这个标志位表示Push操作。所谓Push操作就是指在数据包到达接收端以后，立即传送给应用程序，而不是在缓冲区中排队；</span><br><span class="line">RST：这个标志表示连接复位请求。用来复位那些产生错误的连接，也被用来拒绝错误和非法的数据包；</span><br><span class="line">SYN：表示同步序号，用来建立连接。SYN标志位和ACK标志位搭配使用，当连接请求的时候，SYN=1，ACK=0；连接被响应的时候，SYN=1，ACK=1；这个标志的数据包经常被用来进行端口扫描。扫描者发送一个只有SYN的数据包，如果对方主机响应了一个数据包回来 ，就表明这台主机存在这个端口；但是由于这种扫描方式只是进行TCP三次握手的第一次握手，因此这种扫描的成功表示被扫描的机器不很安全，一台安全的主机将会强制要求一个连接严格的进行TCP的三次握手；</span><br><span class="line">FIN： 表示发送端已经达到数据末尾，也就是说双方的数据传送完成，没有数据可以传送了，发送FIN标志位的TCP数据包后，连接将被断开。这个标志的数据包也经常被用于进行端口扫描。</span><br></pre></td></tr></table></figure></p>
+<p>6.Window:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">窗口大小，也就是有名的滑动窗口，用来进行流量控制；这是一个复杂的问题，这篇博文中并不会进行总结的；</span><br></pre></td></tr></table></figure></p>
+<h1 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h1><p>TCP是面向连接的，无论哪一方向另一方发送数据之前，都必须先在双方之间建立一条连接。在TCP/IP协议中，TCP协议提供可靠的连接服务，连接是通过三次握手进行初始化的。三次握手的目的是同步连接双方的序列号和确认号并交换 TCP窗口大小信息。这就是面试中经常会被问到的TCP三次握手。<br><img src="/images/TCP.jpg" alt=""> </p>
+<h2 id="第一次握手："><a href="#第一次握手：" class="headerlink" title="第一次握手："></a>第一次握手：</h2><p>建立连接。客户端发送连接请求报文段，将SYN位置为1，Sequence Number为x；然后，客户端进入SYN_SEND状态，等待服务器的确认；</p>
+<h2 id="第二次握手："><a href="#第二次握手：" class="headerlink" title="第二次握手："></a>第二次握手：</h2><p>服务器收到SYN报文段。服务器收到客户端的SYN报文段，需要对这个SYN报文段进行确认，设置Acknowledgment Number为x+1(Sequence Number+1)；同时，自己自己还要发送SYN请求信息，将SYN位置为1，Sequence Number为y；服务器端将上述所有信息放到一个报文段（即SYN+ACK报文段）中，一并发送给客户端，此时服务器进入SYN_RECV状态；</p>
+<h2 id="第三次握手："><a href="#第三次握手：" class="headerlink" title="第三次握手："></a>第三次握手：</h2><p>客户端收到服务器的SYN+ACK报文段。然后将Acknowledgment Number设置为y+1，向服务器发送ACK报文段，这个报文段发送完毕以后，客户端和服务器端都进入ESTABLISHED状态，完成TCP三次握手。</p>
+<p>完成了三次握手，客户端和服务器端就可以开始传送数据。</p>
+<h2 id="为什么要三次握手"><a href="#为什么要三次握手" class="headerlink" title="为什么要三次握手"></a>为什么要三次握手</h2><p>既然总结了TCP的三次握手，那为什么非要三次呢？怎么觉得两次就可以完成了。那TCP为什么非要进行三次连接呢？在谢希仁的《计算机网络》中是这样说的：<br><code>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</code><br>在书中同时举了一个例子，如下：<br><code>“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</code></p>
+<h2 id="tcpdump抓包测试"><a href="#tcpdump抓包测试" class="headerlink" title="tcpdump抓包测试"></a>tcpdump抓包测试</h2><p>用下列命令来截获两个IP对应主机之间的通信<br><code>tcpdump host -S -n&lt;IP地址&gt; and &lt;IP地址&gt;</code><br>-S:使ack号以绝对值显示<br>-n:使端口以数字形式显示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump -S -n host 192.168.1.106 and 151.101.73.147</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">15:25:09.322481 IP 192.168.1.106.48864 &gt; 151.101.73.147.80: Flags [S], seq 1222017246, win 29200, options [mss 1460,sackOK,TS val 1268685 ecr 0,nop,wscale 7], length 0</span><br><span class="line">15:25:09.526762 IP 151.101.73.147.80 &gt; 192.168.1.106.48864: Flags [S.], seq 3239329509, ack 1222017247, win 28560, options [mss 1300,sackOK,TS val 783309913 ecr 1268685,nop,wscale 9], length 0</span><br><span class="line">15:25:09.526830 IP 192.168.1.106.48864 &gt; 151.101.73.147.80: Flags [.], ack 3239329510, win 229, options [nop,nop,TS val 1268736 ecr 783309913], length 0</span><br><span class="line">15:25:09.527199 IP 192.168.1.106.48864 &gt; 151.101.73.147.80: Flags [P.], seq 1222017247:1222017787, ack 3239329510, win 229, options [nop,nop,TS val 1268736 ecr 783309913], length 540: HTTP: GET / HTTP/1.1</span><br><span class="line">15:25:09.731712 IP 151.101.73.147.80 &gt; 192.168.1.106.48864: Flags [.], ack 1222017787, win 58, options [nop,nop,TS val 783309964 ecr 1268736], length 0</span><br><span class="line">15:25:09.936571 IP 151.101.73.147.80 &gt; 192.168.1.106.48864: Flags [P.], seq 3239329510:3239329883, ack 1222017787, win 58, options [nop,nop,TS val 783310020 ecr 1268736], length 373: HTTP: HTTP/1.1 304 Not Modified</span><br><span class="line">15:25:09.936621 IP 192.168.1.106.48864 &gt; 151.101.73.147.80: Flags [.], ack 3239329883, win 237, options [nop,nop,TS val 1268838 ecr 783310020], length 0</span><br></pre></td></tr></table></figure></p>
+<p>win 29200:<code>数据窗口大小，告诉对方本机接收窗口大小</code><br>MSS:<code>Maxitum Segment Size 最大分段大小，MSS表示TCP传往另一端的最大块数据的长度。当一个连接建立时，连接的双方都要通告各自的MSS。如果一方不接收来自另一方的MSS值，则MSS就定为默认的536字节。</code></p>
+<h1 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h1><p>当客户端和服务器通过三次握手建立了TCP连接以后，当数据传送完毕，肯定是要断开TCP连接的啊。那对于TCP的断开连接，这里就有了神秘的“四次分手”。</p>
+<h2 id="第一次分手："><a href="#第一次分手：" class="headerlink" title="第一次分手："></a>第一次分手：</h2><p>主机1（可以使客户端，也可以是服务器端），设置Sequence Number和Acknowledgment Number，向主机2发送一个FIN报文段；此时，主机1进入FIN_WAIT_1状态；这表示主机1没有数据要发送给主机2了；</p>
+<h2 id="第二次分手："><a href="#第二次分手：" class="headerlink" title="第二次分手："></a>第二次分手：</h2><p>主机2收到了主机1发送的FIN报文段，向主机1回一个ACK报文段，Acknowledgment Number为Sequence Number加1；主机1进入FIN_WAIT_2状态；主机2告诉主机1，我“同意”你的关闭请求；</p>
+<h2 id="第三次分手："><a href="#第三次分手：" class="headerlink" title="第三次分手："></a>第三次分手：</h2><p>主机2向主机1发送FIN报文段，请求关闭连接，同时主机2进入LAST_ACK状态；</p>
+<h2 id="第四次分手："><a href="#第四次分手：" class="headerlink" title="第四次分手："></a>第四次分手：</h2><p>主机1收到主机2发送的FIN报文段，向主机2发送ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段以后，就关闭连接；此时，主机1等待2MSL后依然没有收到回复，则证明Server端已正常关闭，那好，主机1也可以关闭连接了。</p>
+<p>至此，TCP的四次分手就这么愉快的完成了。</p>
+<h2 id="为什么要四次分手"><a href="#为什么要四次分手" class="headerlink" title="为什么要四次分手"></a>为什么要四次分手</h2><p>TCP协议是一种面向连接的、可靠的、基于字节流的运输层通信协议。TCP是全双工模式，这就意味着，当主机1发出FIN报文段时，只是表示主机1已经没有数据要发送了，主机1告诉主机2，它的数据已经全部发送完毕了；但是，这个时候主机1还是可以接受来自主机2的数据；当主机2返回ACK报文段时，表示它已经知道主机1没有数据发送了，但是主机2还是可以发送数据到主机1的；当主机2也发送了FIN报文段时，这个时候就表示主机2也没有数据要发送了，就会告诉主机1，我也没有数据要发送了，之后彼此就会愉快的中断这次TCP连接。如果要正确的理解四次分手的原理，就需要了解四次分手过程中的状态变化。<br><img src="/images/tcp-FSM.png" alt=""><br>    FIN_WAIT_1:<br> <code>这个状态要好好解释一下，其实FIN_WAIT_1和FIN_WAIT_2状态的真正含义都是表示等待对方的FIN报文。而这两种状态的区别是：FIN_WAIT_1状态实际上是当SOCKET在ESTABLISHED状态时，它想主动关闭连接，向对方发送了FIN报文，此时该SOCKET即进入到FIN_WAIT_1状态。而当对方回应ACK报文后，则进入到FIN_WAIT_2状态，当然在实际的正常情况下，无论对方何种情况下，都应该马上回应ACK报文，所以FIN_WAIT_1状态一般是比较难见到的，而FIN_WAIT_2状态还有时常常可以用netstat看到。（主动方）</code><br>    FIN_WAIT_2：<br>    <code>上面已经详细解释了这种状态，实际上FIN_WAIT_2状态下的SOCKET，表示半连接，也即有一方要求close连接，但另外还告诉对方，我暂时还有点数据需要传送给你(ACK信息)，稍后再关闭连接。（主动方）</code><br>    CLOSE_WAIT：<br>    <code>这种状态的含义其实是表示在等待关闭。怎么理解呢？当对方close一个SOCKET后发送FIN报文给自己，你系统毫无疑问地会回应一个ACK报文给对方，此时则进入到CLOSE_WAIT状态。接下来呢，实际上你真正需要考虑的事情是察看你是否还有数据发送给对方，如果没有的话，那么你也就可以 close这个SOCKET，发送FIN报文给对方，也即关闭连接。所以你在CLOSE_WAIT状态下，需要完成的事情是等待你去关闭连接。（被动方）</code><br>    LAST_ACK:<br>    <code>这个状态还是比较容易好理解的，它是被动关闭一方在发送FIN报文后，最后等待对方的ACK报文。当收到ACK报文后，也即可以进入到CLOSED可用状态了。（被动方）</code><br>    TIME_WAIT:<br>    <code>表示收到了对方的FIN报文，并发送出了ACK报文，就等2MSL后即可回到CLOSED可用状态了。如果FINWAIT1状态下，收到了对方同时带FIN标志和ACK标志的报文时，可以直接进入到TIME_WAIT状态，而无须经过FIN_WAIT_2状态。（主动方）</code><br>    CLOSED:<br>    <code>表示连接中断。</code></p>
+<h1 id="滑动窗口协议"><a href="#滑动窗口协议" class="headerlink" title="滑动窗口协议"></a>滑动窗口协议</h1><p>滑动窗口协议是传输层进行流控的一种措施，接收方通过通告发送方自己的窗口大小，从而控制发送方的发送速度，从而达到防止发送方发送速度过快而导致自己被淹没的目的。(<strong>流量控制</strong>：指点对点通信量的控制，是端到端正的问题。流量控制所要做的就是抑制发送端发送数据的速率，以便使接收端来得及接收。)<br>虽然流量控制可以避免发送方过载接收方，但是却无法避免过载网络，这是因为接收窗口「rwnd」只反映了服务器个体的情况，却无法反映网络整体的情况。</p>
+<p>慢启动为发送方的TCP增加了另一个窗口：拥塞窗口(congestion window)，记为cwnd。当与另一个网络的主机建立TCP连接时，拥塞窗口被初始化为1个报文段（即另一端通告的报文段大小）。每收到一个ACK，拥塞窗口就增加一个报文段（cwnd以字节为单位，但是慢启动以报文段大小为单位进行增加）。发送方取拥塞窗口与通告窗口中的最小值作为发送上限。拥塞窗口是发送方使用的流量控制，而通告窗口则是接收方使用的流量控制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">发送方窗口的上限值 = Min [ rwnd, cwnd ]</span><br><span class="line">当rwnd &lt; cwnd 时，是接收方的接收能力限制发送方窗口的最大值。</span><br><span class="line">当cwnd &lt; rwnd 时，则是网络的拥塞限制发送方窗口的最大值。</span><br></pre></td></tr></table></figure></p>
+<p>发送方开始时发送一个报文段，然后等待ACK。当收到该ACK时，拥塞窗口从1增加为2，即可以发送两个报文段。当收到这两个报文段的ACK时，拥塞窗口就增加为4。这是一种指数增加的关系。</p>
+<h2 id="停等协议"><a href="#停等协议" class="headerlink" title="停等协议"></a>停等协议</h2><p>当发送窗口和接收窗口的大小固定为1时，滑动窗口协议退化为停等协议（stop－and－wait）。该协议规定发送方每发送一帧后就要停下来，等待接收方已正确接收的确认（acknowledgement）返回后才能继续发送下一帧。由于接收方需要判断接收到的帧是新发的帧还是重新发送的帧，因此发送方要为每一个帧加一个序号。</p>
+<h2 id="后退n协议"><a href="#后退n协议" class="headerlink" title="后退n协议"></a>后退n协议</h2><p>由于停等协议要为每一个帧进行确认后才继续发送下一帧，大大降低了信道利用率，因此又提出了后退n协议。后退n协议中，发送方在发完一个数据帧后，不停下来等待应答帧，而是连续发送若干个数据帧，即使在连续发送过程中收到了接收方发来的应答帧，也可以继续发送。且发送方在每发送完一个数据帧时都要设置超时定时器。只要在所设置的超时时间内仍收到确认帧，就要重发相应的数据帧。如：当发送方发送了N个帧后，若发现该N帧的前一个帧在计时器超时后仍未返回其确认信息，则该帧被判为出错或丢失，此时发送方就不得不重新发送出错帧及其后的N帧。</p>
+<h2 id="选择重传协议"><a href="#选择重传协议" class="headerlink" title="选择重传协议"></a>选择重传协议</h2><p>在后退n协议中，接收方若发现错误帧就不再接收后续的帧，即使是正确到达的帧，这显然是一种浪费。另一种效率更高的策略是当接收方发现某帧出错后，其后继续送来的正确的帧虽然不能立即递交给接收方的高层，但接收方仍可收下来，存放在一个缓冲区中，同时要求发送方重新传送出错的那一帧。一旦收到重新传来的帧后，就可以原已存于缓冲区中的其余帧一并按正确的顺序递交高层。这种方法称为选择重发(SELECTICE REPEAT)，其工作过程如图所示。显然，选择重发减少了浪费，但要求接收方有足够大的缓冲区空间。    </p>
+<h1 id="TCP的拥塞控制"><a href="#TCP的拥塞控制" class="headerlink" title="TCP的拥塞控制"></a>TCP的拥塞控制</h1><h2 id="拥塞"><a href="#拥塞" class="headerlink" title="拥塞"></a>拥塞</h2><p>即对资源的需求超过了可用的资源。若网络中许多资源同时供应不足，网络的性能就要明显变坏，整个网络的吞吐量随之负荷的增大而下降。<br><strong>拥塞控制</strong>：防止过多的数据注入到网络中，这样可以使网络中的路由器或链路不致过载。拥塞控制所要做的都有一个前提：网络能够承受现有的网络负荷。拥塞控制是一个全局性的过程，涉及到所有的主机、路由器，以及与降低网络传输性能有关的所有因素。<br><strong>拥塞控制代价</strong>：需要获得网络内部流量分布的信息。在实施拥塞控制之前，还需要在结点之间交换信息和各种命令，以便选择控制的策略和实施控制。这样就产生了额外的开销。拥塞控制还需要将一些资源分配给各个用户单独使用，使得网络资源不能更好地实现共享。</p>
+<h2 id="几种拥塞控制方法"><a href="#几种拥塞控制方法" class="headerlink" title="几种拥塞控制方法"></a>几种拥塞控制方法</h2><p>慢开始( slow-start )、拥塞避免( congestion avoidance )、快重传( fast retransmit )和快恢复( fast recovery )。</p>
+<h3 id="慢开始和拥塞避免-强拥塞"><a href="#慢开始和拥塞避免-强拥塞" class="headerlink" title="慢开始和拥塞避免(强拥塞)"></a>慢开始和拥塞避免(强拥塞)</h3><p>发送方维持一个拥塞窗口 cwnd ( congestion window )的状态变量。拥塞窗口的大小取决于网络的拥塞程度，并且动态地在变化。发送方让自己的发送窗口等于拥塞。<br>发送方控制拥塞窗口的原则是：只要网络没有出现拥塞，拥塞窗口就再增大一些，以便把更多的分组发送出去。但只要网络出现拥塞，拥塞窗口就减小一些，以减少注入到网络中的分组数。</p>
+<p><strong>慢开始算法</strong>：当主机开始发送数据时，如果立即所大量数据字节注入到网络，那么就有可能引起网络拥塞，因为现在并不清楚网络的负荷情况。因此，较好的方法是 先探测一下，即由小到大逐渐增大发送窗口，也就是说，由小到大逐渐增大拥塞窗口数值。通常在刚刚开始发送报文段时，先把拥塞窗口 cwnd 设置为一个最大报文段MSS的数值。而在每收到一个对新的报文段的确认后，把拥塞窗口增加至多一个MSS的数值。用这样的方法逐步增大发送方的拥塞窗口 cwnd ，可以使分组注入到网络的速率更加合理。每经过一个传输轮次，拥塞窗口 cwnd 就加倍。一个传输轮次所经历的时间其实就是往返时间RTT。不过“传输轮次”更加强调：把拥塞窗口cwnd所允许发送的报文段都连续发送出去，并收到了对已发送的最后一个字节的确认。另，慢开始的“慢”并不是指cwnd的增长速率慢，而是指在TCP开始发送报文段时先设置cwnd=1，使得发送方在开始时只发送一个报文段（目的是试探一下网络的拥塞情况），然后再逐渐增大cwnd。<br><img src="/images/2010101120451114.jpg" alt=""><br>为了防止拥塞窗口cwnd增长过大引起网络拥塞，还需要设置一个慢开始门限ssthresh状态变量（如何设置ssthresh）。慢开始门限ssthresh的用法如下：</p>
+<pre><code>当 cwnd &lt; ssthresh 时，使用上述的慢开始算法。
+
+当 cwnd &gt; ssthresh 时，停止使用慢开始算法而改用拥塞避免算法。
+
+当 cwnd = ssthresh 时，既可使用慢开始算法，也可使用拥塞控制避免算法。
+</code></pre><p><strong>拥塞避免算法</strong>：让拥塞窗口cwnd缓慢地增大，即每经过一个往返时间RTT就把发送方的拥塞窗口cwnd加1，而不是加倍。这样拥塞窗口cwnd按线性规律缓慢增长，比慢开始算法的拥塞窗口增长速率缓慢得多。</p>
+<p>无论在慢开始阶段还是在拥塞避免阶段，只要发送方判断网络出现拥塞（<strong>其根据就是没有收到确认</strong>），就要把慢开始门限ssthresh设置为出现拥塞时的发送 方窗口值的一半（但不能小于2）。然后把拥塞窗口cwnd重新设置为1，执行慢开始算法。这样做的目的就是要迅速减少主机发送到网络中的分组数，使得发生 拥塞的路由器有足够时间把队列中积压的分组处理完毕。</p>
+<p>如下图，用具体数值说明了上述拥塞控制的过程。现在发送窗口的大小和拥塞窗口一样大。<br><img src="/images/2010101120591634.jpg" alt=""> </p>
+<p><1>. 当TCP连接进行初始化时，把拥塞窗口cwnd置为1。前面已说过，为了便于理解，图中的窗口单位不使用字节而使用报文段的个数。慢开始门限的初始值设置为16个报文段，即 cwnd = 16 。</1></p>
+<p><2>. 在执行慢开始算法时，拥塞窗口 cwnd 的初始值为1。以后发送方每收到一个对新报文段的确认ACK，就把拥塞窗口值另1，然后开始下一轮的传输（图中横坐标为传输轮次）。因此拥塞窗口cwnd 随着传输轮次按指数规律增长。当拥塞窗口cwnd增长到慢开始门限值ssthresh时（即当cwnd=16时），就改为执行拥塞控制算法，拥塞窗口按线 性规律增长。</2></p>
+<p><3>. 假定拥塞窗口的数值增长到24时，网络出现超时（这很可能就是网络发生拥塞了）。更新后的ssthresh值变为12（即变为出现超时时的拥塞窗口数值 24的一半），拥塞窗口再重新设置为1，并执行慢开始算法。当cwnd=ssthresh=12时改为执行拥塞避免算法，拥塞窗口按线性规律增长，每经过 一个往返时间增加一个MSS的大小。</3></p>
+<p>强调：“拥塞避免”并非指完全能够避免了拥塞。利用以上的措施要完全避免网络拥塞还是不可能的。“拥塞避免”是说在拥塞避免阶段将拥塞窗口控制为按线性规律增长，使网络比较不容易出现拥塞。</p>
+<h3 id="快重传和快恢复-弱拥塞"><a href="#快重传和快恢复-弱拥塞" class="headerlink" title="快重传和快恢复(弱拥塞)"></a>快重传和快恢复(弱拥塞)</h3><p> 如果发送方设置的超时计时器时限已到但还没有收到确认，那么很可能是网络出现了拥塞，致使报文段在网络中的某处被丢弃。这时，TCP马上把拥塞窗口 cwnd 减小到1，并执行慢开始算法，同时把慢开始门限值ssthresh减半。这是不使用快重传的情况。<br>快重传算法首先要求接收方每收到一个失序的报文段后就立即发出重复确认（为的是使发送方及早知道有报文段没有到达对方）而不要等到自己发送数据时才进行捎带确认。<br><img src="/images/2010101122524670.jpg" alt=""><br>接收方收到了M1和M2后都分别发出了确认。现在假定接收方没有收到M3但接着收到了M4。显然，接收方不能确认M4，因为M4是收到的失序报文段。根据 可靠传输原理，接收方可以什么都不做，也可以在适当时机发送一次对M2的确认。但按照快重传算法的规定，接收方应及时发送对M2的重复确认，这样做可以让 发送方及早知道报文段M3没有到达接收方。发送方接着发送了M5和M6。接收方收到这两个报文后，也还要再次发出对M2的重复确认。这样，发送方共收到了 接收方的四个对M2的确认，其中后三个都是重复确认。快重传算法还规定，发送方只要一连收到三个重复确认就应当立即重传对方尚未收到的报文段M3，而不必 继续等待M3设置的重传计时器到期。由于发送方尽早重传未被确认的报文段，因此采用快重传后可以使整个网络吞吐量提高约20%。</p>
+<p>与快重传配合使用的还有<strong>快恢复算法</strong>，其过程有以下两个要点：<br> <1>. 当发送方连续收到三个重复确认，就执行“乘法减小”算法，把慢开始门限ssthresh减半。这是为了预防网络发生拥塞。请注意：接下去不执行慢开始算法。</1></p>
+<p> <2>. 由于发送方现在认为网络很可能没有发生拥塞，因此与慢开始不同之处是现在不执行慢开始算法（即拥塞窗口cwnd现在不设置为1），而是把cwnd值设置为 慢开始门限ssthresh减半后的数值，然后开始执行拥塞避免算法（“加法增大”），使拥塞窗口缓慢地线性增大。</2></p>
+<p> 下图给出了快重传和快恢复的示意图，并标明了“TCP Reno版本”。</p>
+<p> 区别：新的 TCP Reno 版本在快重传之后采用快恢复算法而不是采用慢开始算法。<br><img src="/images/2010101123101842.jpg" alt=""><br> 也有的快重传实现是把开始时的拥塞窗口cwnd值再增大一点，即等于 ssthresh + 3 X MSS 。这样做的理由是：既然发送方收到三个重复的确认，就表明有三个分组已经离开了网络。这三个分组不再消耗网络 的资源而是停留在接收方的缓存中。可见现在网络中并不是堆积了分组而是减少了三个分组。因此可以适当把拥塞窗口扩大了些。</p>
+<p>   在采用快恢复算法时，慢开始算法只是在TCP连接建立时和网络出现超时时才使用。</p>
+<pre><code>采用这样的拥塞控制方法使得TCP的性能有明显的改进。
+
+接收方根据自己的接收能力设定了接收窗口rwnd，并把这个窗口值写入TCP首部中的窗口字段，传送给发送方。因此，接收窗口又称为通知窗口。因此，从接收方对发送方的流量控制的角度考虑，发送方的发送窗口一定不能超过对方给出的接收窗口rwnd 。
+</code></pre><h1 id="SYN-Flood攻击（TCP-SYN拒绝服务攻击）"><a href="#SYN-Flood攻击（TCP-SYN拒绝服务攻击）" class="headerlink" title="SYN Flood攻击（TCP SYN拒绝服务攻击）"></a>SYN Flood攻击（TCP SYN拒绝服务攻击）</h1><h2 id="SYN-Flood简介"><a href="#SYN-Flood简介" class="headerlink" title="SYN Flood简介"></a>SYN Flood简介</h2><p>在TCP连接的三次握手中，假设一个用户向服务器发送了SYN报文后突然死机或掉线，那么服务器在发出SYN+ACK应答报文后是无法收到客户端的ACK报文的（第三次握手无法完成），这种情况下服务器端一般会重试（再次发送SYN+ACK给客户端）并等待一段时间后丢弃这个未完成的连接，这段时间的长度我们称为SYN Timeout，一般来说这个时间是分钟的数量级（大约为30秒-2分钟）；一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者大量模拟这种情况，服务器端将为了维护一个<strong>非常大的半连接列表而消耗非常多的资源</strong>—-数以万计的半连接，即使是简单的保存并遍历也会消耗非常多的CPU时间和内存，何况还要不断对这个列表中的IP进行SYN+ACK的重试。实际上如果服务器的TCP/IP栈不够强大，最后的结果往往是堆栈溢出崩溃—即使服务器端的系统足够强大，服务器端也将忙于处理攻击者伪造的TCP连接请求而无暇理睬客户的正常请求（毕竟客户端的正常请求比率非常之小），此时从正常客户的角度看来，服务器失去响应，这种情况我们称作：服务器端受到了SYN Flood攻击（SYN洪水攻击）。</p>
+<h2 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h2><p>首先查看目标主机是否开启了syncookies，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:/$ cat /proc/sys/net/ipv4/tcp_syncookies </span><br><span class="line">1</span><br></pre></td></tr></table></figure></p>
+<p>为１表示主机开启了syncookies，将其值设为０：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">root@maohao-HP-15-Notebook-PC:/# echo 0 &gt; /proc/sys/net/ipv4/tcp_syncookies </span><br><span class="line">root@maohao-HP-15-Notebook-PC:/# cat /proc/sys/net/ipv4/tcp_syncookies </span><br><span class="line">0</span><br></pre></td></tr></table></figure></p>
+<p>采用netwox 76号命令(syn-flood)进行测试<br><code>netwox 76 -i &quot;192.168.1.106&quot; -p 23</code><br>用tcpdump抓包发现攻击及向目标主机发送了大量的syn请求包：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:/$ sudo tcpdump tcp port 23</span><br><span class="line">[sudo] maohao 的密码： </span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">21:54:54.686950 IP 197.202.166.91.1159 &gt; bogon.telnet: Flags [S], seq 2216257152, win 1500, length 0</span><br><span class="line">21:54:54.686992 IP bogon.telnet &gt; 197.202.166.91.1159: Flags [S.], seq 3818087484, ack 2216257153, win 29200, options [mss 1460], length 0</span><br><span class="line">21:54:54.693941 IP 54.180.113.142.22348 &gt; bogon.telnet: Flags [S], seq 928421082, win 1500, length 0</span><br><span class="line">21:54:54.693962 IP bogon.telnet &gt; 54.180.113.142.22348: Flags [S.], seq 896390542, ack 928421083, win 29200, options [mss 1460], length 0</span><br><span class="line">21:54:54.694038 IP 56.29.240.215.42754 &gt; bogon.telnet: Flags [S], seq 407031276, win 1500, length 0</span><br><span class="line">21:54:54.694045 IP bogon.telnet &gt; 56.29.240.215.42754: Flags [S.], seq 198841754, ack 407031277, win 29200, options [mss 1460], length 0</span><br><span class="line">21:54:54.694104 IP 187.250.226.153.dsl.dyn.telnor.net.4631 &gt; bogon.telnet: Flags [S], seq 4209694463, win 1500, length 0</span><br><span class="line">21:54:54.825648 IP 186-61-85-201.speedy.com.ar.16950 &gt; bogon.telnet: Flags [S], seq 916977614, win 1500, length 0</span><br><span class="line">21:54:54.825678 IP 121.90.23.222.30927 &gt; bogon.telnet: Flags [S], seq 1199948404, win 1500, length 0</span><br><span class="line">21:54:57.964964 IP FL1-133-202-119-37.tky.mesh.ad.jp.17175 &gt; bogon.telnet: Flags [S], seq 3098194181, win 1500, length 0</span><br><span class="line">21:54:57.964992 IP 236.123.21.171.19014 &gt; bogon.telnet: Flags [S], seq 1981477080, win 1500, length 0</span><br><span class="line">21:54:58.373840 IP 183.164.145.156.3959 &gt; bogon.telnet: Flags [S], seq 399004037, win 1500, length 0</span><br></pre></td></tr></table></figure></p>
+<p>现在无用telnet成功连接倒目标服务器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@AsensioatKali:~# telnet 192.168.1.106</span><br><span class="line">Trying 192.168.1.106．．．</span><br></pre></td></tr></table></figure></p>
+<h2 id="tcp-syncookies"><a href="#tcp-syncookies" class="headerlink" title="tcp_syncookies"></a>tcp_syncookies</h2><p>SYN Cookie是对TCP服务器端的三次握手做一些修改，专门用来防范SYN Flood攻击的一种手段。它的原理是，在TCP服务器接收到TCP SYN包并返回TCP SYN + ACK包时，不分配一个专门的数据区，而是根据这个SYN包计算出一个cookie值。这个cookie作为将要返回的SYN ACK包的初始序列号。当客户端返回一个ACK包时，根据包头信息计算cookie，与返回的确认序列号(初始序列号 + 1)进行对比，如果相同，则是一个正常连接，然后，分配资源，建立连接。</p>
+<h2 id="SYN-Flood防御"><a href="#SYN-Flood防御" class="headerlink" title="SYN Flood防御"></a>SYN Flood防御</h2><p>从防御角度来说，有几种简单的解决方法．<br>第一种是缩短SYN Timeout时间，由于SYN Flood攻击的效果取决于服务器上保持的SYN半连接数，这个值=SYN攻击的频度 x  SYN Timeout，所以通过缩短从接收到SYN报文到确定这个报文无效并丢弃改连接的时间，例如设置为20秒以下（过低的SYN Timeout设置可能会影响客户的正常访问），可以成倍的降低服务器的负荷。<br>第二种方法是设置SYN Cookie，就是给每一个请求连接的IP地址分配一个Cookie，如果短时间内连续受到某个IP的重复SYN报文，就认定是受到了攻击，以后从这个IP地址来的包会被一概丢弃。<br>可是上述的两种方法只能对付比较原始的SYN Flood攻击，缩短SYN Timeout时间仅在对方攻击频度不高的情况下生效，SYN Cookie更依赖于对方使用真实的IP地址，如果攻击者以数万/秒的速度发送SYN报文，同时利用SOCK_RAW随机改写IP报文中的源地址，以上的方法将毫无用武之地。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/LeetCode-暴力枚举法/" data-toggle="tooltip" data-placement="left"
+                     title="LeetCode-暴力枚举法">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/LeetCode-动态规划/" data-toggle="tooltip" data-placement="top"
+                     title="LeetCode-动态规划">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/TCP协议与相关攻击/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP协议简介"><span class="toc-number">1.</span> <span class="toc-text">TCP协议简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP头部格式"><span class="toc-number">2.</span> <span class="toc-text">TCP头部格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手"><span class="toc-number">3.</span> <span class="toc-text">三次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一次握手："><span class="toc-number">3.1.</span> <span class="toc-text">第一次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二次握手："><span class="toc-number">3.2.</span> <span class="toc-text">第二次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三次握手："><span class="toc-number">3.3.</span> <span class="toc-text">第三次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要三次握手"><span class="toc-number">3.4.</span> <span class="toc-text">为什么要三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump抓包测试"><span class="toc-number">3.5.</span> <span class="toc-text">tcpdump抓包测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四次挥手"><span class="toc-number">4.</span> <span class="toc-text">四次挥手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一次分手："><span class="toc-number">4.1.</span> <span class="toc-text">第一次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二次分手："><span class="toc-number">4.2.</span> <span class="toc-text">第二次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三次分手："><span class="toc-number">4.3.</span> <span class="toc-text">第三次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四次分手："><span class="toc-number">4.4.</span> <span class="toc-text">第四次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要四次分手"><span class="toc-number">4.5.</span> <span class="toc-text">为什么要四次分手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滑动窗口协议"><span class="toc-number">5.</span> <span class="toc-text">滑动窗口协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#停等协议"><span class="toc-number">5.1.</span> <span class="toc-text">停等协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后退n协议"><span class="toc-number">5.2.</span> <span class="toc-text">后退n协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择重传协议"><span class="toc-number">5.3.</span> <span class="toc-text">选择重传协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP的拥塞控制"><span class="toc-number">6.</span> <span class="toc-text">TCP的拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#拥塞"><span class="toc-number">6.1.</span> <span class="toc-text">拥塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种拥塞控制方法"><span class="toc-number">6.2.</span> <span class="toc-text">几种拥塞控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#慢开始和拥塞避免-强拥塞"><span class="toc-number">6.2.1.</span> <span class="toc-text">慢开始和拥塞避免(强拥塞)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快重传和快恢复-弱拥塞"><span class="toc-number">6.2.2.</span> <span class="toc-text">快重传和快恢复(弱拥塞)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SYN-Flood攻击（TCP-SYN拒绝服务攻击）"><span class="toc-number">7.</span> <span class="toc-text">SYN Flood攻击（TCP SYN拒绝服务攻击）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SYN-Flood简介"><span class="toc-number">7.1.</span> <span class="toc-text">SYN Flood简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">7.2.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-syncookies"><span class="toc-number">7.3.</span> <span class="toc-text">tcp_syncookies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SYN-Flood防御"><span class="toc-number">7.4.</span> <span class="toc-text">SYN Flood防御</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

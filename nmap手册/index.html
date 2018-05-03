@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/nmap手册/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        nmap手册｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Oct 9, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">nmap手册</div><p>
+          <h1 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h1><h2 id="sn-No-port-scan"><a href="#sn-No-port-scan" class="headerlink" title="-sn (No port scan)"></a>-sn (No port scan)</h2><p>This option tells Nmap not to do a port scan after host discovery, and only print out the available hosts that responded to the host discovery probes. This is often known as a “<strong>ping scan</strong>”, but you can also request that traceroute and NSE host scripts be run. This is by default one step more intrusive than the list scan, and can often be used for the same purposes. It allows light reconnaissance of a target network without attracting much attention. Knowing how many hosts are up is more valuable to attackers than the list provided by list scan of every single IP and host name.<br><a id="more"></a><br>Systems administrators often find this option valuable as well. It can easily be used to count available machines on a network or monitor server availability. This is often called a ping sweep, and is more reliable than pinging the broadcast address because many hosts do not reply to broadcast queries.</p>
+<p>The default host discovery done with -sn consists of <strong>an ICMP echo request, TCP SYN to port 443, TCP ACK to port 80, and an ICMP timestamp request</strong> by default.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -sn 151.101.25.147</span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-09 12:55 CST</span><br><span class="line">Nmap scan report for 151.101.25.147</span><br><span class="line">Host is up (0.26s latency).</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.51 seconds</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump host 151.101.25.147 tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">12:57:36.868657 IP bogon &gt; 151.101.25.147: ICMP echo request, id 49656, seq 0, length 8</span><br><span class="line">12:57:36.868707 IP bogon.34038 &gt; 151.101.25.147.https: Flags [S], seq 4270696695, win 1024, options [mss 1460], length 0</span><br><span class="line">12:57:36.868724 IP bogon.34038 &gt; 151.101.25.147.http: Flags [.], ack 4270696695, win 1024, length 0</span><br><span class="line">12:57:36.868737 IP bogon &gt; 151.101.25.147: ICMP time stamp query id 20242 seq 0, length 20</span><br><span class="line">12:57:37.081427 IP 151.101.25.147 &gt; bogon: ICMP echo reply, id 49656, seq 0, length 8</span><br><span class="line">12:57:37.082156 IP 151.101.25.147.https &gt; bogon.34038: Flags [S.], seq 3687106019, ack 4270696696, win 28800, options [mss 1300], length 0</span><br><span class="line">12:57:37.082234 IP bogon.34038 &gt; 151.101.25.147.https: Flags [R], seq 4270696696, win 0, length 0</span><br><span class="line">12:57:37.082297 IP 151.101.25.147.http &gt; bogon.34038: Flags [R], seq 4270696695, win 0, length 0</span><br><span class="line">12:57:37.086164 IP 151.101.25.147 &gt; bogon: ICMP time stamp reply id 20242 seq 0: org 00:00:00.000, recv 04:57:36.979, xmit 04:57:36.979, length 20</span><br></pre></td></tr></table></figure>
+<p>When executed by an unprivileged user, only SYN packets are sent (using a connect call) to ports 80 and 443 on the target.<br><strong>通过执行下面的步骤来进行工作：</strong><br>1.源系统向目标系统发送一个同步请求，该请求中包含一个端口号。<br>2.如果添加在上一步中的所请求的端口号是开启的，那么目标系统将通过同步/应答(SYN/ACK)来响应源系统。<br>3.源系统通过重置(RST)来响应目标系统，从而断开连接。<br>4.目标系统可以通过重置/应答(RST/ACK)来响应源系统。<br><strong>如果被扫描的端口是关闭的，那么将执行下面的步骤：</strong><br>1.源系统发送一个同步(SYN)请求到目标系统，该请求中包含一个端口号。<br>2.目标系统通过重置(RST/ACK)响应源系统，因为该端口是关闭的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ nmap -sn 151.101.25.147</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-09 13:05 CST</span><br><span class="line">Nmap scan report for 151.101.25.147</span><br><span class="line">Host is up (0.34s latency).</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.36 seconds</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump host 151.101.25.147 </span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">13:05:26.549629 IP bogon.56080 &gt; 151.101.25.147.http: Flags [S], seq 968204811, win 29200, options [mss 1460,sackOK,TS val 3271111 ecr 0,nop,wscale 7], length 0</span><br><span class="line">13:05:26.549770 IP bogon.52182 &gt; 151.101.25.147.https: Flags [S], seq 1484533440, win 29200, options [mss 1460,sackOK,TS val 3271111 ecr 0,nop,wscale 7], length 0</span><br><span class="line">13:05:26.893161 IP 151.101.25.147.http &gt; bogon.56080: Flags [S.], seq 2265609368, ack 968204812, win 28560, options [mss 1300,sackOK,TS val 3449698472 ecr 3271111,nop,wscale 9], length 0</span><br><span class="line">13:05:26.893269 IP bogon.56080 &gt; 151.101.25.147.http: Flags [.], ack 1, win 229, options [nop,nop,TS val 3271197 ecr 3449698472], length 0</span><br><span class="line">13:05:26.893325 IP 151.101.25.147.https &gt; bogon.52182: Flags [S.], seq 429009821, ack 1484533441, win 28560, options [mss 1300,sackOK,TS val 3600872172 ecr 3271111,nop,wscale 9], length 0</span><br><span class="line">13:05:26.893353 IP bogon.52182 &gt; 151.101.25.147.https: Flags [.], ack 1, win 229, options [nop,nop,TS val 3271197 ecr 3600872172], length 0</span><br><span class="line">13:05:26.893372 IP bogon.56080 &gt; 151.101.25.147.http: Flags [R.], seq 1, ack 1, win 229, options [nop,nop,TS val 3271197 ecr 3449698472], length 0</span><br><span class="line">13:05:26.893412 IP bogon.52182 &gt; 151.101.25.147.https: Flags [R.], seq 1, ack 1, win 229, options [nop,nop,TS val 3271197 ecr 3600872172], length</span><br></pre></td></tr></table></figure>
+<p> When a privileged user tries to scan targets on a local ethernet network, ARP requests are used unless –send-ip was specified.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -sn 192.168.1.113</span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-09 13:07 CST</span><br><span class="line">Nmap scan report for bogon (192.168.1.113)</span><br><span class="line">Host is up (0.00026s latency).</span><br><span class="line">MAC Address: 08:00:27:B3:5F:1E (Oracle VirtualBox virtual NIC)</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.31 seconds</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump host 192.168.1.113</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">13:07:01.180567 ARP, Request who-has bogon tell bogon, length 28</span><br><span class="line">13:07:01.180813 ARP, Reply bogon is-at 08:00:27:b3:5f:1e (oui Unknown), length 46</span><br></pre></td></tr></table></figure>
+<p> The -sn option can be combined with any of the discovery probe types (the -P* options, excluding -Pn) for greater flexibility. If any of those probe type and port number options are used, the default probes are overridden. When strict firewalls are in place between the source host running Nmap and the target network, using those advanced techniques is recommended. Otherwise hosts could be missed when the firewall drops probes or their responses.</p>
+<p>In previous releases of Nmap, -sn was known as -sP.</p>
+<h2 id="Pn-No-ping"><a href="#Pn-No-ping" class="headerlink" title="-Pn (No ping)"></a>-Pn (No ping)</h2><p>This option skips the Nmap discovery stage altogether. Normally, Nmap uses this stage to determine active machines for heavier scanning. By default, Nmap only performs heavy probing such as port scans, version detection, or OS detection against hosts that are found to be up. Disabling host discovery with -Pn causes Nmap to attempt the requested scanning functions against every target IP address specified. So if a class B target address space (/16) is specified on the command line, all 65,536 IP addresses are scanned. Proper host discovery is skipped as with the list scan, but instead of stopping and printing the target list, Nmap continues to perform requested functions as if each target IP is active. To skip ping scan and port scan, while still allowing NSE to run, use the two options -Pn -sn together.<br><strong>目标主机某个端口未开启的情况下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -Pn 192.168.1.113</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-09 17:08 CST</span><br><span class="line">Nmap scan report for bogon (192.168.1.113)</span><br><span class="line">Host is up (0.0087s latency).</span><br><span class="line">All 1000 scanned ports on bogon (192.168.1.113) are closed</span><br><span class="line">MAC Address: 08:00:27:B3:5F:1E (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 1.57 seconds</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~/文档/git/Sniffer-with-pcap$ sudo tcpdump host 192.168.1.113 and port 80</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">17:08:22.266733 IP bogon.38432 &gt; bogon.http: Flags [S], seq 536201290, win 1024, options [mss 1460], length 0</span><br><span class="line">17:08:22.268783 IP bogon.http &gt; bogon.38432: Flags [R.], seq 0, ack 536201291, win 0, length 0</span><br></pre></td></tr></table></figure>
+<p><strong>目标主机某个端口开启的情况下：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~/文档/git/Sniffer-with-pcap$ sudo tcpdump host 192.168.1.106 and port 80</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">17:12:59.155833 IP bogon.52120 &gt; bogon.http: Flags [S], seq 1923173049, win 1024, options [mss 1460], length 0</span><br><span class="line">17:12:59.155858 IP bogon.http &gt; bogon.52120: Flags [S.], seq 564188379, ack 1923173050, win 29200, options [mss 1460], length 0</span><br><span class="line">17:12:59.156097 IP bogon.52120 &gt; bogon.http: Flags [R], seq 1923173050, win 0, length 0</span><br></pre></td></tr></table></figure></p>
+<p>For machines on a local ethernet network, ARP scanning will still be performed (unless –disable-arp-ping or –send-ip is specified) because Nmap needs MAC addresses to further scan target hosts. In previous versions of Nmap, -Pn was -P0 and -PN.</p>
+<h2 id="PS-TCP-SYN-Ping"><a href="#PS-TCP-SYN-Ping" class="headerlink" title="-PS  (TCP SYN Ping)"></a>-PS <port list=""> (TCP SYN Ping)</port></h2><p>This option sends an empty TCP packet with the SYN flag set. The default destination port is 80 (configurable at compile time by changing DEFAULT_TCP_PROBE_PORT_SPEC in nmap.h). Alternate ports can be specified as a parameter. The syntax is the same as for the -p except that port type specifiers like T: are not allowed. Examples are -PS22 and -PS22-25,80,113,1050,35000. Note that there can be no space between -PS and the port list. If multiple probes are specified they will be sent in parallel.</p>
+<p>The SYN flag suggests to the remote system that you are attempting to establish a connection. Normally the destination port will be closed, and a RST (reset) packet sent back. If the port happens to be open, the target will take the second step of a TCP three-way-handshake by responding with a SYN/ACK TCP packet. The machine running Nmap then tears down the nascent connection by responding with a RST rather than sending an ACK packet which would complete the three-way-handshake and establish a full connection. The RST packet is sent by the kernel of the machine running Nmap in response to the unexpected SYN/ACK, not by Nmap itself.</p>
+<p>Nmap does not care whether the port is open or closed. Either the RST/ACK or SYN/ACK response discussed previously tell Nmap that the host is available and responsive.</p>
+<p>On Unix boxes, only the privileged user root is generally able to send and receive raw TCP packets. For unprivileged users, a workaround is automatically employed whereby the connect system call is initiated against each target port. This has the effect of sending a SYN packet to the target host, in an attempt to establish a connection. If connect returns with a quick success or an ECONNREFUSED failure, the underlying TCP stack must have received a SYN/ACK or RST and the host is marked available. If the connection attempt is left hanging until a timeout is reached, the host is marked as down.<br><img src="/images/asddd.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">17:30:22.103257 IP bogon.54269 &gt; bogon.submission: Flags [S], seq 1703271590, win 1024, options [mss 1460], length 0</span><br><span class="line">17:30:22.103328 IP bogon.submission &gt; bogon.54269: Flags [R.], seq 0, ack 1703271591, win 0, length 0</span><br><span class="line">17:30:22.104110 IP bogon.54269 &gt; bogon.microsoft-ds: Flags [S], seq 1703271590, win 1024, options [mss 1460], length 0</span><br><span class="line">17:30:22.104157 IP bogon.microsoft-ds &gt; bogon.54269: Flags [R.], seq 0, ack 1703271591, win 0, length 0</span><br><span class="line">17:30:22.104580 IP bogon.54269 &gt; bogon.http: Flags [S], seq 1703271590, win 1024, options [mss 1460], length 0</span><br><span class="line">17:30:22.104637 IP bogon.http &gt; bogon.54269: Flags [S.], seq 2991689170, ack 1703271591, win 29200, options [mss 1460], length 0</span><br><span class="line">17:30:22.104903 IP bogon.54269 &gt; bogon.http: Flags [R], seq 1703271591, win 0, length 0</span><br><span class="line">17:30:22.105144 IP bogon.54269 &gt; bogon.telnet: Flags [S], seq 1703271590, win 1024, options [mss 1460], length 0</span><br><span class="line">17:30:22.105188 IP bogon.telnet &gt; bogon.54269: Flags [S.], seq 1858982626, ack 1703271591, win 29200, options [mss 1460], length 0</span><br><span class="line">17:30:22.105504 IP bogon.54269 &gt; bogon.telnet: Flags [R], seq 1703271591, win 0, length 0</span><br><span class="line">17:30:22.105942 IP bogon.54269 &gt; bogon.ftp: Flags [S], seq 1703271590, win 1024, options [mss 1460], length 0</span><br><span class="line">17:30:22.105996 IP bogon.ftp &gt; bogon.54269: Flags [R.], seq 0, ack 1703271591, win 0, length 0</span><br></pre></td></tr></table></figure></p>
+<p>如果目标主机的某个端口未打开<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -PS22 151.101.25.147</span><br><span class="line"></span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-09 17:53 CST</span><br><span class="line">Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn</span><br><span class="line">Nmap done: 1 IP address (0 hosts up) scanned in 2.10 seconds</span><br></pre></td></tr></table></figure></p>
+<h1 id="Port-Scanning-Techniques"><a href="#Port-Scanning-Techniques" class="headerlink" title="Port Scanning Techniques"></a>Port Scanning Techniques</h1><h2 id="sS-TCP-SYN-scan"><a href="#sS-TCP-SYN-scan" class="headerlink" title="-sS (TCP SYN scan)"></a>-sS (TCP SYN scan)</h2><p>SYN scan is the default and most popular scan option for good reasons. It can be performed quickly, scanning thousands of ports per second on a fast network not hampered by restrictive firewalls. It is also relatively unobtrusive and stealthy(相对低调和隐蔽)since it never completes TCP connections. SYN scan works against any compliant TCP stack rather than depending on idiosyncrasies of specific platforms as Nmap’s FIN/NULL/Xmas, Maimon and idle scans do. It also allows clear, reliable differentiation between the open, closed, and filtered states.</p>
+<p>This technique is often referred to as half-open scanning, because you don’t open a full TCP connection. You send a SYN packet, as if you are going to open a real connection and then wait for a response. A SYN/ACK indicates the port is listening (open), while a RST (reset) is indicative of a non-listener. If no response is received after several retransmissions, the port is marked as filtered. The port is also marked filtered if an ICMP unreachable error (type 3, code 0, 1, 2, 3, 9, 10, or 13) is received. The port is also considered open if a SYN packet (without the ACK flag) is received in response. This can be due to an extremely rare TCP feature known as a simultaneous open or split handshake connection (see <a href="https://nmap.org/misc/split-handshake.pdf)" target="_blank" rel="noopener">https://nmap.org/misc/split-handshake.pdf)</a>.<br><strong>这是一个基本的扫描方式,它被称为半开放扫描，因为这种技术使得Nmap不需要通过完整的握手，就能获得远程主机的信息。执行-sS需要privileged权限，因为-sS扫描不会像操作系统进行tcp连接时建立完整会话，nmap需要权限自行构造syn包进行扫描</strong><br><strong>If a scan type is not specified, and has privileged access, the TCP SYN scan is used by default.</strong><br>所以<code>maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap 192.168.1.113</code>和<code>maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -sS 192.168.1.113</code>具有相同的效果．<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap 192.168.1.113</span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-10 19:29 CST</span><br><span class="line">Nmap scan report for bogon (192.168.1.113)</span><br><span class="line">Host is up (0.0069s latency).</span><br><span class="line">Not shown: 999 closed ports</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">MAC Address: 08:00:27:B3:5F:1E (Oracle VirtualBox virtual NIC)</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 1.55 seconds</span><br></pre></td></tr></table></figure></p>
+<p>目标服务器开启了ssh服务：A SYN/ACK indicates the port is listening (open)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump port 22</span><br><span class="line">[sudo] maohao 的密码： </span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">19:40:10.433081 IP bogon.64701 &gt; bogon.ssh: Flags [S], seq 996631261, win 1024, options [mss 1460], length 0</span><br><span class="line">19:40:10.434739 IP bogon.ssh &gt; bogon.64701: Flags [S.], seq 230762162, ack 996631262, win 29200, options [mss 1460], length 0</span><br><span class="line">19:40:10.434784 IP bogon.64701 &gt; bogon.ssh: Flags [R], seq 996631262, win 0, length 0</span><br></pre></td></tr></table></figure></p>
+<p>目标服务器没有开启https服务：a RST (reset) is indicative of a non-listener（closed）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump port 443</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">19:40:43.975405 IP bogon.58792 &gt; bogon.https: Flags [S], seq 4256481083, win 1024, options [mss 1460], length 0</span><br><span class="line">19:40:43.976092 IP bogon.https &gt; bogon.58792: Flags [R.], seq 0, ack 4256481084, win 0, length 0</span><br></pre></td></tr></table></figure></p>
+<p>在目标主机中通过命令<code>ipatbles -A INPUT -p tcp -dport 80 -j DROP</code>，过滤80端口．If no response is received after several retransmissions, the port is marked as filtered.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap 192.168.1.113</span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-10 19:45 CST</span><br><span class="line">Nmap scan report for bogon (192.168.1.113)</span><br><span class="line">Host is up (0.014s latency).</span><br><span class="line">Not shown: 998 closed ports</span><br><span class="line">PORT   STATE    SERVICE</span><br><span class="line">22/tcp open     ssh</span><br><span class="line">80/tcp filtered http</span><br><span class="line">MAC Address: 08:00:27:B3:5F:1E (Oracle VirtualBox virtual NIC)</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo tcpdump port 80</span><br><span class="line">tcpdump: verbose output suppressed, use -v or -vv for full protocol decode</span><br><span class="line">listening on wlp3s0, link-type EN10MB (Ethernet), capture size 262144 bytes</span><br><span class="line">19:45:14.440949 IP bogon.54201 &gt; bogon.http: Flags [S], seq 81505599, win 1024, options [mss 1460], length 0</span><br><span class="line">19:45:14.542337 IP bogon.54202 &gt; bogon.http: Flags [S], seq 81440062, win 1024, options [mss 1460], length 0</span><br></pre></td></tr></table></figure>
+<p><strong>Advantages</strong><br>-sS never actually creates a TCP session, so it’s not logged by the destination<br><strong>Disadvantage</strong><br>Requires nmap have privileged access to the system<br><strong>When to use the TCP SYN Scan</strong><br>-sS works on all systems<br>It is a clean scan type<br>It provides <em>open</em>, <em>closed</em>, <em>filterd</em> port information<br><strong>-sS只能探测出三种结果：open, closed, filterd</strong></p>
+<h2 id="sT-TCP-connect-scan"><a href="#sT-TCP-connect-scan" class="headerlink" title="-sT (TCP connect scan)"></a>-sT (TCP connect scan)</h2><p><strong>TCP connect scan is the default TCP scan type when SYN scan is not an option. This is the case when a user does not have raw packet privileges.</strong> Instead of writing raw packets as most other scan types do, Nmap asks the underlying operating system to establish a connection with the target machine and port by issuing the connect system call. This is the same high-level system call that web browsers, P2P clients, and most other network-enabled applications use to establish a connection. It is part of a programming interface known as the Berkeley Sockets API. Rather than read raw packet responses off the wire, Nmap uses this API to obtain status information on each connection attempt.</p>
+<p>When SYN scan is available, it is usually a better choice. Nmap has less control over the high level connect call than with raw packets, making it less efficient. The system call completes connections to open target ports rather than performing the half-open reset that SYN scan does. Not only does this take longer and require more packets to obtain the same information, but target machines are more likely to log the connection. A decent IDS will catch either, but most machines have no such alarm system. Many services on your average Unix system will add a note to syslog, and sometimes a cryptic error message, when Nmap connects and then closes the connection without sending data. Truly pathetic services crash when this happens, though that is uncommon. An administrator who sees a bunch of connection attempts in her logs from a single system should know that she has been connect scanned.<br><strong>Tcp connect() scan (sT)和上面的Tcp SYN 对应，TCP connect()扫描就是默认的扫描模式.不同于Tcp SYN扫描,Tcp connect()扫描需要完成三次握手,并且要求调用系统的connect().</strong><br><strong>Advantage</strong><br>No special privileges are required<strong>(nmap -sT 10.0.1.161等同于 nmap 10.0.1.161)</strong><br><strong>Disadvantage</strong><br>The scan will be logged by the target system,由于它要完成3次握手，效率低，速度慢<br><strong>When to use</strong><br>It is the last resort<br><strong>-sS是nmap在root权限下的默认执行方式，-sT是nmap在非root权限下的默认执行方式．</strong></p>
+<h2 id="sA-TCP-ACK-scan"><a href="#sA-TCP-ACK-scan" class="headerlink" title="-sA (TCP ACK scan)"></a>-sA (TCP ACK scan)</h2><p>This scan is different than the others discussed so far in that it never determines open (or even open|filtered) ports. It is used to map out firewall rulesets, determining whether they are stateful or not and which ports are filtered.</p>
+<p>The ACK scan probe packet has only the ACK flag set (unless you use –scanflags). When scanning unfiltered systems, <strong>open and closed ports will both return a RST packet</strong>. Nmap then labels them as unfiltered, meaning that they are reachable by the ACK packet, but whether they are open or closed is undetermined. Ports that don’t respond, or send certain ICMP error messages back (type 3, code 0, 1, 2, 3, 9, 10, or 13), are labeled filtered.<br><strong>同-sS一样，-sA也需要sudo权限</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:~$ sudo nmap -sA 192.168.1.113</span><br><span class="line">Starting Nmap 7.01 ( https://nmap.org ) at 2017-10-10 20:26 CST</span><br><span class="line">Nmap scan report for bogon (192.168.1.113)</span><br><span class="line">Host is up (0.00055s latency).</span><br><span class="line">Not shown: 999 unfiltered ports</span><br><span class="line">PORT   STATE    SERVICE</span><br><span class="line">80/tcp filtered http</span><br><span class="line">MAC Address: 08:00:27:B3:5F:1E (Oracle VirtualBox virtual NIC)</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 87.18 seconds</span><br></pre></td></tr></table></figure></p>
+<p><strong>It only provides “filtered” or “unfiltered” disposition</strong><br><strong>Advantages</strong><br>It doesn’t open any application sessions, the conversation is simple<br><strong>Disadvantage</strong><br>Can’t confirm an open port<br><strong>When to use</strong><br>To identify whether the traffic can go through a firewall</p>
+<h2 id="Stealth-Scanning"><a href="#Stealth-Scanning" class="headerlink" title="Stealth Scanning"></a>Stealth Scanning</h2><p>When scanning systems compliant with this RFC text, any packet not containing SYN, RST, or ACK bits will result in a returned RST if the port is closed and no response at all if the port is open. As long as none of those three bits are included, any combination of the other three (FIN, PSH, and URG) are OK. Nmap exploits this with three scan types:<br><strong>Null scan (-sN)</strong><br>    Does not set any bits (TCP flag header is 0)<br><strong>FIN scan (-sF)</strong><br>    Sets just the TCP FIN bit.<br><strong>Xmas scan (-sX)</strong><br>    Sets the FIN, PSH, and URG flags, lighting the packet up like a Christmas tree.</p>
+<p>These three scan types are exactly the same in behavior except for the TCP flags set in probe packets. <strong>If a RST packet is received, the port is considered closed, while no response means it is open|filtered.</strong><br><img src="/images/nmap-sf.png" alt=""><br><img src="/images/sf-capture.png" alt=""><br>所以可以通过-sA和-sF联合判断端口状态</p>
+<h2 id="sI-IDLE-Scan-空闲扫描"><a href="#sI-IDLE-Scan-空闲扫描" class="headerlink" title="-sI(IDLE Scan)空闲扫描"></a>-sI(IDLE Scan)空闲扫描</h2><p>为了降低被检测到的机率，我们通常需要转嫁责任，这时可以使用空闲扫描（idle scan），让一个僵尸主机承担扫描任务。<br>理论基础：<br>a. 每个IP包都有帧ID，记作IP ID<br>b. TCP正常建立链接的时候，第一步是主机A从端口X发给主机B端口Y一个 SYN，第二步是B回应A一个SYN/ACK，第三步是A回B一个ACK，连接建立了。如果A没有发给B一个SYN，而B发给A了一个SYN/ACK，那么A就会发给B一个RST<br>c. 大部分主机的TCP/IP协议实现中，RST中的IP ID是递增的，增加的单位是1，即incremental</p>
+<p><strong>Step 1</strong><br>找到一台空闲主机，并从攻击主机发给空闲主机一个SYN/ACK，获得并记录空闲主机的RST的IP ID<br><strong>Step2</strong><br>在攻击者的主机上虚构一个从空闲主机到目标主机的一个SYN，于是根据目标主机的目标端口状态，如果目标主机的目标端口打开，将会发给空闲主机的一个SYN/ACK，所以空闲主机将会发给目标主机一个RST，否则不会发送RST<br><strong>Step3</strong><br>再次从攻击主机发给空闲主机SYN/ACK，检查RST的IP ID，如果IP ID比第一步记录下的增加了二，则说明第二步中空闲主机给目标主机发送了一个RST，目标主机的目标端口处于打开状态，否则为没打开.<br>目标机端口开放<br><img src="/images/idle-scan-open.png" alt=""><br>目标机端口关闭<br><img src="/images/idle-scan-closed.png" alt=""><br>目标机端口被过滤<br><img src="/images/idle-scan-filtered.png" alt=""><br><strong>由图可知，目标机端口被过滤和关闭的情况下得到的RST一样，所以IDLE扫描只能判断出端口有没有开放。</strong></p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/FTP主动模式和被动模式/" data-toggle="tooltip" data-placement="left"
+                     title="FTP主动模式和被动模式">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/Leetcode-深度优先搜索/" data-toggle="tooltip" data-placement="top"
+                     title="Leetcode-深度优先搜索">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/nmap手册/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#主机发现"><span class="toc-number">1.</span> <span class="toc-text">主机发现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sn-No-port-scan"><span class="toc-number">1.1.</span> <span class="toc-text">-sn (No port scan)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Pn-No-ping"><span class="toc-number">1.2.</span> <span class="toc-text">-Pn (No ping)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS-TCP-SYN-Ping"><span class="toc-number">1.3.</span> <span class="toc-text">-PS  (TCP SYN Ping)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Port-Scanning-Techniques"><span class="toc-number">2.</span> <span class="toc-text">Port Scanning Techniques</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sS-TCP-SYN-scan"><span class="toc-number">2.1.</span> <span class="toc-text">-sS (TCP SYN scan)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sT-TCP-connect-scan"><span class="toc-number">2.2.</span> <span class="toc-text">-sT (TCP connect scan)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sA-TCP-ACK-scan"><span class="toc-number">2.3.</span> <span class="toc-text">-sA (TCP ACK scan)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Stealth-Scanning"><span class="toc-number">2.4.</span> <span class="toc-text">Stealth Scanning</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sI-IDLE-Scan-空闲扫描"><span class="toc-number">2.5.</span> <span class="toc-text">-sI(IDLE Scan)空闲扫描</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

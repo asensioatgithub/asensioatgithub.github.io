@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/信息论与编码-熵与互信息/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        信息论与编码-熵与互信息｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Nov 25, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">信息论与编码-熵与互信息</div><p>
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>熵的概念最早起源于物理学，用于度量一个热力学系统的无序程度。 在信息论里则叫信息量,即熵是对不确定性的度量。从控制论的角度来看，应叫不确定性。信息论的创始人香农在其著作《通信的数学理论》中提出了建立在概率统计模型上的信息度量。他把信息定义为“用来消除不确定性的东西”。在信息世界，熵越高，则能传输越多的信息，熵越低，则意味着传输的信息越少。<br><a id="more"></a><br> 当我们不知道某事物具体状态，却知道它有几种可能性时，显然，可能性种类愈多，不确定性愈大。不确定性愈大的事物，我们最后确定了、知道了，这就是说我们从中得到了愈多的信息，也就是信息量大。所以，<strong>熵、不确定性、信息量，这三者是同一个数值</strong>。</p>
+<p><strong>两种可能性</strong>:最简单的是只有两种可能性，非此即彼，我们就以这种事物的信息量为单位，叫1比特（bit）。<br><strong>4种可能性</strong>:用二分法，分为2组，我们要非此即彼地确定2次，才能确定其状态，所以含有2比特信息量。<br><strong>如果可能性数目有2的n次方（N=2^n）</strong>:那就是n比特，即信息量等于可能性数目N的‘以2为底的对数’：H=㏒2（N）＝㏒（N）/㏒（2）。后一个等号说明，以2为底的对数㏒2可用普通对数㏒（以10为底）来计算，即用N的普通对数除2的普通对数。N＝3种可能性时，信息量H＝㏒（3）/㏒（2）＝1.585。只要有函数型计算器，我们就可以进行以下简单实例的验算。</p>
+<p>我们现在不是讨论事物本身的信息量，而是讨论描述事物的文字符号包含的信息量。先讨论比较简单的数字符号。</p>
+<p>二进制数:二进制数只有2个符号：0和1。一位二进制数有2种可能性，其信息量是1比特。n位二进制数可记N=2^n个不相等的数，含有n比特信息，所以每位数字的信息量还是1。</p>
+<p>十进制数:十进制数字有10个，每位数字的信息量是㏒(10)/ ㏒(2)=1/0.301=3.32。不难验证所有十进制数，每位数字的信息量都是3.32，例如3位数共1000个，信息量是㏒(1000)/ ㏒(2)=3*3.32。而十六进制的每位数字的信息量是4。</p>
+<p>事情好像很简单，其实不然。试考虑还没有发明数字的远古人，他用刻画来记数，用刻n画的方法记数目n。10以内的数平均每个数要刻（1+10）/2＝5.5画，每画的平均信息量是3.32/5.5＝0.604，而100以内的数平均每个数（1+100）/2＝50.5画，每画的平均信息量只有6.64/50. 5＝0.132。因为古人刻的每一画是没有次序或位置的区别的，所以每一画的信息量变化很大，数值则很小。次序或位置非常重要，罗马字和我国古代的数码，也是短画，但要讲究位置组合，每画所含的信息量就大大提高了。注意，我们以后讨论的文字信号，都是有次序的。</p>
+<p>这样，文字信号的信息量H是信号个数n的以2为底的对数： H=㏒(n)/ ㏒(2)。英文有 26个字母，每个字母的信息量H=㏒(26)/ ㏒(2)＝4.700。汉字个数不定，算1000个时等于3*3.32＝9.96，算作一万、十万时则分别为13.28、16.60。我们能随意增加大量一辈子也用不到的汉字，来无限地增加每个汉字的信息量？这当然不合理。原来信息量不能无条件地按符号的个数来计算，只有各符号的可能性一样，都等于1/n时才行。数字符号就满足这样的条件。事实上信息量应按符号的可能性（数学上叫概率大小）来计算，它是概率的负对数。对于二进制数，每个符号的概率都等于1/2，按负对数计算：－㏒(1/n)＝－（㏒(1)－ ㏒(n)）＝－（0－㏒(n)）＝㏒(n)。这就是我们前面使用的公式的来源。如果符号i的概率pi不等于1/n，则Hi=－㏒(pi)。因为各个符号的概率pi不相等，对于总体来说，平均信息量就是它们的加权平均H=－∑pi㏒(pi)，这里累加符号∑表示对所有 i 进行累计。（以上式子除以㏒(2)，就可化为以比特为单位了）。</p>
+<h1 id="熵的定义"><a href="#熵的定义" class="headerlink" title="熵的定义"></a>熵的定义</h1><p>Given a discrete random variable X~( x, p(x) ), the entropy H(X) of the discrete random variable X is defined by<br><img src="/images/entropy.png" alt=""> </p>
+<p><strong>信息熵公示的来源</strong><br>如果有人告诉我们一个相当不可能的时间发生了,我们收到的信息要多于我们被告知某个很可能发生的事件发生时收到的信息。如果我们知道某件事情一定会发生,那么我们就不会接收到信息。于是,我们对于信息内容的度量将依赖于概率分布 p(x) ,因此我们想要寻找一个函数关于变量P(X)的函数h(） ,用来表达信息的内容。 h(·) 的形式可以这样寻找:如果我们多个不相关事件 ,那么我们观察到这些独立事件同时发生时获得的总信息量应该等于观察到事件各自发生时获得的信息之和,即 h() =h(X1)+h(X2)+…，采用概率分布的对数作为信息的量度的原因是其可加性。而不相关事件是统计独立的,因此 p(x, y) = p(x)p(y) 。根据这两个关系,很容易看出 h(x) 一定与 p(x) 的对数有关，而且概率越小，得到的信息两就越大，所以，h与1/p成正比，满足这两个条件的函数肯定是负对数形式。因此,我们有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h(x) = -log 2 p(x)</span><br></pre></td></tr></table></figure></p>
+<h1 id="熵的推导"><a href="#熵的推导" class="headerlink" title="熵的推导"></a>熵的推导</h1><p>熵在信息论中的定义推导过程如下：<br><strong>信源的不确定性</strong><br>信源发出的消息不肯定性越大，收信者获取的信息量就越大。如果信源发送的消息是确切的，则对收信者来说没有任何价值（没有信息量）。衡量不确定性的方法就是考察信源X的概率空间。X包含的状态越多，状态Xi的概率pi越小，则不确定性越大，所含有的信息量越大。</p>
+<p><strong>不确定程度</strong><br>用H（X）表示，简称不确定度， 用概率的倒数的对数来度量不肯定程度。一般写成H(X) = log(1/p) = -log(p).<br>定义不确定程度或信息量为概率的负对数，是很合理的。试考虑一个两种可能性的事物，仅当可能性相等时，不确定性最大，最后我们知道了某一可能性确实发生了，也得到最大的信息量。如果其中某一个可能性很大（另一个必然很小），不确定性就很小。如果可能性大到1，也就是必然要发生的，因为1的对数为0，我们从知道它的发生这件事得到的信息也为0。</p>
+<p><strong>自信息量（self information）</strong><br>一个事件（消息）本身所包含的信息量，由事件的不确定性决定的，记为I(xj ) = -log P(xj )。表示事件Xi发生后能提供的信息量。<br>事件不同，则他的信息量也不同，所以自信息量是一个随机变量。不能用来表征整个信源的不肯定性。可以用<strong>平均自信息量(average self-information)</strong>来表征整个信源的不肯定性。</p>
+<p><strong>熵</strong><br>随机变量自信息量I(xi)的数学期望（平均自信息量），用H（X）表示，即为熵的定义：H(X) = E[ I (X) ]</p>
+<p><strong>熵的单位</strong><br>The units of entropy and self information are determined by the base<br>of the logarithm.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">– If the base is 2, the units of entropy and self-information are bits.</span><br><span class="line">– If the base is e, the units of entropy and self-information are called nats (natural units)</span><br></pre></td></tr></table></figure></p>
+<p>The standard abbreviation for log e is ln. The natural logarithm is<br>convenient for computation.<br>ln a = ln 2 log 2 a，Thus 1 nat= log 2 e bits and 1 bit = ln 2 = 0.6935 nats.</p>
+<p><strong>熵的三层含义</strong><br>Entropy, information and uncertainty are all related. Consider the event X=X j .<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">– Before the event X=X j occurs, I(X j ) represents the average amount of uncertainty of the random variable X.</span><br><span class="line">息熵H(X)表示信源输出前，每个消息(或符号)所提供的平均不确定性</span><br><span class="line">– After the event X=X j occurs, the occurrence of this particular event gives us the amount of information I(X j ).</span><br><span class="line">信息熵H(X)表示信源输出后，每个消息(或符号)所提供的平均信息量</span><br><span class="line">– H(X) represents the average amount of information obtained from the corresponding event.</span><br></pre></td></tr></table></figure></p>
+<p>信息熵H(X)表示表征变量X的随机性</p>
+<h1 id="熵的例子"><a href="#熵的例子" class="headerlink" title="熵的例子"></a>熵的例子</h1><p><img src="/images/entropy_exmp.png" alt=""> </p>
+<h1 id="联合熵-Joint-entropy"><a href="#联合熵-Joint-entropy" class="headerlink" title="联合熵(Joint entropy)"></a>联合熵(Joint entropy)</h1><p>Joint entropy: Given a pair of random variables X and Y with a joint pmf P(x,y), the joint entropy H(X,Y) is defined as<br><img src="/images/joint_entropy.png" alt=""><br>联合熵实际上就是描述一对随机变量平均所需要的信息量。</p>
+<h1 id="条件熵-Conditional-Entropy"><a href="#条件熵-Conditional-Entropy" class="headerlink" title="条件熵(Conditional Entropy)"></a>条件熵(Conditional Entropy)</h1><p>Conditional entropy H(X|Y) of X given Y is defined as<br><img src="/images/cond_entropy.png" alt=""><br>Define conditional self information I(x j |y i ) = -logp(x j |y i ), the conditional entropy H(X|Y) is equal to the average conditional self information<br>H(X|Y) = E [ I(X|Y) ]</p>
+<h1 id="条件规则-chain-rule"><a href="#条件规则-chain-rule" class="headerlink" title="条件规则(chain rule)"></a>条件规则(chain rule)</h1><p>Since P(x j ,y i ) = P(y i )P(x j |y i ), we have-logP(x j ,y i ) = -logP(y i ) - logP(x j |y i ) = I(y i ) + I (x j |y i )<br>Take expectation on both sides, we have<br>H(X, Y) = H(Y) + H(X|Y)<br>Similarly, we can show that<br>H(X, Y)= H(X) + H(Y|X)<br>H(X, Y|Z) = H(X|Z) + H(Y|X,Z)= H(Y|Z) + H(X|Y,Z)</p>
+<h1 id="互信息-Mutual-information）"><a href="#互信息-Mutual-information）" class="headerlink" title="互信息(Mutual information）"></a>互信息(Mutual information）</h1><p>• I(x j ) is the amount of uncertainty about the event X = X j .<br>• I(x j |y i ) is the amount of uncertainty remaining about the event X = x j after we observe the outcome Y = y i .<br>• The difference between I(x j ) - I(x j |y i ) is the amount of<br>information that our observation Y = y i provides about the<br>event X = x j .<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">– We define this difference by I(x j ; y i ).</span><br><span class="line">– We call it as the mutual information between the events X=x j and Y=y i.</span><br><span class="line">– We have I(x j ; y i ) = I(x j ) - I(x j |y i )= I(y j ; x i ) = I(y j ) - I(y j |x i )</span><br></pre></td></tr></table></figure></p>
+<p>The average mutual information is denoted by I(X;Y)<br><img src="/images/mutual_infomation.png" alt=""><br>可以把互信息看成由于知道 y 值而造成的 x 的不确定性的减小(反之亦然)（即Y的值透露了多少关于X 的信息量）。</p>
+<h1 id="Information-Quantities-for-Continuous-Random-Variables"><a href="#Information-Quantities-for-Continuous-Random-Variables" class="headerlink" title="Information Quantities for Continuous Random Variables"></a>Information Quantities for Continuous Random Variables</h1><p>•The mutual information has the same physical meaning as in thediscrete case.<br>•The concept of differential entropy does not have the same physical meaning of the concept of entropy in the discrete case.<br>•When H(X) and H(X|Y) are finite, we still have I(X;Y) = H(X) – H(X|Y)<br>•Mixed case: X is discrete, Y is continuous.<br><img src="/images/continuous_info.png" alt=""> </p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/https与ssl-tsl/" data-toggle="tooltip" data-placement="left"
+                     title="https与ssl-tsl">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/计算机网络之http协议/" data-toggle="tooltip" data-placement="top"
+                     title="计算机网络之http协议">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/信息论与编码-熵与互信息/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的定义"><span class="toc-number">2.</span> <span class="toc-text">熵的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的推导"><span class="toc-number">3.</span> <span class="toc-text">熵的推导</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的例子"><span class="toc-number">4.</span> <span class="toc-text">熵的例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#联合熵-Joint-entropy"><span class="toc-number">5.</span> <span class="toc-text">联合熵(Joint entropy)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#条件熵-Conditional-Entropy"><span class="toc-number">6.</span> <span class="toc-text">条件熵(Conditional Entropy)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#条件规则-chain-rule"><span class="toc-number">7.</span> <span class="toc-text">条件规则(chain rule)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#互信息-Mutual-information）"><span class="toc-number">8.</span> <span class="toc-text">互信息(Mutual information）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Information-Quantities-for-Continuous-Random-Variables"><span class="toc-number">9.</span> <span class="toc-text">Information Quantities for Continuous Random Variables</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

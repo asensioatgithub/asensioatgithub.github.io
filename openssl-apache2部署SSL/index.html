@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/openssl-apache2部署SSL/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        openssl-apache2部署SSL｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Dec 3, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">openssl-apache2部署SSL</div><p>
+          <p>这篇博客记录了如何运用openssl建立CA，并签发服务器和客户端证书实现双向认证，同时使用OCSP进行证书有效性验证。</p>
+<h1 id="openssl命令"><a href="#openssl命令" class="headerlink" title="openssl命令"></a>openssl命令</h1><p>该部分对本次部署将会用到的主要命令进行说明。</p>
+<p>语法格式：<br><code>openssl command [ command_opts ] [ command_args ]</code><br><a id="more"></a><br>常用command:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">version    用于查看版本信息</span><br><span class="line">enc        用于加解密</span><br><span class="line">ciphers    列出加密套件</span><br><span class="line">genrsa    用于生成私钥</span><br><span class="line">rsa        RSA密钥管理(例如:从私钥中提取公钥)</span><br><span class="line">req        生成证书签名请求(CSR)</span><br><span class="line">crl        证书吊销列表(CRL)管理</span><br><span class="line">ca         CA管理(例如对证书进行签名)</span><br><span class="line">dgst      生成信息摘要</span><br><span class="line">rsautl    用于完成RSA签名、验证、加密和解密功能</span><br><span class="line">passwd    生成散列密码</span><br><span class="line">rand      生成伪随机数</span><br><span class="line">speed      用于测试加解密速度</span><br><span class="line">s_client  通用的SSL/TLS客户端测试工具</span><br><span class="line">X509       X.509证书管理</span><br><span class="line">verify      X.509证书验证</span><br><span class="line">PKCS#12 Personal Information Exchange Syntax Standard</span><br></pre></td></tr></table></figure></p>
+<p>其中，genrsa/req/ca是接下来将会用到的主要命令。</p>
+<h2 id="req指令说明"><a href="#req指令说明" class="headerlink" title="req指令说明"></a>req指令说明</h2><p><strong>-new/x509</strong><br>当使用-new选取的时候，说明是要生成证书请求，当使用x509选项的时候，说明是要生成自签名证书。</p>
+<p><strong>-/key/newkey/keyout</strong><br>key和newkey是互斥的，key是指定已有的密钥文件，而newkey是指在生成证书请求或者自签名证书的时候自动生成密钥，然后生成的密钥名称有keyout参数指定。<br>当指定newkey选项时，后面指定rsa:bits说明产生rsa密钥，位数由bits指定。指定dsa:file说明产生dsa密钥，file是指生成dsa密钥的参数文件(由dsaparam生成)</p>
+<p><strong>-in/out/inform/outform/keyform</strong><br>in选项指定证书请求文件，当查看证书请求内容或者生成自签名证书的时候使用<br>out选项指定证书请求或者自签名证书文件名，或者公钥文件名(当使用pubkey选项时用到)，以及其他一些输出信息。<br>inform、outform、keyform分别指定了in、out、key选项指定的文件格式，默认是PEM格式。</p>
+<p><strong>-config</strong><br>参数文件，默认是/etc/ssl/openssl.cnf(ubuntu12.04)，根据系统不同位置不同。该文件包含生成req时的参数，当在命令行没有指定时，则采用该文件中的默认值。</p>
+<h2 id="ca指令说明"><a href="#ca指令说明" class="headerlink" title="ca指令说明"></a>ca指令说明</h2><p>该命令是模拟一个CA行为的工具。有了它，你就是一个CA，不过估计是nobody trusted CA。它能够签发证书请求文件以及生成CRL列表。它还维护着一个文本数据库，记录了所有经手颁发的证书及那些证书的状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">-config filename：</span><br><span class="line">		指定配置文件</span><br><span class="line">-in file</span><br><span class="line">		输入的文件，被用于CA中心签名的证书请求文件路径。</span><br><span class="line">-out file</span><br><span class="line">		签名后的证书文件名，不设置的话是默认输出；证书的细节也会给写进去。</span><br><span class="line">-days arg </span><br><span class="line">		指定签发的证书的有效时间</span><br><span class="line">-keyfile arg</span><br><span class="line">		CA的私钥证书文件</span><br><span class="line">-cert file</span><br><span class="line">		用于签发的根CA证书</span><br><span class="line">-extensions section</span><br><span class="line">		当一个证书被颁发了，配置文件中的section字段两会添加到证书中。</span><br></pre></td></tr></table></figure></p>
+<p><strong>openssl的各个参数都可以在配置文件中指定默认值，而无需在执行命令时特别指出，只需在命令执行时指定参数文件即可。</strong></p>
+<h1 id="CA的建立"><a href="#CA的建立" class="headerlink" title="CA的建立"></a>CA的建立</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir myca</span><br><span class="line">cd myca</span><br><span class="line">mkdir signedcerts private</span><br><span class="line">touch index.txt</span><br><span class="line">touch serial</span><br><span class="line">echo 01 &gt; serial</span><br></pre></td></tr></table></figure>
+<p>~/myca: contains CA certificate, certificates database, generated certificates, keys, and requests<br>~/myca/signedcerts : contains copies of each signed certificate<br>~/myca/private : contains the private key </p>
+<h2 id="CA配置文件"><a href="#CA配置文件" class="headerlink" title="CA配置文件"></a>CA配置文件</h2><p>defult部分指定包含了CA的基本信息，包括后面将会用到的ocsp的url。<br>ca_dn指定了CA自己的”特征名称”。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ default ]</span><br><span class="line">ocsp_url	= http://192.168.43.178:1234	＃</span><br><span class="line">default_ca	= CA_default		# The default ca section</span><br><span class="line"></span><br><span class="line">[ ca_dn ]</span><br><span class="line">countryName	= &quot;CN&quot;</span><br><span class="line">stateOrProvinceName = &quot;JIANGSU&quot;</span><br><span class="line">organizationName= &quot;Example&quot;</span><br><span class="line">commonName	= &quot;myCA&quot;</span><br></pre></td></tr></table></figure></p>
+<p>CA_default包含了自建CA的目录信息，在使用CA命令时，会根据目录设置读取相应的文件。<br>policy_match指定了CA用自己的私钥签名的时候，对请求文件里的distinguished name的匹配策略：<br>mtach:请求文件的该字段必须和CA证书的相应字段匹配；<br>supplied:要求请求文件需设定该字段的值；<br>opitional:可设定或不设定。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">[ CA_default ]</span><br><span class="line">dir		= /etc/ssl/myca		# Where everything is kept</span><br><span class="line">certificate     = $dir/myca.pem</span><br><span class="line">database	= $dir/index.txt	# database index file.</span><br><span class="line">serial		= $dir/serial</span><br><span class="line">new_certs_dir	= $dir/signedcerts	# default place for new certs.</span><br><span class="line">private_key	= $dir/private/cakey.pem# The private key</span><br><span class="line"></span><br><span class="line"># Comment out the following two lines for the &quot;traditional&quot;</span><br><span class="line"># (and highly broken) format.</span><br><span class="line">name_opt 	= ca_default		# Subject Name options</span><br><span class="line">cert_opt 	= ca_default		# Certificate field options</span><br><span class="line">unique_subject	= no</span><br><span class="line"># copy_extensions = copy</span><br><span class="line">default_days	= 3650			# how long to certify for</span><br><span class="line">default_md	= sha256		# 签名默认使用的信息摘要算法</span><br><span class="line">policy		= policy_match</span><br><span class="line"></span><br><span class="line"># For the CA policy</span><br><span class="line">[ policy_match ]</span><br><span class="line">countryName		= match</span><br><span class="line">stateOrProvinceName	= optional</span><br><span class="line">organizationName	= supplied</span><br><span class="line">organizationalUnitName	= optional</span><br><span class="line">commonName		= supplied</span><br><span class="line">emailAddress		= optional</span><br></pre></td></tr></table></figure></p>
+<p>在申请证书之前通常需要首先生成符合 PKCS#10 标准的证书请求封装格式。openssl 的 req 指令实现了产生证书请求的功能，其相关选项的默认值就来自于这里的设置。该字段只会在CA生成自签名的根证书时用到。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">##### 证书请求配置的&quot;基本字段&quot;，其它附属字段都以它为入口 #####</span><br><span class="line">[ req ]</span><br><span class="line">#生成的证书中RSA密钥对的默认长度</span><br><span class="line">default_bits		= 2048 	</span><br><span class="line">default_keyfile 	= /etc/ssl/myca/private/cakey.pem</span><br><span class="line"># 如果设为no，那么 req 指令将直接从配置文件中读取证书字段的信息，而不提示用户输入。</span><br><span class="line">prompt = no	</span><br><span class="line">distinguished_name	= ca_dn</span><br><span class="line"># utf8only: 只使用 UTF8 字符串。推荐使用这个，这样可以完美的包含任意字符。</span><br><span class="line">string_mask = utf8only	</span><br><span class="line">#证书请求扩展的字段名，该扩展字段定义了要加入到证书请求中的一系列扩展项。</span><br><span class="line">req_extensions = ca_ext </span><br><span class="line"></span><br><span class="line">[ ca_ext ]</span><br><span class="line">#CA:true表示为CA自己生成请求</span><br><span class="line">basicConstraints	= critical,CA:true</span><br><span class="line">keyUsage		= critical,keyCertSign</span><br></pre></td></tr></table></figure></p>
+<p>usr_cert字段用于CA在给其他证书签名的时候需要加到证书里信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[ usr_cert ]</span><br><span class="line"># These extensions are added when &apos;ca&apos; signs a request.</span><br><span class="line">basicConstraints=CA:FALSE</span><br><span class="line">authorityInfoAccess	= @issuer_info</span><br><span class="line">authorityKeyIdentifier	= keyid,issuer</span><br><span class="line"></span><br><span class="line">[ issuer_info ]</span><br><span class="line">OCSP;URI.0		= $ocsp_url</span><br></pre></td></tr></table></figure></p>
+<p>ocsp_ext字段用于CA在生成OCSP服务响应器时候的扩展。为了能够运行OCSP服务，需要生成一个OCSP证书。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[ ocsp_ext ]</span><br><span class="line">authorityKeyIdentifier	= keyid,issuer</span><br><span class="line">basicConstraints	= critical,CA:false</span><br><span class="line">extendedKeyUsage	= OCSPSigning</span><br><span class="line">keyUsage		= critical,digitalSignature</span><br><span class="line">subjectKeyIdentifier	= hash</span><br></pre></td></tr></table></figure></p>
+<h2 id="CA证书的生成"><a href="#CA证书的生成" class="headerlink" title="CA证书的生成"></a>CA证书的生成</h2><p><strong>1.生成CA证书的请求</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -out myca.csr -config ./myca.cnf</span><br></pre></td></tr></table></figure></p>
+<p>req根据配置文件里目录信息，将私钥写入到./private目录中，同时生成请求文件myca.csr。</p>
+<p><strong>2.对 CA 证书请求进行自签名</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl ca -selfsign -in myca.csr -out myca.pem -config ./myca.cnf</span><br></pre></td></tr></table></figure></p>
+<p>OpenSSL 使用前面生成的密钥对对该请求进行自签名。此时，signedcerts目录中会保存一份证书01.pem<strong>(.pem跟crt/cer的区别是它以Ascii来表示，用base64算法转换而来，.cer 好像是二进制的证书)</strong>，序号为当前serial的保存值，之后serial序号也会自加１。同时index.txt将会保存CA签过名的证书的状态、ID、serial、dn等信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">V	271130140538Z		01	unknown	/C=CN/ST=JIANGSU/O=Example/CN=myCA</span><br></pre></td></tr></table></figure></p>
+<p>根证书创建完成后，CA的文件结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">../myca</span><br><span class="line">├── index.txt</span><br><span class="line">├── index.txt.attr</span><br><span class="line">├── index.txt.attr.old</span><br><span class="line">├── index.txt.old</span><br><span class="line">├── myca.cnf</span><br><span class="line">├── myca.csr</span><br><span class="line">├── myca.pem</span><br><span class="line">├── private</span><br><span class="line">│   ├── cakey.pem</span><br><span class="line">├── serial</span><br><span class="line">├── serial.old</span><br><span class="line">└── signedcerts</span><br><span class="line">    ├── 01.pem</span><br></pre></td></tr></table></figure></p>
+<h2 id="WEB-Server证书"><a href="#WEB-Server证书" class="headerlink" title="WEB Server证书"></a>WEB Server证书</h2><p><strong>1.生成用户密钥</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl genrsa -out privateKey.key 2048</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.生成证书请求文件</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -key privateKey.key -out myzoo_server.csr -config ./myzoo_config.cnf</span><br></pre></td></tr></table></figure></p>
+<p>这里需要web给出自己的配置信息:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line">prompt = no</span><br><span class="line">distinguished_name = server_distinguished_name</span><br><span class="line">[ server_distinguished_name ]</span><br><span class="line">commonName = 192.168.43.178</span><br><span class="line">stateOrProvinceName = JIANGSU</span><br><span class="line">countryName = CN</span><br><span class="line">emailAddress = emilsinclair@163.com</span><br><span class="line">organizationName = USTC</span><br><span class="line">organizationalUnitName = Asensio</span><br></pre></td></tr></table></figure></p>
+<p><strong>3.对用户证书签名</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl ca -in myzoo_server.csr -out myzoo_server.pem -config /etc/ssl/myca/myca.cnf -extensions usr_cert</span><br></pre></td></tr></table></figure></p>
+<p> -extensions usr_cert加入扩展字段，将CA的信息(主要是ocsp_url)写入到证书里。ocsp客户端才会根据接收到的证书里的ocsp_url进行验证。<br><strong>4.web server配置</strong><br>进入/etc/apache2/目录，修改该web server的配置文件，指定证书和密钥的存放路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#   SSLCertificateFile directive is needed.</span><br><span class="line">SSLCertificateFile      /var/www/myzoo/myzoo_server.pem</span><br><span class="line">SSLCertificateKeyFile /var/www/myzoo/privateKey.key</span><br><span class="line"></span><br><span class="line">＃SSLCACertificateFile /etc/ssl/myca/myca.pem</span><br><span class="line">＃SSLVerifyCLient require</span><br><span class="line">＃SSLVerifyDepth  10</span><br></pre></td></tr></table></figure></p>
+<p>（下面三行用于双向认证时(服务器认证客户端证书)，暂时不启用。）<br>之后，重新加载配置文件，并重启apache2。<a href="http://blog.maohao.pro/2017/11/24/apache2%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE/#more" target="_blank" rel="noopener">附apache2配置说明</a> </p>
+<h2 id="客户端证书"><a href="#客户端证书" class="headerlink" title="客户端证书"></a>客户端证书</h2><p>用同样的步骤生成客户端证书。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[ req ]</span><br><span class="line">prompt = no</span><br><span class="line">distinguished_name = server_distinguished_name</span><br><span class="line"></span><br><span class="line">[ server_distinguished_name ]</span><br><span class="line">commonName = client.com</span><br><span class="line">stateOrProvinceName = JIANGSU</span><br><span class="line">countryName = CN</span><br><span class="line">emailAddress = emilsinclair@163.com</span><br><span class="line">organizationName = USTC</span><br><span class="line">organizationalUnitName = maohao</span><br></pre></td></tr></table></figure></p>
+<p>pem格式还无法导入到“您的证书”里面去，需要将客户端的证书和私钥打包成p12格式(firefox要求客户端的证书格式是p12格式).<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo openssl pkcs12 -<span class="keyword">export</span> -out client.pfx -inkey privateKey.key -in client.pem</span><br></pre></td></tr></table></figure></p>
+<h1 id="证书有效性的管理机制"><a href="#证书有效性的管理机制" class="headerlink" title="证书有效性的管理机制"></a>证书有效性的管理机制</h1><p>证书有效性验证，即确认该证书是否已经失效，如证书有效期已过或者私钥泄露。</p>
+<h2 id="CRL"><a href="#CRL" class="headerlink" title="CRL"></a>CRL</h2><p>浏览器在验证证书的有效性时就需要去访问证书注销列表（CRL）。这个列表相当于“黑名单”，一旦发现通信对方的证书在这张列表中，就不能通过验证。</p>
+<p> 从安全的角度上讲，CRL最好是进行实时更新，即一旦发生证书注销事件就立即更新，以杜绝欺诈案件的得逞。但这种实时更新的代价非常高，要占用大量的网络资源和服务器资源，反过来又会影响到网上交易的进行。因此，业内普遍的做法是定期更新，如CFCA的管理策略是对主服务器的CRL和所有远程镜像CRL每天更新一次。</p>
+<p> CRL方法存在一些<strong>缺点</strong>，其一就是CRL不可能实时更新，由于CA每隔一定时间才发布CRL，所以CRL不能及时地反应证书的状态，在安全性上有一定局限；其二，即使定期更新CRL也有麻烦，当注销证书的数量很大及用户基础很大时，CRL常常会越变越大。 每次CRL分发会大量消耗网络带宽和服务器处理能力。</p>
+<h2 id="OCSP"><a href="#OCSP" class="headerlink" title="OCSP"></a>OCSP</h2><p>针对CRL方法存在的一些缺点，另一种证书有效性的管理和查询方法，即在线查询机制应运而生。<br>在线证书状态协议（OCSP，Online Certificate Status Protocol）是IETF颁布的用于检查数字证书在某一交易时间是否有效的标准，在RFC 2560中有描述。它为网上业务提供了一种检验数字证书有效性的途径，克服了证书注销列表（CRL）的主要缺陷：必须经常在客户端下载以确保列表的更新。。OCSP实时在线地向用户提供证书状态，其结果是它比CRL处理快得多，并避免了令人头痛的逻辑问题和处理开销。<br>OCSP在线查询机制的简单过程如下:<br><img src="/images/ocsp.jpg" alt=""><br>用户的客户机形成查询指定证书状态请求，并将请求转发到一个OCSP应答器(服务器)，应答器建立与CA证书库的连接，并查询CA证书库而获得该证书的状态，应答器返回客户机有关证书有效性信息。<strong>响应信息必须经过数字签名</strong>，以保证这个信息的真实性和完整性（未被篡改）。<strong>签名密钥属于CA</strong>，即颁发这张证书的权威、可信的第三方机构，因此，在任何情况下，用户都能够信任这个信息。</p>
+<p>##OCSP装订<br>OCSP装订（OCSP Stapling），也称OCSP封套，是一个TLS证书状态查询扩展，作为在线证书状态协议的代替方法对X.509证书状态进行查询，目的是让证书使用者（例如浏览器）如何知道一个证书是否有效（证书颁发者有时候需要作废某些证书）。OCSP 响应本身经过了数字签名，无法伪造，所以 OCSP Stapling 技术既提高了握手效率，也不会影响安全性。</p>
+<p>服务器在TLS握手时可以发送事先缓存的OCSP响应，用户只需验证该响应的有效性而不用再向数字证书认证机构（CA）发送请求。</p>
+<h1 id="OCSP部署"><a href="#OCSP部署" class="headerlink" title="OCSP部署"></a>OCSP部署</h1><p>为了传达给OCSP客户端一个知道的信息获取点，CA们可以在权威机构信息获取扩展（可以被检测用来使用OCSP）提供这样的能力。作为另外一种选择，也可以在OCSP客户端本地配置OCSP提供者获取地（信息）。支持OCSP服务的CA，无论是自身实现还是通过授权响应器来提供，都必须提供包括统一资源识别形式的获取地信息和在一个获取描述序列中的对象识别符号形式的获取方法。在主体证书的获取地域中的值定义了使用什么传输（例如HTTP）来获取OCSP响应器，并且可以包含其他传输相关信息（例如URL）。<br>CA给证书签名的时候我们已经通过扩展将ocsp_url的信息写入到了证书里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">X509v3 extensions:</span><br><span class="line">     X509v3 Basic Constraints: </span><br><span class="line">         CA:FALSE</span><br><span class="line">     Authority Information Access: </span><br><span class="line">         OCSP - URI:http://192.168.43.178:1234</span><br><span class="line"></span><br><span class="line">     X509v3 Authority Key Identifier: </span><br><span class="line">         DirName:/C=CN/ST=JIANGSU/O=Example/CN=myCA</span><br><span class="line">         serial:01</span><br></pre></td></tr></table></figure></p>
+<p><strong>1.生成OCSP证书</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -newkey rsa:2048 -subj &quot;/C=CN/O=Example/CN=OCSP CA Responder&quot; -keyout private/myca-ocsp.key -out myca-ocsp.csr</span><br><span class="line">openssl ca -in myca-ocsp.csr -out myca-ocsp.pem -config ./myca.cnf -extensions ocsp_ext -days 30</span><br></pre></td></tr></table></figure></p>
+<p><strong>2.开启OCSP服务响应器</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl ocsp -port 1234 -index index.txt -rsigner myca-ocsp.pem -rkey private/myca-ocsp.key -CA myca.pem -text</span><br></pre></td></tr></table></figure></p>
+<p>-index：ocsp通过查询 index.txt文件信息获取证书状态。<br>-port：指定1234号为ocsp的端口；<br>-text：打印相关信息<br>开启服务器之后，将会等待客户端的请求：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">maohao@maohao-HP-15-Notebook-PC:/etc/ssl/myca$ sudo openssl ocsp -port 1234 -index index.txt -rsigner myca-ocsp.pem -rkey private/myca-ocsp.key -CA myca.pem -text</span><br><span class="line">[sudo] maohao 的密码： </span><br><span class="line">Enter pass phrase for private/myca-ocsp.key:</span><br><span class="line">Waiting for OCSP client connections...</span><br></pre></td></tr></table></figure></p>
+<p>所有部署完成后，CA的目录结构如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">myca</span><br><span class="line">├── index.txt</span><br><span class="line">├── index.txt.attr</span><br><span class="line">├── index.txt.attr.old</span><br><span class="line">├── index.txt.old</span><br><span class="line">├── myca.cnf</span><br><span class="line">├── myca.csr</span><br><span class="line">├── myca-ocsp.csr</span><br><span class="line">├── myca-ocsp.pem</span><br><span class="line">├── myca.pem</span><br><span class="line">├── private</span><br><span class="line">│   ├── cakey.pem</span><br><span class="line">│   └── myca-ocsp.key</span><br><span class="line">├── serial</span><br><span class="line">├── serial.old</span><br><span class="line">└── signedcerts</span><br><span class="line">    ├── 01.pem</span><br><span class="line">    ├── 02.pem</span><br><span class="line">    ├── 03.pem</span><br><span class="line">    └── 04.pem</span><br><span class="line">2 directories, 17 files</span><br></pre></td></tr></table></figure></p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><h2 id="单向认证"><a href="#单向认证" class="headerlink" title="单向认证"></a>单向认证</h2><p>导入CA根证书到浏览器<br><img src="/images/ca-import1.png" alt=""><br><img src="/images/ca-impoet2.png" alt=""><br>打开浏览器的OCSP服务：<br><img src="/images/ocsp-on.png" alt=""><br>访问web server<br><img src="/images/2017-12-03-12-26-59.png" alt=""><br>访问正常。</p>
+<h2 id="双向认证"><a href="#双向认证" class="headerlink" title="双向认证"></a>双向认证</h2><p>在/etc/apache2/中的网站配置文件中打开服务器认证客户端证书的功能：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#   SSLCertificateFile directive is needed.</span><br><span class="line">SSLCertificateFile      /var/www/myzoo/myzoo_server.pem</span><br><span class="line">SSLCertificateKeyFile /var/www/myzoo/privateKey.key</span><br><span class="line"></span><br><span class="line">SSLCACertificateFile /etc/ssl/myca/myca.pem</span><br><span class="line">SSLVerifyCLient require</span><br><span class="line">SSLVerifyDepth  10</span><br></pre></td></tr></table></figure></p>
+<p>再重新加载配置文件，并重启apache2，再访问<a href="https://127.0.0.1:4391/myzoo/" target="_blank" rel="noopener">https://127.0.0.1:4391/myzoo/</a><br><img src="/images/client_no_mycert.png" alt=""><br>浏览器报错：SSL 对等端无法协商出一个可接受的安全参数设置。因为还没有导入客户端证书到浏览器中，服务器无法获取到客户端证书，不会与客户端进行密钥协商。<br>现在，将自己的客户端证书导入到浏览器中：<br><img src="/images/2017-12-0.png" alt=""><br>再次访问，成功！<br><img src="/images/2017-12-03-17-43-59.png" alt=""> </p>
+<h2 id="OCSP吊销"><a href="#OCSP吊销" class="headerlink" title="OCSP吊销"></a>OCSP吊销</h2><p>现在吊销web server的证书：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl ca -revoke signedcerts/02.pem -config myca.cnf -crl_reason keyCompromise</span><br></pre></td></tr></table></figure></p>
+<p>-crl_reason keyCompromise，指定吊销原因为密钥泄露<br>查看index.txt文件的变化<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">V	271130140538Z		01	unknown	/C=CN/ST=JIANGSU/O=Example/CN=myCA</span><br><span class="line">R	271130140543Z	171202141227Z,keyCompromise	02	unknown	/C=CN/ST=JIANGSU/O=USTC/OU=Asensio/CN=127.0.0.1/emailAddress=emilsinclair@163.com</span><br><span class="line">V	180101140556Z		03	unknown	/C=CN/O=Example/CN=OCSP CA Responder</span><br></pre></td></tr></table></figure></p>
+<p>可以看见02.pem状态变为了R(Revoke)。<br>再访问<a href="https://127.0.0.1:4391/myzoo/" target="_blank" rel="noopener">https://127.0.0.1:4391/myzoo/</a><br><img src="/images/asdasdas.png" alt=""><br>显示服务器证书已被吊销。</p>
+<h1 id="PKCS"><a href="#PKCS" class="headerlink" title="PKCS"></a>PKCS</h1><p>PKCS 全称是 Public-Key Cryptography Standards ，是由 RSA 实验室与其它安全系统开发商为促进公钥密码的发展而制订的一系列标准，PKCS 目前共发布过 15 个标准。 常用的有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">PKCS#7</span><br><span class="line">	Cryptographic Message Syntax Standard</span><br><span class="line">PKCS#10</span><br><span class="line">	 Certification Request Standard</span><br><span class="line">PKCS#12</span><br><span class="line">	 Personal Information Exchange Syntax Standard</span><br><span class="line">X.509</span><br><span class="line">	是常见通用的证书格式。所有的证书都符合为Public Key Infrastructure (PKI) </span><br><span class="line">	制定的 ITU-T X509 国际标准。</span><br><span class="line">	X.509 DER 编码(ASCII)的后缀是： .DER .CER .CRT</span><br><span class="line">	X.509 PAM 编码(Base64)的后缀是： .PEM .CER .CRT</span><br><span class="line">	.cer/.crt是用于存放证书，它是2进制形式存放的，不含私钥。</span><br><span class="line">	.pem跟crt/cer的区别是它以Ascii来表示。</span><br><span class="line">PKCS#7</span><br><span class="line">	常用的后缀是： .P7B .P7C .SPC</span><br><span class="line">PKCS#12 </span><br><span class="line">	常用的后缀有： .P12 .PFX</span><br><span class="line">	pfx/p12用于存放个人证书/私钥，他通常包含保护密码，2进制方式</span><br><span class="line">p10</span><br><span class="line">	是证书请求</span><br><span class="line">p7r</span><br><span class="line">	是CA对证书请求的回复，只用于导入</span><br><span class="line">p7b</span><br><span class="line">	以树状展示证书链(certificate chain)，同时也支持单个证书，不含私钥。</span><br></pre></td></tr></table></figure></p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/C++之深拷贝与浅拷贝/" data-toggle="tooltip" data-placement="left"
+                     title="C++之深拷贝和浅拷贝">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/https与ssl-tsl/" data-toggle="tooltip" data-placement="top"
+                     title="https与ssl-tsl">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/openssl-apache2部署SSL/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl命令"><span class="toc-number">1.</span> <span class="toc-text">openssl命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#req指令说明"><span class="toc-number">1.1.</span> <span class="toc-text">req指令说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ca指令说明"><span class="toc-number">1.2.</span> <span class="toc-text">ca指令说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CA的建立"><span class="toc-number">2.</span> <span class="toc-text">CA的建立</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CA配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">CA配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CA证书的生成"><span class="toc-number">2.2.</span> <span class="toc-text">CA证书的生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB-Server证书"><span class="toc-number">2.3.</span> <span class="toc-text">WEB Server证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端证书"><span class="toc-number">2.4.</span> <span class="toc-text">客户端证书</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#证书有效性的管理机制"><span class="toc-number">3.</span> <span class="toc-text">证书有效性的管理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CRL"><span class="toc-number">3.1.</span> <span class="toc-text">CRL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OCSP"><span class="toc-number">3.2.</span> <span class="toc-text">OCSP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OCSP部署"><span class="toc-number">4.</span> <span class="toc-text">OCSP部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单向认证"><span class="toc-number">5.1.</span> <span class="toc-text">单向认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双向认证"><span class="toc-number">5.2.</span> <span class="toc-text">双向认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OCSP吊销"><span class="toc-number">5.3.</span> <span class="toc-text">OCSP吊销</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PKCS"><span class="toc-number">6.</span> <span class="toc-text">PKCS</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

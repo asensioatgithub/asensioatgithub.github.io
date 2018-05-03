@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="asdasdasasd">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/https与ssl-tsl/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        https与ssl-tsl｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle">asdasdasasd</div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Nov 27, 2017</span>
+                               
+                                 <span class="meta-item">Updated On: May 2, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#WEB安全"
+                                 title="WEB安全">WEB安全</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#WEB安全"
+                                 title="WEB安全">WEB安全</a>
+                              
+                              <a class="tag" href="/tags/#HTTPS"
+                                 title="HTTPS">HTTPS</a>
+                              
+                              <a class="tag" href="/tags/#SSL\TLS"
+                                 title="SSL\TLS">SSL\TLS</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">https与ssl-tsl</div><p>
+          <h1 id="SSL-TSL"><a href="#SSL-TSL" class="headerlink" title="SSL\TSL"></a>SSL\TSL</h1><p>SSL全称是Secure Sockets Layer，<strong>安全套接字层</strong>，它是由网景公司(Netscape)设计的主要用于Web的安全传输协议，目的是为网络通信提供机密性、认证性及数据完整性保障。如今，SSL已经成为互联网保密通信的工业标准。</p>
+<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><p>SSL最初的几个版本(SSL 1.0、SSL2.0、SSL 3.0)由网景公司设计和维护，从3.1版本开始，SSL协议由因特网工程任务小组(IETF)正式接管，并更名为TLS(Transport Layer Security)，发展至今已有TLS 1.0、TLS1.1、TLS1.2这几个版本。SSL协议可分为两层：<br><a id="more"></a><br> <strong>SSL记录协议（SSL Record Protocol）</strong>：它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。<br> <strong>SSL握手协议（SSL Handshake Protocol）</strong>：它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。</p>
+<h2 id="TSL"><a href="#TSL" class="headerlink" title="TSL"></a>TSL</h2><p>如TLS名字所说，SSL/TLS协议仅保障传输层安全。同时，由于协议自身特性(数字证书机制)，SSL/TLS不能被用于保护多跳(multi-hop)端到端通信，而只能保护点到点通信。TLS 1.0是IETF（Internet Engineering Task Force，Internet工程任务组）制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本，可以理解为SSL 3.1，它是写入了 RFC 的。和SSL一样，该协议由两层组成： <strong>TLS 记录协议（TLS Record）</strong>和 <strong>TLS 握手协议（TLS Handshake）</strong>。较低的层为 TLS 记录协议，位于某个可靠的传输协议（例如 TCP）上面</p>
+<p>SSL/TLS协议能够提供的安全目标主要包括如下几个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">认证性——借助数字证书认证服务器端和客户端身份，防止身份伪造</span><br><span class="line">机密性——借助加密防止第三方窃听</span><br><span class="line">完整性——借助消息认证码(MAC)保障数据完整性，防止消息篡改</span><br><span class="line">重放保护——通过使用隐式序列号防止重放攻击</span><br></pre></td></tr></table></figure></p>
+<p>为了实现这些安全目标，SSL/TLS协议被设计为一个两阶段协议，分为<strong>握手阶段</strong>和<strong>应用阶段</strong>：</p>
+<p>握手阶段也称协商阶段，在这一阶段，客户端和服务器端会认证对方身份(依赖于PKI体系，利用数字证书进行身份认证)，并协商通信中使用的安全参数、密码套件以及MasterSecret。后续通信使用的所有密钥都是通过MasterSecret生成。</p>
+<p>在握手阶段完成后，进入应用阶段。在应用阶段通信双方使用握手阶段协商好的密钥进行安全通信。</p>
+<h1 id="SSL与TSL的差异"><a href="#SSL与TSL的差异" class="headerlink" title="SSL与TSL的差异"></a>SSL与TSL的差异</h1><p><code>版本号</code>：TLS记录格式与SSL记录格式相同，但版本号的值不同，TLS的版本1.0使用的版本号为SSLv3.1。<br><code>报文鉴别码</code>：SSLv3.0和TLS的MAC算法及MAC计算的范围不同。TLS使用了RFC-2104定义的HMAC算法。SSLv3.0使用了相似的算法，两者差别在于SSLv3.0中，填充字节与密钥之间采用的是连接运算，而HMAC算法采用的是异或运算。但是两者的安全程度是相同的。<br><code>伪随机函数</code>：TLS使用了称为PRF的伪随机函数来将密钥扩展成数据块，是更安全的方式。PRF使用两种散列算法保证其安全性。如果任一算法暴露了，只要第二种算法未暴露，则数据仍然是安全的。<br><code>报警代码</code>：TLS支持几乎所有的SSLv3.0报警代码，而且TLS还补充定义了很多报警代码，如解密失败（decryption_failed）、记录溢出（record_overflow）、未知CA（unknown_ca）、拒绝访问（access_denied）等。<br><code>密文族和客户证书</code>：SSLv3.0和TLS存在少量差别，即TLS不支持Fortezza密钥交换、加密算法和客户证书。<br><code>certificate_verify和finished消息</code>：SSLv3.0和TLS在用certificate_verify和finished消息计算MD5和SHA-1散列码时，计算的输入有少许差别，但安全性相当。<br><code>加密计算</code>：TLS与SSLv3.0在计算主密值（master secret）时采用的方式不同。<br><code>填充</code>：用户数据加密之前需要增加的填充字节。在SSL中，填充后的数据长度要达到密文块长度的最小整数倍。而在TLS中，填充后的数据长度可以是密文块长度的任意整数倍（但填充的最大长度为255字节），这种方式可以防止基于对报文长度进行分析的攻击。</p>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a>预备知识</h1><h2 id="摘要算法"><a href="#摘要算法" class="headerlink" title="摘要算法"></a>摘要算法</h2><p>摘要算法不是用来加密的，其输出长度固定，相当于计算数据的指纹，<strong>主要用来做数据校验</strong>，验证数据的完整性和正确性。常见的算法有CRC、MD5、SHA1、SHA256。<br>摘要算法具有以下特性：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">只要源文本不同，计算得到的结果，必然不同。</span><br><span class="line">无法从结果反推出源数据。</span><br></pre></td></tr></table></figure></p>
+<h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p>数字签名就是“非对称加密+摘要算法”，能够确保信息在发布后不会被篡改（摘要算法特性），保证数据的完整性和可信性；同时也可以验证信息发送者的真实性（非对称加密算法特性）；列如，我们有一段授权文本需要发布时，为了防止中途篡改发布的内容，保证发布文本的完整性，以及文本是由指定的发布者发布的。那么，可以通过摘要算法得到发布内容的摘要，得到摘要之后，发布者使用私钥加密得到密文（签名），这时候将源文本、密文（签名）以及公钥一起发布出去即可。</p>
+<p>验证过程为：首先验证公钥是否是发布者的公钥，然后用公钥对密文进行解密，得到摘要，使用发布者对文本同样的摘要算法得到摘要文本，比对摘要是否一致即可确认信息是否被篡改或者是指定发布者发布的。<br>其核心思想是：比如A要给B发送数据，A先用摘要算法得到数据的指纹，然后用A的私钥加密指纹，加密后的指纹就是A的签名，B收到数据和A的签名后，也用同样的摘要算法计算指纹，然后用A公开的公钥解密签名，比较两个指纹，如果相同，说明数据没有被篡改，确实是A发过来的数据。假设C想改A发给B的数据来欺骗B，因为篡改数据后指纹会变，要想跟A的签名里面的指纹一致，就得改签名，但由于没有A的私钥，所以改不了，如果C用自己的私钥生成一个新的签名，B收到数据后用A的公钥根本就解不开。</p>
+<h1 id="握手阶段"><a href="#握手阶段" class="headerlink" title="握手阶段"></a>握手阶段</h1><p>SSL协议分为两部分：Handshake Protocol和Record Protocol。其中Handshake Protocol用来协商密钥，协议的大部分内容就是通信双方如何利用它来安全的协商出一份密钥。 Record Protocol则定义了传输的格式。</p>
+<p>由于非对称加密的速度比较慢，所以它一般用于密钥交换，双方通过公钥算法协商出一份密钥，然后通过对称加密来通信，当然，为了保证数据的完整性，在加密前要先经过HMAC的处理。</p>
+<p>SSL缺省只进行server端的认证，客户端的认证是可选的。以下是其流程图（摘自TLS协议）。<br><img src="/images/ssl_tsl.jpg" alt=""> </p>
+<h2 id="ClientHello"><a href="#ClientHello" class="headerlink" title="ClientHello"></a>ClientHello</h2><p>ClientHello通常是握手过程中的第一条消息，用于告知服务器客户端所支持的密码套件种类、最高SSL/TLS协议版本以及压缩算法(压缩算法，一般被禁用)。<br>ClientHello中还包含一个随机数，这个随机数由4个字节的当前GMT UNIX时间以及28个随机选择的字节组成，共32字节。该随机数会在密钥生成过程中被使用。<br>所以，ClientHello中的字段主要有：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SSL\TSL version(Client)</span><br><span class="line">random</span><br><span class="line">session_id</span><br><span class="line">ciper_suites</span><br><span class="line">compression_method</span><br></pre></td></tr></table></figure></p>
+<p>另外，ClientHello中还可能包含客户端支持的TLS扩展。(TLS扩展可以被用来丰富TLS协议的功能或者增强协议的安全性)，抓包得到的ClientHello如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Client Hello</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.0 (0x0301)</span><br><span class="line">        Length: 186</span><br><span class="line">        Handshake Protocol: Client Hello</span><br><span class="line">            Handshake Type: Client Hello (1)</span><br><span class="line">            Length: 182</span><br><span class="line">            Version: TLS 1.2 (0x0303)</span><br><span class="line">            Random</span><br><span class="line">                GMT Unix Time: Jun 19, 2042 18:27:23.000000000 CST</span><br><span class="line">                Random Bytes: 617edc93128dcb45bd483ce789f4277162d929d5d3a3c732...</span><br><span class="line">            Session ID Length: 0</span><br><span class="line">            Cipher Suites Length: 30</span><br><span class="line">            Cipher Suites (15 suites)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 (0xc02b)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (0xc02f)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256 (0xcca9)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256 (0xcca8)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 (0xc02c)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 (0xc030)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA (0xc00a)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA (0xc009)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA (0xc013)</span><br><span class="line">                Cipher Suite: TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA (0xc014)</span><br><span class="line">                Cipher Suite: TLS_DHE_RSA_WITH_AES_128_CBC_SHA (0x0033)</span><br><span class="line">                Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA (0x0039)</span><br><span class="line">                Cipher Suite: TLS_RSA_WITH_AES_128_CBC_SHA (0x002f)</span><br><span class="line">                Cipher Suite: TLS_RSA_WITH_AES_256_CBC_SHA (0x0035)</span><br><span class="line">                Cipher Suite: TLS_RSA_WITH_3DES_EDE_CBC_SHA (0x000a)</span><br><span class="line">            Compression Methods Length: 1</span><br><span class="line">            Compression Methods (1 method)</span><br><span class="line">                Compression Method: null (0)</span><br><span class="line">            Extensions Length: 111</span><br><span class="line">            Extension: server_name</span><br><span class="line">            Extension: Extended Master Secret</span><br><span class="line">            Extension: renegotiation_info</span><br><span class="line">            Extension: elliptic_curves</span><br><span class="line">            Extension: ec_point_formats</span><br><span class="line">            Extension: SessionTicket TLS</span><br><span class="line">            Extension: Application Layer Protocol Negotiation</span><br><span class="line">            Extension: status_request</span><br><span class="line">            Extension: signature_algorithms</span><br></pre></td></tr></table></figure></p>
+<p>ClientHello里面还可以包含session id，如果我们在几秒钟之前就登陆过某网站，可以重用前面session里的一些内容，比如已经协商好的算法套件等，服务器收到session id后会去内存里面找，如果这是一个合法的session id，那么它就可以选择重用前面的session，这样可以省去很多握手的过程。为了简化讨论，这里不介绍session重用的问题。<br>在这里，session ID是一个空值（Null）。如果我们在几秒钟之前就登陆过某网站，我们有可能会恢复之前的会话，从而避免一个完整的握手过程。</p>
+<h2 id="ServerHello"><a href="#ServerHello" class="headerlink" title="ServerHello"></a>ServerHello</h2><p>服务器接受到ClientHello后，会返回ServerHello。服务器从客户端在ClientHello中提供的密码套件、SSL/TLS版本、压缩算法列表里选择它所支持的项，并把它的选择包含在ServerHello中告知客户端。接下来SSL协议的建立就基于服务器选择的密码套件类型、SSL/TLS协议版本以及压缩算法。<br>ServerHello中同样会包含一个随机数，同样4+28 字节类型，由服务器生成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SSL\TSL version(Server)</span><br><span class="line">random</span><br><span class="line">session_id</span><br><span class="line">ciper_suites</span><br><span class="line">compression_method</span><br></pre></td></tr></table></figure></p>
+<p>抓包得到的ServerHello如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Frame 1579: 1354 bytes on wire (10832 bits), 1354 bytes captured (10832 bits) on interface 0</span><br><span class="line">Ethernet II, Src: Tp-LinkT_86:af:73 (dc:fe:18:86:af:73), Dst: IntelCor_ef:ff:4c (e0:94:67:ef:ff:4c)</span><br><span class="line">Internet Protocol Version 4, Src: 124.160.141.123, Dst: 192.168.1.106</span><br><span class="line">Transmission Control Protocol, Src Port: 443, Dst Port: 48548, Seq: 3511153625, Ack: 2979696032, Len: 1300</span><br><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Server Hello</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 80</span><br><span class="line">        Handshake Protocol: Server Hello</span><br><span class="line">            Handshake Type: Server Hello (2)</span><br><span class="line">            Length: 76</span><br><span class="line">            Version: TLS 1.2 (0x0303)</span><br><span class="line">            Random</span><br><span class="line">                GMT Unix Time: Jan  9, 2056 22:49:32.000000000 CST</span><br><span class="line">                Random Bytes: dd29025ec9fab099b035834e8d10900da5ff091f9fba8526...</span><br><span class="line">            Session ID Length: 0</span><br><span class="line">            Cipher Suite: TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (0xc02f)</span><br><span class="line">            Compression Method: null (0)</span><br><span class="line">            Extensions Length: 36</span><br><span class="line">            Extension: server_name</span><br><span class="line">            Extension: renegotiation_info</span><br><span class="line">            Extension: ec_point_formats</span><br><span class="line">            Extension: SessionTicket TLS</span><br><span class="line">            Extension: Application Layer Protocol Negotiation</span><br></pre></td></tr></table></figure></p>
+<p><strong>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</strong>表示：用DH作为密码协商算法，辅以RSA作为在C\S之间传输DH参数的数字签名；AES_128_GCM是对称加密算法，用来加密握手后传输的数据，其密码由DH负责协商生成；SHA是数据摘要算法，表示后面交换的证书里签名<br>用到的摘要算法是sha1，并且后续通信过程中需要用到数据校验的地方也是用的这个算法。</p>
+<h2 id="Certificate"><a href="#Certificate" class="headerlink" title="Certificate"></a>Certificate</h2><p>客户端和服务器都可以发送证书消息来证明自己的身份，但是通常客户端证书不被使用。 服务器一般在ServerHello后会接一条Certificate消息，Certificate消息中会包含一条证书链，从服务器证书开始，到Certificate authority(CA)或者最新的自签名证书结束。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Frame 1581: 3171 bytes on wire (25368 bits), 3171 bytes captured (25368 bits) on interface 0</span><br><span class="line">Ethernet II, Src: Tp-LinkT_86:af:73 (dc:fe:18:86:af:73), Dst: IntelCor_ef:ff:4c (e0:94:67:ef:ff:4c)</span><br><span class="line">Internet Protocol Version 4, Src: 124.160.141.123, Dst: 192.168.1.106</span><br><span class="line">Transmission Control Protocol, Src Port: 443, Dst Port: 48548, Seq: 3511154925, Ack: 2979696032, Len: 3117</span><br><span class="line">[2 Reassembled TCP Segments (3985 bytes): #1579(1215), #1581(2770)]</span><br><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Certificate</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 3980</span><br><span class="line">        Handshake Protocol: Certificate</span><br><span class="line">            Handshake Type: Certificate (11)</span><br><span class="line">            Length: 3976</span><br><span class="line">            Certificates Length: 3973</span><br><span class="line">            Certificates (3973 bytes)</span><br><span class="line">                Certificate Length: 2834</span><br><span class="line">                Certificate: 30820b0e308209f6a003020102020c2812d10720aa5b28b2... (id-at-commonName=*.tmall.com,id-at-organizationName=Alibaba (China) Technology Co., Ltd.,id-at-localityName=HangZhou,id-at-stateOrProvinceName=ZheJiang,id-at-countryName=CN)</span><br><span class="line">                Certificate Length: 1133</span><br><span class="line">                Certificate: 3082046930820351a003020102020b040000000001444ef0... (id-at-commonName=GlobalSign Organization Validation CA - SHA256,id-at-organizationName=GlobalSign nv-sa,id-at-countryName=BE)</span><br><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Server Key Exchange</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 333</span><br><span class="line">        Handshake Protocol: Server Key Exchange</span><br><span class="line">            Handshake Type: Server Key Exchange (12)</span><br><span class="line">            Length: 329</span><br><span class="line">            EC Diffie-Hellman Server Params</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Server Hello Done</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 4</span><br><span class="line">        Handshake Protocol: Server Hello Done</span><br><span class="line">            Handshake Type: Server Hello Done (14)</span><br><span class="line">            Length: 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="ServerkeyExchange"><a href="#ServerkeyExchange" class="headerlink" title="ServerkeyExchange"></a>ServerkeyExchange</h2><p>ServerkeyExchange是可选消息，携带这些密钥交换算法所需要的额外参数，以在后续步骤中协商PreMasterSecret。<br>这条消息包含的数据与所选用的密钥交换算法有关，<strong>TSL中的秘钥交换算法有RSA和Diffie–Hellman两种</strong>。<br>如果是DH算法，这里发送服务器使用的DH参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Server Key Exchange</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 333</span><br><span class="line">        Handshake Protocol: Server Key Exchange</span><br><span class="line">            Handshake Type: Server Key Exchange (12)</span><br><span class="line">            Length: 329</span><br><span class="line">            EC Diffie-Hellman Server Params</span><br><span class="line">                Curve Type: named_curve (0x03)</span><br><span class="line">                Named Curve: secp256r1 (0x0017)</span><br><span class="line">                Pubkey Length: 65</span><br><span class="line">                Pubkey: 041432e144f6ef07c6e2af1f3a44d1f1a9e0e1d6175b9f31...</span><br><span class="line">                Signature Hash Algorithm: 0x0601</span><br><span class="line">                Signature Length: 256</span><br><span class="line">                Signature: 92b39bbe11c262c188d38f0605331422e17d8802152085b6...</span><br></pre></td></tr></table></figure></p>
+<h3 id="Diffie–Hellman"><a href="#Diffie–Hellman" class="headerlink" title="Diffie–Hellman"></a>Diffie–Hellman</h3><p>DH 算法又称“Diffie–Hellman 算法”。这是两位数学牛人的名称，他们创立了这个算法。该算法用来实现安全的“密钥交换”。它可以做到——“通讯双方在完全没有对方任何预先信息的条件下通过不安全信道创建起一个密钥”。这句话比较绕口，通俗地说，可以归结为两个优点：<br>1.通讯双方事先不需要像RSA协商算法一样有共享的秘密。<br>2.用该算法协商密码，即使协商过程中被别人全程偷窥（比如“网络嗅探”），偷窥者也无法知道协商得出的密钥是啥。<br>但是 DH 算法本身也有缺点——<strong>它不支持认证</strong>。也就是说：它虽然可以对抗“偷窥”，却无法对抗“篡改”，自然也就无法对抗“中间人攻击/MITM”。<br>为了避免遭遇 MITM 攻击，DH 需要与其它签名算法（比如 RSA、DSA、ECDSA）配合——靠数字签名算法帮忙来进行身份认证。当 DH 与 RSA 配合使用(RSA是唯一个既可以作为签名算法又可作为非对称加密算法)，称之为“DHE-RSA”，与 DSA 配合则称为“DHE-DSA”，以此类推<br>反之，如果 DH 没有配合某种签名算法，则称为“DHE-ANON”（ANON 是洋文“匿名”的简写）。此时会遭遇“中间人攻击/MITM”。</p>
+<h2 id="CertificateRequest"><a href="#CertificateRequest" class="headerlink" title="CertificateRequest"></a>CertificateRequest</h2><p>可选，这个消息通常在要求认证客户端身份时才会有。消息中包含了证书类型以及可接受的CA列表。<br>据此，SSL/TLS握手过程可以分成两种类型：<br>1）SSL/TLS 双向认证，就是双方都会互相认证，也就是两者之间将会交换证书。<br>2）SSL/TLS 单向认证，客户端会认证服务器端身份，而服务器端不会去对客户端身份进行验证。</p>
+<h2 id="ServerHelloDone"><a href="#ServerHelloDone" class="headerlink" title="ServerHelloDone"></a>ServerHelloDone</h2><p>服务器发送这条消息表明服务器部分的密钥交换信息已经发送完了，等待客户端的消息以继续接下来的步骤。这条消息只用作提醒，不包含数据域。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TLSv1.2 Record Layer: Handshake Protocol: Server Hello Done</span><br><span class="line">    Content Type: Handshake (22)</span><br><span class="line">    Version: TLS 1.2 (0x0303)</span><br><span class="line">    Length: 4</span><br><span class="line">    Handshake Protocol: Server Hello Done</span><br><span class="line">        Handshake Type: Server Hello Done (14)</span><br><span class="line">        Length: 0</span><br></pre></td></tr></table></figure></p>
+<h2 id="ClientKeyExchange"><a href="#ClientKeyExchange" class="headerlink" title="ClientKeyExchange"></a>ClientKeyExchange</h2><p>这条消息包含的数据与所选用的密钥交换算法有关。<br>如果选择的密钥交换算法是RSA，那么消息包含的参数为用服务器RSA公钥(包含在之前证书中)加密过的PreMasterSecret，它有48个字节，前2个字节表示客户端支持的最高协议版本，后46个字节是随机选择的。用public key加密后发送给server，server用自己的私钥解密也能得到Pre-mastersecret。<br>如果是DH算法，这里发送的就是客户端的DH参数，之后服务器和客户端根据DH算法，各自计算出相同的pre-master secret。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Secure Sockets Layer</span><br><span class="line">    TLSv1.2 Record Layer: Handshake Protocol: Client Key Exchange</span><br><span class="line">        Content Type: Handshake (22)</span><br><span class="line">        Version: TLS 1.2 (0x0303)</span><br><span class="line">        Length: 70</span><br><span class="line">        Handshake Protocol: Client Key Exchange</span><br><span class="line">            Handshake Type: Client Key Exchange (16)</span><br><span class="line">            Length: 66</span><br><span class="line">            EC Diffie-Hellman Client Params</span><br><span class="line">                Pubkey Length: 65</span><br><span class="line">                Pubkey: 04d37ed7726312f953c5dfa5f40545ecf2cf7a11a5177c76...</span><br></pre></td></tr></table></figure></p>
+<h2 id="CertificateVerify"><a href="#CertificateVerify" class="headerlink" title="CertificateVerify"></a>CertificateVerify</h2><p>这条消息用来证明客户端拥有之前提交的客户端证书的私钥,允许服务器结束对客户的鉴别处理，即验证对方是不是该证书的合法拥有者。在网络程序中，这个消息很少发送，当用这个消息时，客户发送用密码函数的数字签名的信息到服务端，当服务端用公共钥匙解密这个消息时，服务器能够鉴别客户。<br>在单项验证中，没有Certificate_request、Certificate（client to server）、CertificateVerify。<br><img src="/images/single_dir.png" alt=""> </p>
+<h2 id="ChangeCipherSpec"><a href="#ChangeCipherSpec" class="headerlink" title="ChangeCipherSpec"></a>ChangeCipherSpec</h2><p>客户端和服务器通知对方自己开始使用加密方式发送报文。客户端和服务器端使用上面的3个随机数client random, server random, pre-master secret, 计算出48字节的master secret, 这个就是对称加密算法的密钥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">TLSv1.2 Record Layer: Change Cipher Spec Protocol: Change Cipher Spec</span><br><span class="line">    Content Type: Change Cipher Spec (20)</span><br><span class="line">    Version: TLS 1.2 (0x0303)</span><br><span class="line">    Length: 1</span><br><span class="line">    Change Cipher Spec Message</span><br></pre></td></tr></table></figure></p>
+<h2 id="finished"><a href="#finished" class="headerlink" title="finished"></a>finished</h2><p>客户端发送第一个加密报文。使用HMAC算法计算收到和发送的所有握手消息的摘要，然后通过RFC5246中定义的一个伪函数PRF计算出结果，加密后发送。</p>
+<h1 id="会话密钥生成"><a href="#会话密钥生成" class="headerlink" title="会话密钥生成"></a>会话密钥生成</h1><p><strong>整个握手阶段都不加密（也没法加密），都是明文的。</strong>因此，如果有人窃听通信，他可以知道双方选择的加密方法，以及三个随机数中的两个。整个通话的安全，只取决于第三个随机数（Premaster secret）能不能被破解。<br>上面已经提到，由于服务端和客户端都有一份相同的PreMaster secret和随机数，这个随机数将作为后面产生Master secret的种子，结合PreMaster secret，客户端和服务端将计算出同样的Master secret。</p>
+<h2 id="引入随机数的原因"><a href="#引入随机数的原因" class="headerlink" title="引入随机数的原因"></a>引入随机数的原因</h2><p>1、生成过程中需要hello消息中的随机数，这样生成的密钥才不会每次都一样。由于ssl协议中dh份额来源于证书，而证书又是静态的，因此十分有必要引入一种随机因素来保证通过静态证书导出的密钥份额协商出来的密钥的随机性。同时这也是pre_master的意义，那就是随机，对于rsa密钥交换算法来说，pre-master-key本身就是一个随机数，再加上hello消息中的随机，三个随机数通过一个密钥导出器最终导出一个对称密钥，但是对于dh，包括ecdh算法(不考虑匿名dh和瞬时dh)，就只有hello消息中的两个随机数因子了。<br>２、pre master的存在在于ssl协议不信任每个主机都能产生完全随机的随机数，如果随机数不随机，那么pre master secret就有可能被猜出来，那么仅适用pre master secret作为密钥就不合适了，因此必须引入新的随机因素，那么客户端和服务器加上pre master secret三个随机数一同生成的密钥就不容易被猜出了，一个伪随机可能完全不随机，可是是三个伪随机就十分接近随机了，每增加一个自由度，随机性增加的可不是一。<br>３、计算机产生的随机数是伪随机数。之所以称之为伪随机数是因为真正意义上的随机数算法并不存在，这些函数还是利用大量的时变、量变参数来通过复杂的运算生成相对意义上的随机数，但是这些数之间还是存在统计学规律的，只是想要找到生成随机数的过程并不那么容易</p>
+<h2 id="PRF伪随机函数"><a href="#PRF伪随机函数" class="headerlink" title="PRF伪随机函数"></a>PRF伪随机函数</h2><p>Pseudo-random Function(PRF)：伪随机函数是SSL协议中的一个重要组成部分，它被用来秘密扩展以及生成密钥。这个PRF基于两个hash函数：MD5和SHA-1，它有3个输入，一个Secret(比如PreMasterSecret)，一个标志符(比如”client finished”, “server finished”)，还有一个种子值(比如客户端随机数+服务器端随机数)。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PRF( secret , label , seed ) = </span><br><span class="line">	P_MD5( S1 , label + seed ) XOR P_SHA−<span class="number">1</span>(S2 , label + seed ) ;</span><br></pre></td></tr></table></figure></p>
+<p>主密钥(MasterSecret)是利用上述PRF从预备主密钥(PreMasterSecret)生成的。每个MasterSecret为48字节，生成方式如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mastersecret = PRF( pre mastersecret , ” mastersecret ” , ClientHello.random + ServerHello.random)</span><br></pre></td></tr></table></figure></p>
+<p>得到MasterSecret后，它会被进一步处理最后生成4个不同的密钥和2个初始向量(IV)。处理过程如下：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keyblock = PRF( SecurityParameters.mastersecret , ”key expansion ” , SecurityParameters.server random +SecurityParameters.client random ) ;</span><br></pre></td></tr></table></figure></p>
+<p>Key keyblock最终解析出来的数据如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">client write MAC key</span><br><span class="line">server write MAC key</span><br><span class="line">client write encrption key</span><br><span class="line">server write encrption key</span><br><span class="line">client write IV</span><br><span class="line">server write IV</span><br></pre></td></tr></table></figure></p>
+<p>其中，write MAC key，就是session secret或者说是session key。Client write MAC key是客户端发数据的session secret，Server write MAC secret是服务端发送数据的session key。MAC(Message Authentication Code)，是一个数字签名，用来验证数据的完整性，可以检测到数据是否被串改。</p>
+<h1 id="数据传输阶段"><a href="#数据传输阶段" class="headerlink" title="数据传输阶段"></a>数据传输阶段</h1><p>在所有的握手阶段都完成之后，就可以开始传送应用数据了。应用数据在传输之前，首先要附加上MAC secret，然后再对这个数据包使用write encryption key进行加密。在服务端收到密文之后，使用Client write encryption key进行解密，客户端收到服务端的数据之后使用Server write encryption key进行解密，然后使用各自的write MAC key对数据进行验证。</p>
+<h1 id="TLS会话恢复"><a href="#TLS会话恢复" class="headerlink" title="TLS会话恢复"></a>TLS会话恢复</h1><p>完整的TLS握手需要额外延迟和计算，为所有需要安全通信的应用带来了严重的性能损耗。为了帮助减少一些性能损耗，TLS提供恢复机制，即多个连接之间共享相同的协商密钥数据。<br>会话标识符</p>
+<h2 id="会话标识符"><a href="#会话标识符" class="headerlink" title="会话标识符"></a>会话标识符</h2><p>“会话标识符”（RFC 5246）恢复机制在SSL 2.0中首次被引入，支持服务器端创建32字节的会话标识符，并将其作为“ServerHello”消息的一部分进行发送。在服务器内部，服务器保存一个会话ID和其对应的协商参数。对应地，客户端也同时存储会话ID信息，在后续的会话中(重新链接了某个网站)，可以在“ClientHello”消息中携带session ID信息，告诉服务器客户端还记着session ID对应的密钥和加密算法等信息，并且可以重用这些信息。假设在客户端和服务器都能在它们各自的缓存中找到共享的会话ID参数，那么就可以缩减握手了，如下图所示。否则，开始一个新的会话协商，生成新的会话ID。</p>
+<p>借助会话标识符，我们能够减少一个完整的往返，以及用于协商的共享密钥的公钥加密算法开销。这让我们能快速的建立安全连接，而不损失安全性。然而，“会话标识符”机制的一个限制就是要求服务器为每个客户端创建和维护一个会话缓存。这会为服务器上带来几个问题，对于一些每天同时几万，甚至几百万的单独连接的服务器来说：由于缓存session ID所需要的内存消耗将非常大，同时还有session ID清除策略的问题。这对一些流量大的网站来说不是一个简单的任务，理想的情况下，使用一个共享的TLS会话缓存可以获得最佳性能。上述问题没有是不可能解决的，许多高流量的网站成功的使用了会话标识符。但是，对任何多服务主机的部署，会话标识符方案需要一些认真的思考和好的系统架构，以确保良好的的会话缓存。</p>
+<h2 id="会话记录单"><a href="#会话记录单" class="headerlink" title="会话记录单"></a>会话记录单</h2><p>由于在服务器访问量很大的情况下，缓存会话信息是一个很大的负担，为消除服务器需要维护每个客户端的会话状态缓存的要求，“Sesion Ticket”机制被引入–服务器端不再需要保存客户端的会话状态。这个Session Ticket由客户端进行存储，并可以在随后的会话中添加到ClientHello消息的SessionTicket扩展中。如果客户端表明它支持Session Ticket，则在服务器完成TLS握手的最后一步中会向客户端发送一个“New Session Ticket”信息，这个信息包含一个加密通信所需要的信息，这些数据采用一个只有服务器知道的密钥进行加密。因此，所有的会话信息只存储在客户端上，Session Ticket仍然是安全的，因为它是由只有服务器知道的密钥加密的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">TLSv1.2 Record Layer: Handshake Protocol: New Session Ticket</span><br><span class="line">    Content Type: Handshake (22)</span><br><span class="line">    Version: TLS 1.2 (0x0303)</span><br><span class="line">    Length: 186</span><br><span class="line">    Handshake Protocol: New Session Ticket</span><br><span class="line">        Handshake Type: New Session Ticket (4)</span><br><span class="line">        Length: 182</span><br><span class="line">        TLS Session Ticket</span><br><span class="line">            Session Ticket Lifetime Hint: 86400</span><br><span class="line">            Session Ticket Length: 176</span><br><span class="line">            Session Ticket: 6082b611a6b3fb365ecca5beb74a09dbcdd2b63a3850b391...</span><br></pre></td></tr></table></figure></p>
+<p>会话标识符和会话记录单机制，通常分别被称为“会话缓存”和“无状态恢复”机制。无状态恢复的主要改进是消除服务器端的会话缓存，从而简化了部署，它要求客户在每一个新的会话开始时提供Session Ticket，直到Ticket过期。</p>
+<p>（注：在实际应用中，在一组负载平衡服务器中部署Session Ticket，也需要仔细考虑：所有的服务器都必须用相同的会话密钥，或者可能需要额外的机制，定期轮流在所有服务器上的共享密钥。）</p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><p>无论是Session ID还是Session ticket都是为了复用已有的加密参数，诸如秘钥以及加密算法等，进而减少SSL的握手次数，目的是提高有效数据的响应效率。</p>
+<p>Session ID的思想就是服务器端为每一次的会话生成并记录一个ID号并发送给客户端，在重新连接的时候（多次短连接场景），客户端向服务器发送该ID号，服务器查找自己的会话记录，匹配之后，重用之前的加密参数信息。</p>
+<p>而Sessionticket的思想类似于cookie，是由服务器将ticket数据结构发由客户端管理，ticket中是包含了加密参数等连接信息。当需要重连的时候，客户端将ticket发送给服务器。这样双方就得到了重用的加密参数。</p>
+<p>Session ticket较之Session ID优势在于服务器使用了负载均衡等技术的时候。Session ID往往是存储在一台服务器上，当我向不同的服务器请求的时候，就无法复用之前的加密参数信息，而Session ticket可以较好的解决此类问题，因为相关的加密参数信息交由客户端管理，服务器只要确认即可。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              <li class="previous">
+                  <a href="/openssl-apache2部署SSL/" data-toggle="tooltip" data-placement="left"
+                     title="openssl-apache2部署SSL">&larr; Previous Post</a>
+              </li>
+              
+              
+              <li class="next">
+                  <a href="/信息论与编码-熵与互信息/" data-toggle="tooltip" data-placement="top"
+                     title="信息论与编码-熵与互信息">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/https与ssl-tsl/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL-TSL"><span class="toc-number">1.</span> <span class="toc-text">SSL\TSL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL"><span class="toc-number">1.1.</span> <span class="toc-text">SSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TSL"><span class="toc-number">1.2.</span> <span class="toc-text">TSL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL与TSL的差异"><span class="toc-number">2.</span> <span class="toc-text">SSL与TSL的差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#预备知识"><span class="toc-number">3.</span> <span class="toc-text">预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要算法"><span class="toc-number">3.1.</span> <span class="toc-text">摘要算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字签名"><span class="toc-number">3.2.</span> <span class="toc-text">数字签名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#握手阶段"><span class="toc-number">4.</span> <span class="toc-text">握手阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ClientHello"><span class="toc-number">4.1.</span> <span class="toc-text">ClientHello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerHello"><span class="toc-number">4.2.</span> <span class="toc-text">ServerHello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Certificate"><span class="toc-number">4.3.</span> <span class="toc-text">Certificate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerkeyExchange"><span class="toc-number">4.4.</span> <span class="toc-text">ServerkeyExchange</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Diffie–Hellman"><span class="toc-number">4.4.1.</span> <span class="toc-text">Diffie–Hellman</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CertificateRequest"><span class="toc-number">4.5.</span> <span class="toc-text">CertificateRequest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerHelloDone"><span class="toc-number">4.6.</span> <span class="toc-text">ServerHelloDone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClientKeyExchange"><span class="toc-number">4.7.</span> <span class="toc-text">ClientKeyExchange</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CertificateVerify"><span class="toc-number">4.8.</span> <span class="toc-text">CertificateVerify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChangeCipherSpec"><span class="toc-number">4.9.</span> <span class="toc-text">ChangeCipherSpec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finished"><span class="toc-number">4.10.</span> <span class="toc-text">finished</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话密钥生成"><span class="toc-number">5.</span> <span class="toc-text">会话密钥生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入随机数的原因"><span class="toc-number">5.1.</span> <span class="toc-text">引入随机数的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PRF伪随机函数"><span class="toc-number">5.2.</span> <span class="toc-text">PRF伪随机函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据传输阶段"><span class="toc-number">6.</span> <span class="toc-text">数据传输阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TLS会话恢复"><span class="toc-number">7.</span> <span class="toc-text">TLS会话恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#会话标识符"><span class="toc-number">7.1.</span> <span class="toc-text">会话标识符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#会话记录单"><span class="toc-number">7.2.</span> <span class="toc-text">会话记录单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较"><span class="toc-number">7.3.</span> <span class="toc-text">比较</span></a></li></ol></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
