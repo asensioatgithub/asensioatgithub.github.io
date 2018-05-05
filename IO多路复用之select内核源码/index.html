@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/IO多路复用之select内核源码/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        IO多路复用之select内核源码｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+      <meta name="google-site-verification" content="g5BseDGQ1hWwdbBPJLKNfbC6xNOaM3X4LnKEMAvx_tI" />
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-38355881-1', 'auto');
+    ga('send', 'pageview');
+</script>
+
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle"></div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: May 5, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: May 5, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#Linux"
+                                 title="Linux">Linux</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#Linux"
+                                 title="Linux">Linux</a>
+                              
+                              <a class="tag" href="/tags/#IO多路复用"
+                                 title="IO多路复用">IO多路复用</a>
+                              
+                              <a class="tag" href="/tags/#select函数"
+                                 title="select函数">select函数</a>
+                              
+                              <a class="tag" href="/tags/#内核"
+                                 title="内核">内核</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">IO多路复用之select内核源码</div><p>
+          <p>内核版本4.15</p>
+<h1 id="sys-select"><a href="#sys-select" class="headerlink" title="sys_select()"></a>sys_select()</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">SYSCALL_DEFINE5(select, int, n, fd_set __user *, inp, fd_set __user *, outp, fd_set __user *, exp, struct timeval __user *, tvp)</span><br><span class="line">&#123;</span><br><span class="line">	struct timespec64 end_time, *to = NULL;</span><br><span class="line">	struct timeval tv;</span><br><span class="line">	int ret;</span><br><span class="line"></span><br><span class="line">	if (tvp) &#123;/*如果设置了超时值*/  </span><br><span class="line">		if (copy_from_user(&amp;tv, tvp, sizeof(tv)))</span><br><span class="line">			return -EFAULT;</span><br><span class="line"></span><br><span class="line">		to = &amp;end_time;</span><br><span class="line">		/*得到timespec格式的未来超时时间*/</span><br><span class="line">		if (poll_select_set_timeout(to,</span><br><span class="line">				tv.tv_sec + (tv.tv_usec / USEC_PER_SEC),</span><br><span class="line">				(tv.tv_usec % USEC_PER_SEC) * NSEC_PER_USEC))</span><br><span class="line">			return -EINVAL;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	ret = core_sys_select(n, inp, outp, exp, to);</span><br><span class="line">	// 复制剩余时间到用户空间 </span><br><span class="line">	ret = poll_select_copy_remaining(&amp;end_time, tvp, 1, ret);</span><br><span class="line"></span><br><span class="line">	return ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sys_select函数中的三个文件描述符集fd的参数类型都为fd_set</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define __FD_SETSIZE	1024</span><br><span class="line">typedef struct &#123;</span><br><span class="line">	unsigned long fds_bits[__FD_SETSIZE / (8 * sizeof(long))];</span><br><span class="line">&#125; __kernel_fd_set;</span><br><span class="line">typedef __kernel_fd_set		fd_set;</span><br></pre></td></tr></table></figure>
+<p>可以发现fd_set的数据结构其实就是一个long型数组，这个数组的长度为: 1024/(8<em>4) = 32，即每个fd_set变量的内存大小为32</em>4=128bytes。但根据__FD_SETSIZE的定义表明fd的个数为1024，即inp、outp、exp分别能监测的最大fd个数默认为1024。而128bytes怎么能存储得下1024个long型元素呢？<br>原因在于内核里fd_set采用了bitmap的存储方式，如果第i位bit为1，则该位表示的大小便为2^i，128bytes = 1024bit，刚好可以表示1024个fd。<br>sys_select函数的主要工作是将表示超时时间的内存从用户态拷贝到内核态，再将超时时间的表示形式由timeval转换为timespec64（前者的单位为“秒”和“微秒”，而后者支持“秒”和“纳秒”）。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct timeval &#123;</span><br><span class="line">	__kernel_time_t		tv_sec;		/* seconds */</span><br><span class="line">	__kernel_suseconds_t	tv_usec;	/* microseconds */</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct timespec &#123;</span><br><span class="line">	__kernel_time_t	tv_sec;			/* seconds */</span><br><span class="line">	long		tv_nsec;		/* nanoseconds */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>接下来将工作交给core_sys_select函数处理</p>
+<h1 id="core-sys-select"><a href="#core-sys-select" class="headerlink" title="core_sys_select()"></a>core_sys_select()</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line">int core_sys_select(int n, fd_set __user *inp, fd_set __user *outp,</span><br><span class="line">			   fd_set __user *exp, struct timespec64 *end_time)</span><br><span class="line">&#123;</span><br><span class="line">	fd_set_bits fds;</span><br><span class="line">	/*</span><br><span class="line"> 	* Scalable version of the fd_set.</span><br><span class="line">	typedef struct &#123;</span><br><span class="line">		unsigned long *in, *out, *ex;</span><br><span class="line">		unsigned long *res_in, *res_out, *res_ex;</span><br><span class="line">	&#125; fd_set_bits;</span><br><span class="line">	*/</span><br><span class="line">	void *bits;</span><br><span class="line">	int ret, max_fds;</span><br><span class="line">	size_t size, alloc_size;</span><br><span class="line">	struct fdtable *fdt;</span><br><span class="line">	/* Allocate small arguments on the stack to save memory and be faster */</span><br><span class="line">	/*在栈上分配小块参数，以节省内存及提高速度。SELECT_STACK_ALLOC 定义为256*/</span><br><span class="line">	/**</span><br><span class="line"></span><br><span class="line">       @ include/linux/poll.h</span><br><span class="line">       #define FRONTEND_STACK_ALLOC     256</span><br><span class="line">	   #define SELECT_STACK_ALLOC    FRONTEND_STACK_ALLOC</span><br><span class="line"></span><br><span class="line">    **/</span><br><span class="line">	long stack_fds[SELECT_STACK_ALLOC/sizeof(long)];//256/4=64bytes，64*32=2048bit</span><br><span class="line"></span><br><span class="line">	ret = -EINVAL;</span><br><span class="line">	if (n &lt; 0)</span><br><span class="line">		goto out_nofds;</span><br><span class="line"></span><br><span class="line">	/* max_fds can increase, so grab it once to avoid race */</span><br><span class="line">	/* max_fds是可以增长的，因此这里对其加锁以避免竞争 */</span><br><span class="line">	rcu_read_lock();</span><br><span class="line">	fdt = files_fdtable(current-&gt;files);</span><br><span class="line">	max_fds = fdt-&gt;max_fds;</span><br><span class="line">	rcu_read_unlock();</span><br><span class="line">	/* 如果传入的n大于当前进程最大的文件描述符，给予修正 */</span><br><span class="line">	if (n &gt; max_fds)</span><br><span class="line">		n = max_fds;</span><br><span class="line"></span><br><span class="line">	/*</span><br><span class="line">	 * We need 6 bitmaps (in/out/ex for both incoming and outgoing),</span><br><span class="line">	 * since we used fdset we need to allocate memory in units of</span><br><span class="line">	 * long-words. </span><br><span class="line">	 * 共需要分配6个fdset：用户传入的in, out, exception以及要返回给用户的res_in,res_out和res_exception。</span><br><span class="line">	 * 根据传入的n值，计算保存所有fd需要多少字节（每fd占1bit），然后判断是在栈上分配内存还是在堆中分配内存。</span><br><span class="line">	 */</span><br><span class="line">	size = FDS_BYTES(n); </span><br><span class="line">	/*</span><br><span class="line">	  </span><br><span class="line"> 	// How many longwords for &quot;nr&quot; bits?</span><br><span class="line"> 	</span><br><span class="line">       #define FDS_BITPERLONG	(8*sizeof(long))</span><br><span class="line">       #define FDS_LONGS(nr)	(((nr)+FDS_BITPERLONG-1)/FDS_BITPERLONG)</span><br><span class="line">       #define FDS_BYTES(nr)	(FDS_LONGS(nr)*sizeof(long))</span><br><span class="line">	*/</span><br><span class="line">	bits = stack_fds;</span><br><span class="line">	if (size &gt; sizeof(stack_fds) / 6) &#123; /* 每个文件描述符需要6个bitmap */</span><br><span class="line">		/* Not enough space in on-stack array; must use kmalloc */</span><br><span class="line">		/* 如果stack_fds数组的大小不能容纳下6个的fd_set,则使用kvmalloc重新分配一个大的数组 */</span><br><span class="line">		ret = -ENOMEM;</span><br><span class="line">		if (size &gt; (SIZE_MAX / 6))</span><br><span class="line">			goto out_nofds;</span><br><span class="line"></span><br><span class="line">		alloc_size = 6 * size;</span><br><span class="line">		bits = kvmalloc(alloc_size, GFP_KERNEL);</span><br><span class="line">		if (!bits)</span><br><span class="line">			goto out_nofds;</span><br><span class="line">	&#125;</span><br><span class="line">	fds.in      = bits;</span><br><span class="line">	fds.out     = bits +   size;</span><br><span class="line">	fds.ex      = bits + 2*size;</span><br><span class="line">	fds.res_in  = bits + 3*size;</span><br><span class="line">	fds.res_out = bits + 4*size;</span><br><span class="line">	fds.res_ex  = bits + 5*size;</span><br><span class="line">	</span><br><span class="line">	if ((ret = get_fd_set(n, inp, fds.in)) ||</span><br><span class="line">	    (ret = get_fd_set(n, outp, fds.out)) ||</span><br><span class="line">	    (ret = get_fd_set(n, exp, fds.ex)))</span><br><span class="line">		goto out;</span><br><span class="line">	</span><br><span class="line">	/*</span><br><span class="line">	static inline</span><br><span class="line">	int get_fd_set(unsigned long nr, void __user *ufdset, unsigned long *fdset)</span><br><span class="line">	&#123;</span><br><span class="line">		nr = FDS_BYTES(nr);</span><br><span class="line">		if (ufdset)</span><br><span class="line">			return copy_from_user(fdset, ufdset, nr) ? -EFAULT : 0;</span><br><span class="line"></span><br><span class="line">		memset(fdset, 0, nr);</span><br><span class="line">		return 0;</span><br><span class="line">	&#125;</span><br><span class="line">	*/</span><br><span class="line">	zero_fd_set(n, fds.res_in);</span><br><span class="line">	zero_fd_set(n, fds.res_out);</span><br><span class="line">	zero_fd_set(n, fds.res_ex);</span><br><span class="line">	/* 对这些存放返回状态的字段清0 </span><br><span class="line">	static inline</span><br><span class="line">	void zero_fd_set(unsigned long nr, unsigned long *fdset)</span><br><span class="line">	&#123;</span><br><span class="line">		memset(fdset, 0, FDS_BYTES(nr));</span><br><span class="line">	&#125;</span><br><span class="line">	*/</span><br><span class="line"></span><br><span class="line">	ret = do_select(n, &amp;fds, end_time);</span><br><span class="line"></span><br><span class="line">	if (ret &lt; 0)</span><br><span class="line">		goto out;</span><br><span class="line">	if (!ret) &#123;</span><br><span class="line">		ret = -ERESTARTNOHAND;</span><br><span class="line">		if (signal_pending(current))</span><br><span class="line">			goto out;</span><br><span class="line">		ret = 0;</span><br><span class="line">	&#125;</span><br><span class="line">	/* 拷贝res_in, res_out和res_ex用户态的in, out, exp*/</span><br><span class="line">	if (set_fd_set(n, inp, fds.res_in) ||</span><br><span class="line">	    set_fd_set(n, outp, fds.res_out) ||</span><br><span class="line">	    set_fd_set(n, exp, fds.res_ex))</span><br><span class="line">		ret = -EFAULT;</span><br><span class="line">out:</span><br><span class="line">	if (bits != stack_fds) /* 如果有申请空间，那么释放fds对应的空间 */</span><br><span class="line">		kvfree(bits); </span><br><span class="line"> out_nofds:</span><br><span class="line">	return ret; /* 返回就绪的文件描述符的个数 */</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="do-select"><a href="#do-select" class="headerlink" title="do_select"></a>do_select</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br></pre></td><td class="code"><pre><span class="line">static int do_select(int n, fd_set_bits *fds, struct timespec64 *end_time)</span><br><span class="line">&#123;</span><br><span class="line">	ktime_t expire, *to = NULL;</span><br><span class="line">	struct poll_wqueues table;</span><br><span class="line">	poll_table *wait;</span><br><span class="line">	/*</span><br><span class="line">	typedef struct poll_table_struct &#123;</span><br><span class="line">		poll_queue_proc _qproc;</span><br><span class="line">		unsigned long _key;</span><br><span class="line">	&#125; poll_table;</span><br><span class="line">	*/</span><br><span class="line">	int retval, i, timed_out = 0;</span><br><span class="line">	u64 slack = 0;</span><br><span class="line">	unsigned int busy_flag = net_busy_loop_on() ? POLL_BUSY_LOOP : 0;</span><br><span class="line">	unsigned long busy_start = 0;</span><br><span class="line"></span><br><span class="line">	rcu_read_lock();</span><br><span class="line">	retval = max_select_fd(n, fds);</span><br><span class="line">	rcu_read_unlock();</span><br><span class="line"></span><br><span class="line">	if (retval &lt; 0)</span><br><span class="line">		return retval;</span><br><span class="line">	n = retval;</span><br><span class="line"></span><br><span class="line">	poll_initwait(&amp;table);</span><br><span class="line">	/*</span><br><span class="line">	  将函数__pollwait函数赋值给&amp;pwq-&gt;pt指向的poll_table结构中的函数指针。</span><br><span class="line">      后面的fp-&gt;poll将通过调用poll_wait函数来调用此函数。</span><br><span class="line">	*/</span><br><span class="line">	wait = &amp;table.pt;</span><br><span class="line">	/* 如果用户传入的timeout不为NULL，但是设定的时间为0，那么设置poll_table指针wait(即 &amp;table.pt）为NULL；*/</span><br><span class="line">	if (end_time &amp;&amp; !end_time-&gt;tv_sec &amp;&amp; !end_time-&gt;tv_nsec) &#123;</span><br><span class="line">		wait-&gt;_qproc = NULL;</span><br><span class="line">		timed_out = 1;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (end_time &amp;&amp; !timed_out)</span><br><span class="line">		slack = select_estimate_accuracy(end_time);</span><br><span class="line"></span><br><span class="line">	retval = 0;</span><br><span class="line">	for (;;) &#123;</span><br><span class="line">		unsigned long *rinp, *routp, *rexp, *inp, *outp, *exp;</span><br><span class="line">		bool can_busy_loop = false;</span><br><span class="line"></span><br><span class="line">		inp = fds-&gt;in; outp = fds-&gt;out; exp = fds-&gt;ex;</span><br><span class="line">		rinp = fds-&gt;res_in; routp = fds-&gt;res_out; rexp = fds-&gt;res_ex;</span><br><span class="line"></span><br><span class="line">		for (i = 0; i &lt; n; ++rinp, ++routp, ++rexp) &#123;</span><br><span class="line">			unsigned long in, out, ex, all_bits, bit = 1, mask, j;</span><br><span class="line">			unsigned long res_in = 0, res_out = 0, res_ex = 0;</span><br><span class="line"></span><br><span class="line">			in = *inp++; out = *outp++; ex = *exp++; /* 取值后指向下一个4bytes */</span><br><span class="line">			all_bits = in | out | ex;</span><br><span class="line">			if (all_bits == 0) &#123; /* 此轮循环中的32个描述符不存在监听 */</span><br><span class="line">				i += BITS_PER_LONG;</span><br><span class="line">				continue;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			for (j = 0; j &lt; BITS_PER_LONG; ++j, ++i, bit &lt;&lt;= 1) &#123;/* 每轮循环遍历32个文件描述符后 */</span><br><span class="line">				struct fd f;</span><br><span class="line">				if (i &gt;= n) /* 遍历完所有需要监听的文件描述符（0至n-1），跳出循环 */</span><br><span class="line">					break;</span><br><span class="line">				if (!(bit &amp; all_bits)) /*第bit个fd不需要监听，继续往下遍历*/</span><br><span class="line">					continue;</span><br><span class="line">				f = fdget(i); /* 得到file结构指针，并增加引用计数字段f_count */</span><br><span class="line">				/* 对每一个要求监听的设备fd做一次struct file_operations结构体里的poll操作。 */</span><br><span class="line">				if (f.file) &#123;/* 已打开的文件在内核中用file结构体表示（struct file &lt;include/linux/fs.h&gt;），文件描述符表中的指针指向file结构体。 */</span><br><span class="line">					const struct file_operations *f_op;</span><br><span class="line">					f_op = f.file-&gt;f_op;</span><br><span class="line">					mask = DEFAULT_POLLMASK;</span><br><span class="line">					/* #define DEFAULT_POLLMASK (POLLIN | POLLOUT | POLLRDNORM | POLLWRNORM) */</span><br><span class="line">					if (f_op-&gt;poll) &#123;</span><br><span class="line">						wait_key_set(wait, in, out,</span><br><span class="line">							     bit, busy_flag); /* 设置当前fd待监测的事件掩码 */</span><br><span class="line">						mask = (*f_op-&gt;poll)(f.file, wait);</span><br><span class="line">						/* (*f_op-&gt;poll)会返回当前设备fd的状态（比如是否可读可写），根据这个状态，do_select()接着做出不同的动作 */</span><br><span class="line">					&#125;</span><br><span class="line">					fdput(f); /* 释放file结构指针，实际就是减小他的一个引用计数字段f_count */</span><br><span class="line">					if ((mask &amp; POLLIN_SET) &amp;&amp; (in &amp; bit)) &#123; //可读</span><br><span class="line">						res_in |= bit; //将返回值中的fd位设为1</span><br><span class="line">						retval++;//已准备好的fd个数+1</span><br><span class="line">						wait-&gt;_qproc = NULL; /* 后续有用，避免重复执行__pollwait() */</span><br><span class="line">					&#125;</span><br><span class="line">					if ((mask &amp; POLLOUT_SET) &amp;&amp; (out &amp; bit)) &#123; //可写</span><br><span class="line">						res_out |= bit;</span><br><span class="line">						retval++;</span><br><span class="line">						wait-&gt;_qproc = NULL;</span><br><span class="line">					&#125;</span><br><span class="line">					if ((mask &amp; POLLEX_SET) &amp;&amp; (ex &amp; bit)) &#123; //异常条件</span><br><span class="line">						res_ex |= bit;</span><br><span class="line">						retval++;</span><br><span class="line">						wait-&gt;_qproc = NULL;</span><br><span class="line">					&#125;</span><br><span class="line">					/* got something, stop busy polling */</span><br><span class="line">					if (retval) &#123;</span><br><span class="line">						can_busy_loop = false;</span><br><span class="line">						busy_flag = 0;</span><br><span class="line"></span><br><span class="line">					/*</span><br><span class="line">					 * only remember a returned</span><br><span class="line">					 * POLL_BUSY_LOOP if we asked for it</span><br><span class="line">					 */</span><br><span class="line">					&#125; else if (busy_flag &amp; mask)</span><br><span class="line">						can_busy_loop = true;</span><br><span class="line"></span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			if (res_in)</span><br><span class="line">				*rinp = res_in;</span><br><span class="line">			if (res_out)</span><br><span class="line">				*routp = res_out;</span><br><span class="line">			if (res_ex)</span><br><span class="line">				*rexp = res_ex;</span><br><span class="line">			cond_resched();</span><br><span class="line">		&#125;</span><br><span class="line">		wait-&gt;_qproc = NULL;</span><br><span class="line">		/* 如果不匹配，do_select()发现timeout已经到了或者进程有signal信号打断，也会退出循环，只是返回空的结果给上层应用。 */</span><br><span class="line">		if (retval || timed_out || signal_pending(current))</span><br><span class="line">			break;</span><br><span class="line">		if (table.error) &#123;</span><br><span class="line">			retval = table.error;</span><br><span class="line">			break;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		/* only if found POLL_BUSY_LOOP sockets &amp;&amp; not out of time */</span><br><span class="line">		if (can_busy_loop &amp;&amp; !need_resched()) &#123;</span><br><span class="line">			if (!busy_start) &#123;</span><br><span class="line">				busy_start = busy_loop_current_time();</span><br><span class="line">				continue;</span><br><span class="line">			&#125;</span><br><span class="line">			if (!busy_loop_timeout(busy_start))</span><br><span class="line">				continue;</span><br><span class="line">		&#125;</span><br><span class="line">		busy_flag = 0;</span><br><span class="line"></span><br><span class="line">		/*</span><br><span class="line">		 * If this is the first loop and we have a timeout</span><br><span class="line">		 * given, then we convert to ktime_t and set the to</span><br><span class="line">		 * pointer to the expiry value.</span><br><span class="line">		 */</span><br><span class="line">		if (end_time &amp;&amp; !to) &#123;</span><br><span class="line">			expire = timespec64_to_ktime(*end_time);</span><br><span class="line">			to = &amp;expire;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		if (!poll_schedule_timeout(&amp;table, TASK_INTERRUPTIBLE,</span><br><span class="line">					   to, slack))</span><br><span class="line">			timed_out = 1;</span><br><span class="line">	&#125;</span><br><span class="line">    /* 调用poll_freewait，将本进程从所有文件的等待队列中删掉，并删除分配的poll_table_page对象，回收内存，并返回retval值 */</span><br><span class="line">	poll_freewait(&amp;table);</span><br><span class="line"></span><br><span class="line">	return retval;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>select为管理所有监测的文件，为每个文件分配了一个poll_table_entry结构。poll_table_entry包含文件信息、等待队列头以及等待队列元素。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct poll_table_entry &#123;</span><br><span class="line">	struct file *filp; // 指向特定fd对应的file结构体;</span><br><span class="line">	unsigned long key; // 等待特定fd对应硬件设备的事件掩码，如POLLIN、POLLOUT、POLLERR;</span><br><span class="line">	wait_queue_entry_t wait;</span><br><span class="line">	wait_queue_head_t *wait_address;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>poll_table存放在一个poll_wqueues结构体中，poll_wqueues 是 select/poll 对poll_table接口的具体化实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct poll_wqueues &#123;</span><br><span class="line">	poll_table pt;/* poll_table pt是poll_wqueues对外接口的地址 */</span><br><span class="line">	struct poll_table_page *table; /* 如果inline_entries 空间不足, 从poll_table_page 中分配 */</span><br><span class="line">	struct task_struct *polling_task; /* 调用poll 或select 的进程 */</span><br><span class="line">	int triggered; /* 已触发标记 */</span><br><span class="line">	int error;</span><br><span class="line">	int inline_index;  /* 下一个要分配的inline_entrie 索引 */</span><br><span class="line">	struct poll_table_entry inline_entries[N_INLINE_POLL_ENTRIES];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              
+              <li class="next">
+                  <a href="/hello-world/" data-toggle="tooltip" data-placement="top"
+                     title="Hello World">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/IO多路复用之select内核源码/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap">
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sys-select"><span class="toc-number">1.</span> <span class="toc-text">sys_select()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#core-sys-select"><span class="toc-number">2.</span> <span class="toc-text">core_sys_select()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#do-select"><span class="toc-number">3.</span> <span class="toc-text">do_select</span></a></li></ol>
+        
+    </div>
+  </div>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+
+</html>
