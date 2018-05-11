@@ -506,13 +506,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Overview"><span class="toc-number">1.</span> <span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Live-Website"><span class="toc-number">2.</span> <span class="toc-text">Live Website</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Features"><span class="toc-number">3.</span> <span class="toc-text">Features</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Documentation"><span class="toc-number">4.</span> <span class="toc-text">Documentation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Installation"><span class="toc-number">5.</span> <span class="toc-text">Installation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Update-Theme"><span class="toc-number">6.</span> <span class="toc-text">Update Theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">7.</span> <span class="toc-text">Quick Start</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Code-for-An-Example-Website"><span class="toc-number">8.</span> <span class="toc-text">Code for An Example Website</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#External-Libraries-Used"><span class="toc-number">9.</span> <span class="toc-text">External Libraries Used</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Customize-the-Theme"><span class="toc-number">10.</span> <span class="toc-text">Customize the Theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Contribution"><span class="toc-number">11.</span> <span class="toc-text">Contribution</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Existing-Bugs"><span class="toc-number">12.</span> <span class="toc-text">Existing Bugs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Thanks"><span class="toc-number">13.</span> <span class="toc-text">Thanks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Getting-Help"><span class="toc-number">14.</span> <span class="toc-text">Getting Help</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Learning-A-RSnippet-Theme"><span class="toc-number">15.</span> <span class="toc-text">Learning A-RSnippet Theme</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Style-Test-Reference-for-Each-Layout"><span class="toc-number">16.</span> <span class="toc-text">Style Test Reference for Each Layout</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reporting-Issues"><span class="toc-number">17.</span> <span class="toc-text">Reporting Issues</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Donate-amp-Support"><span class="toc-number">18.</span> <span class="toc-text">Donate &amp; Support</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Translation"><span class="toc-number">19.</span> <span class="toc-text">Translation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Change-Log"><span class="toc-number">20.</span> <span class="toc-text">Change Log</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#License"><span class="toc-number">21.</span> <span class="toc-text">License</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

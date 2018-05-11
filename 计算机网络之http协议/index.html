@@ -275,13 +275,30 @@ HTTP是无状态：HTTP协议是无状态协议。无状态是指协议对于事
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-简介"><span class="toc-number">1.</span> <span class="toc-text">HTTP 简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#URL、URN和URI"><span class="toc-number">2.</span> <span class="toc-text">URL、URN和URI</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-工作原理"><span class="toc-number">2.1.</span> <span class="toc-text">HTTP 工作原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP三点注意事项："><span class="toc-number">2.2.</span> <span class="toc-text">HTTP三点注意事项：</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP请求"><span class="toc-number">3.</span> <span class="toc-text">HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#请求方法"><span class="toc-number">3.1.</span> <span class="toc-text">请求方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP响应"><span class="toc-number">4.</span> <span class="toc-text">HTTP响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#响应状态码"><span class="toc-number">4.1.</span> <span class="toc-text">响应状态码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GET和POST请求的区别"><span class="toc-number">5.</span> <span class="toc-text">GET和POST请求的区别</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

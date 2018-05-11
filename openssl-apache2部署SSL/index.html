@@ -284,13 +284,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#openssl命令"><span class="toc-number">1.</span> <span class="toc-text">openssl命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#req指令说明"><span class="toc-number">1.1.</span> <span class="toc-text">req指令说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ca指令说明"><span class="toc-number">1.2.</span> <span class="toc-text">ca指令说明</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CA的建立"><span class="toc-number">2.</span> <span class="toc-text">CA的建立</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CA配置文件"><span class="toc-number">2.1.</span> <span class="toc-text">CA配置文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CA证书的生成"><span class="toc-number">2.2.</span> <span class="toc-text">CA证书的生成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WEB-Server证书"><span class="toc-number">2.3.</span> <span class="toc-text">WEB Server证书</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#客户端证书"><span class="toc-number">2.4.</span> <span class="toc-text">客户端证书</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#证书有效性的管理机制"><span class="toc-number">3.</span> <span class="toc-text">证书有效性的管理机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#CRL"><span class="toc-number">3.1.</span> <span class="toc-text">CRL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OCSP"><span class="toc-number">3.2.</span> <span class="toc-text">OCSP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#OCSP部署"><span class="toc-number">4.</span> <span class="toc-text">OCSP部署</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#单向认证"><span class="toc-number">5.1.</span> <span class="toc-text">单向认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#双向认证"><span class="toc-number">5.2.</span> <span class="toc-text">双向认证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OCSP吊销"><span class="toc-number">5.3.</span> <span class="toc-text">OCSP吊销</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PKCS"><span class="toc-number">6.</span> <span class="toc-text">PKCS</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

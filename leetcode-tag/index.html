@@ -140,43 +140,80 @@
 
 
 <!-- Main Content -->
-<article class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-          <table>
-            <tr>
-              <th>Title</th>
-              <th>Difficulty</th>
-              <th>Time</th>
-              <th>Space</th>
-            </tr>
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
           
-            
-              <tr>
-              <td><a href="/000-Two-Sum/" target="_blank">000 Two Sum</a></td>
-              <td>easy</td>
-              <td>O(n)</td>
-              <td>O(n)</td>
-            </tr>
-            
-              <tr>
-              <td><a href="/005-Longest-Palindromic-Substring/" target="_blank">005 Longest Palindromic Substring</a></td>
-              <td>medium</td>
-              <td>O(n)</td>
-              <td>O(n)</td>
-            </tr>
-            
-              <tr>
-              <td><a href="/049-Group-Anagrams/" target="_blank">049 Group Anagrams</a></td>
-              <td>medium</td>
-              <td>O(n * glogg)</td>
-              <td>O(n)</td>
-            </tr>
-            
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
           
-          <table>
-        </div>
+          
+          
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/leetcode-tag/index.html';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
+        Table of Contents
+        
+          
+        
     </div>
+  </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
+
+
+      </div>
+  </div>
 </article>
 
 <!-- Footer -->

@@ -283,13 +283,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是共享内存"><span class="toc-number">1.</span> <span class="toc-text">什么是共享内存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#共享内存的相关操作"><span class="toc-number">2.</span> <span class="toc-text">共享内存的相关操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建或打开共享内存"><span class="toc-number">2.1.</span> <span class="toc-text">创建或打开共享内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#附加到进程地址空间"><span class="toc-number">2.2.</span> <span class="toc-text">附加到进程地址空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分离共享内存"><span class="toc-number">2.3.</span> <span class="toc-text">分离共享内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制共享内存"><span class="toc-number">2.4.</span> <span class="toc-text">控制共享内存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例演示"><span class="toc-number">2.5.</span> <span class="toc-text">实例演示</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#共享内存的优缺点"><span class="toc-number">3.</span> <span class="toc-text">共享内存的优缺点</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

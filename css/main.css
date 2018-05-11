@@ -13,7 +13,7 @@ a,
 a:hover,
 a:focus,
 a:active {
-    color: #ff7e79;
+    color: #3366cc;
 }
 a, a:hover{
     text-decoration: none;
@@ -30,7 +30,7 @@ blockquote {
     color: #808080;
     font-size: 0.95em;
     margin: 20px 0 20px;
-    border-color: #ff7e79;
+    border-color: #3366cc;
 }
 
 blockquote p {
@@ -82,13 +82,13 @@ th {
 ::-moz-selection {
     color: white;
     text-shadow: none;
-    background: #ff7e79;
+    background: #3366cc;
 }
 
 ::selection {
     color: white;
     text-shadow: none;
-    background: #ff7e79;
+    background: #3366cc;
 }
 
 img::selection {
@@ -242,7 +242,7 @@ legend {
     .header-navbar .nav li a:focus,
     .header-navbar .navbar-brand:hover,
     .header-navbar .navbar-brand:focus {
-        color: #ff7e79;
+        color: #3366cc;
     }
 }
 
@@ -404,8 +404,8 @@ footer .copyright {
 .pager li > a:hover,
 .pager li > a:focus {
     color: white;
-    background-color: #ff7e79;
-    border: 1px solid #ff7e79;
+    background-color: #3366cc;
+    border: 1px solid #3366cc;
 }
 
 .pager .disabled > a,
@@ -483,7 +483,7 @@ footer .copyright {
 #tag_cloud a:active,
 #tag_cloud .tag:active {
     color: white;
-    background-color: #ff7e79 !important;
+    background-color: #3366cc !important;
 }
 
 @media only screen and (min-width: 768px) {
@@ -494,7 +494,7 @@ footer .copyright {
 
 /* tag post listing */
 .tag-icon {
-    color: #ff7e79;
+    color: #3366cc;
     font-size: 21px;
 }
 
@@ -702,7 +702,7 @@ footer .copyright {
 }
 
 .container .toc-wrap .toc-level-2 > a {
-    color: #ff7e79;
+    color: #3366cc;
     font-size: .9em;
 }
 
@@ -758,7 +758,7 @@ footer .copyright {
 /*****************************/
 @media (min-width: 992px) {
     .homepage {
-        padding-top: 90px;
+        padding-top: 40px;
     }
 }
 .homepage .post-preview:nth-of-type(1),
@@ -937,7 +937,7 @@ footer .copyright {
 
 .sidebar-container a:hover,
 .sidebar-container a:active {
-    color: #ff7e79 !important;
+    color: #3366cc !important;
 }
 
 .sidebar-container .tags a {
@@ -946,7 +946,7 @@ footer .copyright {
 
 .sidebar-container .tags a:hover,
 .sidebar-container .tags a:active {
-    border-color: #ff7e79;
+    border-color: #3366cc;
 }
 
 .sidebar-container .short-about .avatar {
@@ -1101,7 +1101,7 @@ article blockquote cite:before{
 
 .post-preview > .post-meta > a:hover,
 .post-preview > .post-meta > a:focus {
-    color: #ff7e79;
+    color: #3366cc;
     text-decoration: underline;
 }
 

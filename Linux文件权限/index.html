@@ -270,13 +270,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ls-l"><span class="toc-number">1.</span> <span class="toc-text">ls -l</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#chmod命令"><span class="toc-number">2.</span> <span class="toc-text">chmod命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#用户用户组"><span class="toc-number">3.</span> <span class="toc-text">用户用户组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户和用户组文件"><span class="toc-number">3.1.</span> <span class="toc-text">用户和用户组文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户密码文件"><span class="toc-number">3.2.</span> <span class="toc-text">用户密码文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#用户组帐号文件"><span class="toc-number">3.3.</span> <span class="toc-text">用户组帐号文件</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#setuid"><span class="toc-number">4.</span> <span class="toc-text">setuid</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#案例"><span class="toc-number">4.1.</span> <span class="toc-text">案例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#getuid、geteuid"><span class="toc-number">5.</span> <span class="toc-text">getuid、geteuid</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

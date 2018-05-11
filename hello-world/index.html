@@ -152,7 +152,7 @@
                         
                           <span class="meta">
                                <span class="meta-item">Author: Asensio</span>
-                               <span class="meta-item">Date: May 2, 2018</span>
+                               <span class="meta-item">Date: May 11, 2018</span>
                                
                                  <span class="meta-item">Updated On: May 2, 2018</span>
                                
@@ -202,15 +202,10 @@
           <hr>
           <ul class="pager">
               
-              <li class="previous">
-                  <a href="/IO多路复用之select内核源码/" data-toggle="tooltip" data-placement="left"
-                     title="IO多路复用之select内核源码">&larr; Previous Post</a>
-              </li>
-              
               
               <li class="next">
-                  <a href="/Linux多线程/" data-toggle="tooltip" data-placement="top"
-                     title="Linux多线程">Next Post&rarr;</a>
+                  <a href="/LeetCode-二叉树/" data-toggle="tooltip" data-placement="top"
+                     title="LeetCode-二叉树">Next Post&rarr;</a>
               </li>
               
           </ul>
@@ -244,13 +239,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

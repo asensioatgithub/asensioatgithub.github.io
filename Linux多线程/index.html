@@ -289,8 +289,8 @@
           <ul class="pager">
               
               <li class="previous">
-                  <a href="/hello-world/" data-toggle="tooltip" data-placement="left"
-                     title="Hello World">&larr; Previous Post</a>
+                  <a href="/IO多路复用之select内核源码/" data-toggle="tooltip" data-placement="left"
+                     title="IO多路复用之select内核源码">&larr; Previous Post</a>
               </li>
               
               
@@ -330,13 +330,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的优缺点"><span class="toc-number">1.</span> <span class="toc-text">线程的优缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的创建和退出"><span class="toc-number">2.</span> <span class="toc-text">线程的创建和退出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的等待和退出"><span class="toc-number">3.</span> <span class="toc-text">线程的等待和退出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#等待线程退出"><span class="toc-number">3.1.</span> <span class="toc-text">等待线程退出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程终止清理函数"><span class="toc-number">3.2.</span> <span class="toc-text">线程终止清理函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#线程的同步和互斥"><span class="toc-number">4.</span> <span class="toc-text">线程的同步和互斥</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#线程的互斥"><span class="toc-number">4.1.</span> <span class="toc-text">线程的互斥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程的同步"><span class="toc-number">4.2.</span> <span class="toc-text">线程的同步</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#条件变量"><span class="toc-number">4.2.1.</span> <span class="toc-text">条件变量</span></a></li></ol></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

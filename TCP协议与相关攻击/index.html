@@ -307,13 +307,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP协议简介"><span class="toc-number">1.</span> <span class="toc-text">TCP协议简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP头部格式"><span class="toc-number">2.</span> <span class="toc-text">TCP头部格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三次握手"><span class="toc-number">3.</span> <span class="toc-text">三次握手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一次握手："><span class="toc-number">3.1.</span> <span class="toc-text">第一次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二次握手："><span class="toc-number">3.2.</span> <span class="toc-text">第二次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三次握手："><span class="toc-number">3.3.</span> <span class="toc-text">第三次握手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要三次握手"><span class="toc-number">3.4.</span> <span class="toc-text">为什么要三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcpdump抓包测试"><span class="toc-number">3.5.</span> <span class="toc-text">tcpdump抓包测试</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四次挥手"><span class="toc-number">4.</span> <span class="toc-text">四次挥手</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一次分手："><span class="toc-number">4.1.</span> <span class="toc-text">第一次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二次分手："><span class="toc-number">4.2.</span> <span class="toc-text">第二次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三次分手："><span class="toc-number">4.3.</span> <span class="toc-text">第三次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四次分手："><span class="toc-number">4.4.</span> <span class="toc-text">第四次分手：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要四次分手"><span class="toc-number">4.5.</span> <span class="toc-text">为什么要四次分手</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#滑动窗口协议"><span class="toc-number">5.</span> <span class="toc-text">滑动窗口协议</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#停等协议"><span class="toc-number">5.1.</span> <span class="toc-text">停等协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后退n协议"><span class="toc-number">5.2.</span> <span class="toc-text">后退n协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择重传协议"><span class="toc-number">5.3.</span> <span class="toc-text">选择重传协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TCP的拥塞控制"><span class="toc-number">6.</span> <span class="toc-text">TCP的拥塞控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#拥塞"><span class="toc-number">6.1.</span> <span class="toc-text">拥塞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#几种拥塞控制方法"><span class="toc-number">6.2.</span> <span class="toc-text">几种拥塞控制方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#慢开始和拥塞避免-强拥塞"><span class="toc-number">6.2.1.</span> <span class="toc-text">慢开始和拥塞避免(强拥塞)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快重传和快恢复-弱拥塞"><span class="toc-number">6.2.2.</span> <span class="toc-text">快重传和快恢复(弱拥塞)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SYN-Flood攻击（TCP-SYN拒绝服务攻击）"><span class="toc-number">7.</span> <span class="toc-text">SYN Flood攻击（TCP SYN拒绝服务攻击）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SYN-Flood简介"><span class="toc-number">7.1.</span> <span class="toc-text">SYN Flood简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实验"><span class="toc-number">7.2.</span> <span class="toc-text">实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tcp-syncookies"><span class="toc-number">7.3.</span> <span class="toc-text">tcp_syncookies</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SYN-Flood防御"><span class="toc-number">7.4.</span> <span class="toc-text">SYN Flood防御</span></a></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

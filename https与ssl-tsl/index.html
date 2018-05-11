@@ -294,13 +294,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL-TSL"><span class="toc-number">1.</span> <span class="toc-text">SSL\TSL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL"><span class="toc-number">1.1.</span> <span class="toc-text">SSL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TSL"><span class="toc-number">1.2.</span> <span class="toc-text">TSL</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SSL与TSL的差异"><span class="toc-number">2.</span> <span class="toc-text">SSL与TSL的差异</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#预备知识"><span class="toc-number">3.</span> <span class="toc-text">预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#摘要算法"><span class="toc-number">3.1.</span> <span class="toc-text">摘要算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数字签名"><span class="toc-number">3.2.</span> <span class="toc-text">数字签名</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#握手阶段"><span class="toc-number">4.</span> <span class="toc-text">握手阶段</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ClientHello"><span class="toc-number">4.1.</span> <span class="toc-text">ClientHello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerHello"><span class="toc-number">4.2.</span> <span class="toc-text">ServerHello</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Certificate"><span class="toc-number">4.3.</span> <span class="toc-text">Certificate</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerkeyExchange"><span class="toc-number">4.4.</span> <span class="toc-text">ServerkeyExchange</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Diffie–Hellman"><span class="toc-number">4.4.1.</span> <span class="toc-text">Diffie–Hellman</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CertificateRequest"><span class="toc-number">4.5.</span> <span class="toc-text">CertificateRequest</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerHelloDone"><span class="toc-number">4.6.</span> <span class="toc-text">ServerHelloDone</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ClientKeyExchange"><span class="toc-number">4.7.</span> <span class="toc-text">ClientKeyExchange</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CertificateVerify"><span class="toc-number">4.8.</span> <span class="toc-text">CertificateVerify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ChangeCipherSpec"><span class="toc-number">4.9.</span> <span class="toc-text">ChangeCipherSpec</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#finished"><span class="toc-number">4.10.</span> <span class="toc-text">finished</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#会话密钥生成"><span class="toc-number">5.</span> <span class="toc-text">会话密钥生成</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#引入随机数的原因"><span class="toc-number">5.1.</span> <span class="toc-text">引入随机数的原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PRF伪随机函数"><span class="toc-number">5.2.</span> <span class="toc-text">PRF伪随机函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据传输阶段"><span class="toc-number">6.</span> <span class="toc-text">数据传输阶段</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#TLS会话恢复"><span class="toc-number">7.</span> <span class="toc-text">TLS会话恢复</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#会话标识符"><span class="toc-number">7.1.</span> <span class="toc-text">会话标识符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#会话记录单"><span class="toc-number">7.2.</span> <span class="toc-text">会话记录单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较"><span class="toc-number">7.3.</span> <span class="toc-text">比较</span></a></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

@@ -280,13 +280,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket类型"><span class="toc-number">1.</span> <span class="toc-text">Socket类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Stream-Socket"><span class="toc-number">1.1.</span> <span class="toc-text">Stream Socket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Datagram-Socket"><span class="toc-number">1.2.</span> <span class="toc-text">Datagram Socket</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Raw-Socket"><span class="toc-number">1.3.</span> <span class="toc-text">Raw Socket</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Socket接口函数"><span class="toc-number">2.</span> <span class="toc-text">Socket接口函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#socket-函数"><span class="toc-number">2.1.</span> <span class="toc-text">socket()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bind-函数"><span class="toc-number">2.2.</span> <span class="toc-text">bind()函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主机地址标识"><span class="toc-number">2.2.1.</span> <span class="toc-text">主机地址标识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#主机地址标识的数据结构"><span class="toc-number">2.2.2.</span> <span class="toc-text">主机地址标识的数据结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listen-函数"><span class="toc-number">2.3.</span> <span class="toc-text">listen()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#connect-函数"><span class="toc-number">2.4.</span> <span class="toc-text">connect()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#accept-函数"><span class="toc-number">2.5.</span> <span class="toc-text">accept()函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#listen、connect、accept流程及三次握手"><span class="toc-number">2.6.</span> <span class="toc-text">listen、connect、accept流程及三次握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#send-recv和sendto-recvfrom"><span class="toc-number">2.7.</span> <span class="toc-text">send/recv和sendto/recvfrom</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#close-函数与shutdown-函数"><span class="toc-number">2.8.</span> <span class="toc-text">close()函数与shutdown()函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#无连接协议的同步模式"><span class="toc-number">3.</span> <span class="toc-text">无连接协议的同步模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#有连接协议"><span class="toc-number">4.</span> <span class="toc-text">有连接协议</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

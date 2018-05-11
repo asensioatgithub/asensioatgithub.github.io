@@ -254,13 +254,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#语法"><span class="toc-number">1.</span> <span class="toc-text">语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#选项"><span class="toc-number">2.</span> <span class="toc-text">选项</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参数"><span class="toc-number">3.</span> <span class="toc-text">参数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#远程拷贝文件"><span class="toc-number">4.1.</span> <span class="toc-text">远程拷贝文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口扫描"><span class="toc-number">4.2.</span> <span class="toc-text">端口扫描</span></a></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

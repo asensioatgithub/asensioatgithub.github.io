@@ -260,13 +260,30 @@ FTP服务器数据端口（&gt;1023）到客户端端口（&gt;1023）（服务�
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#基础知识："><span class="toc-number">1.</span> <span class="toc-text">基础知识：</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主动模式FTP："><span class="toc-number">1.1.</span> <span class="toc-text">主动模式FTP：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#被动模式FTP"><span class="toc-number">1.2.</span> <span class="toc-text">被动模式FTP</span></a></li></ol></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

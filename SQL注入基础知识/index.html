@@ -283,13 +283,30 @@ select * from users where id=1 and if(mid(user(),1,1)=&apos;r&apos;,sleep(3),1);
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql常用注释"><span class="toc-number">1.</span> <span class="toc-text">mysql常用注释</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql链接符"><span class="toc-number">2.</span> <span class="toc-text">mysql链接符</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql中常见函数"><span class="toc-number">3.</span> <span class="toc-text">mysql中常见函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#信息函数"><span class="toc-number">3.1.</span> <span class="toc-text">信息函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见的功能函数"><span class="toc-number">3.2.</span> <span class="toc-text">常见的功能函数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql数据库元信息"><span class="toc-number">4.</span> <span class="toc-text">mysql数据库元信息</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sql注入类型"><span class="toc-number">5.</span> <span class="toc-text">sql注入类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宽字节注入"><span class="toc-number">6.</span> <span class="toc-text">宽字节注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#常规注入"><span class="toc-number">7.</span> <span class="toc-text">常规注入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#双重SQL查选"><span class="toc-number">8.</span> <span class="toc-text">双重SQL查选</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#bool盲注"><span class="toc-number">9.</span> <span class="toc-text">bool盲注</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#time盲注"><span class="toc-number">10.</span> <span class="toc-text">time盲注</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

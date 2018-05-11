@@ -216,13 +216,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Patreon-recurring-monthly"><span class="toc-text">1. Patreon (recurring, monthly)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-itch-one-time"><span class="toc-text">2. itch (one-time)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Gumroad-one-time"><span class="toc-text">3. Gumroad (one-time)</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>

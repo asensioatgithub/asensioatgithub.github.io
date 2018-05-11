@@ -259,13 +259,30 @@
 
         
   <div class="hidden-xs col-sm-3 toc-col">
-    <div class="toc-wrap">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
         Table of Contents
         
           <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的定义"><span class="toc-number">2.</span> <span class="toc-text">熵的定义</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的推导"><span class="toc-number">3.</span> <span class="toc-text">熵的推导</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#熵的例子"><span class="toc-number">4.</span> <span class="toc-text">熵的例子</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#联合熵-Joint-entropy"><span class="toc-number">5.</span> <span class="toc-text">联合熵(Joint entropy)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#条件熵-Conditional-Entropy"><span class="toc-number">6.</span> <span class="toc-text">条件熵(Conditional Entropy)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#条件规则-chain-rule"><span class="toc-number">7.</span> <span class="toc-text">条件规则(chain rule)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#互信息-Mutual-information）"><span class="toc-number">8.</span> <span class="toc-text">互信息(Mutual information）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Information-Quantities-for-Continuous-Random-Variables"><span class="toc-number">9.</span> <span class="toc-text">Information Quantities for Continuous Random Variables</span></a></li></ol>
         
     </div>
   </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
 
 
       </div>
