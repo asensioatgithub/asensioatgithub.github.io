@@ -321,26 +321,44 @@
 
         </div>
         <!-- sidebar-profile.ejs -->
+
 <!--固定sidebar-->
-<script type="text/javascript">
+
+<script>
+    // window.onscroll = function() {
+    //   var sctop = document.documentElement.scrollTop;
+    //   var obj = document.getElementsByClassName("col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container")[0];
+    //   var leftobj = document.getElementsByClassName("col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 post-container")[0]; 
+    //   if(sctop>470){
+    //     obj.style.position = "fixed";
+    //     obj.style.left = ""+leftobj.style.left+1200+"px";
+    //     obj.style.top = "0px";
+    //     obj.style.width = "325px";
+    //     // console.log(obj.);
+    //   }
+    //   else{
+    //     obj.style.position = "";
+    //     obj.style.left = ""
+    //     obj.style.top = ""
+    //     obj.style.width = "";
+    //   }
+    // };
     window.onscroll = function() {
-      var sctop = document.documentElement.scrollTop;
-      var obj = document.getElementsByClassName("col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container")[0];
-      if(sctop>470){
-        obj.style.position = "fixed";
-        obj.style.left = "1215px";
-        obj.style.top = "0px";
-        obj.style.width = "325px";
-        // console.log(obj.);
-      }
-      else{
-        obj.style.position = "";
-        obj.style.left = ""
-        obj.style.top = ""
-        obj.style.width = "";
-      }
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container")[0];
+        if(sctop>450){
+            obj.style.top = ""+(document.documentElement.scrollTop-450)+"px";
+        }
+        else{
+            obj.style.top ="";
+        }
+        console.log(obj.offsetTop);
+        
     };
 </script>
+
+
+
 <div class="
         col-lg-3 col-lg-offset-0
         col-md-3 col-md-offset-0
@@ -436,6 +454,7 @@
 
     </div>
 </div>
+
 
 <!-- Footer -->
 <!-- footer.ejs -->
@@ -543,5 +562,15 @@
 
 
 </body>
+<!--回到顶部按钮-->
+<span class="fa fa-arrow-circle-up" onclick="pageScroll()" style="position:fixed; right:20px; bottom:30px; font-size:50px; color:#3366cc"></span>
+<script>
+    function pageScroll() {
+        window.scrollBy(0,-50);
+        scrolldelay = setTimeout('pageScroll()',10);   
+        if(document.documentElement.scrollTop==0) 
+            clearTimeout(scrolldelay); 
+    }
+</script>
 
 </html>
