@@ -187,6 +187,30 @@
           
             <div class="post-preview "
      style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/http1.1-range/">
+        <h2 class="post-title">
+            http1.1-range
+        </h2>
+        
+        <div class="post-meta">
+          <span>Oct 6, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                断点续传概念断点续传的理解可以分为两部分：一部分是断点，一部分是续传。
+
+断点的由来是在下载过程中，将一个下载文件分成了多个部分，同时进行多个部分一起的下载，当某个时间点，任务被暂停了，此时下载暂停的位置就是断点了。
+续传就更好理解些了，就是当一个未完成的下载任务再次开始时，会从上次的断点继续传..
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview "
+     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
     <a href="/http2-0中英文对照/">
         <h2 class="post-title">
             http2.0中英文对照
@@ -336,27 +360,6 @@ sys_select()123456789101112131415161718192021222324SYSCALL_DEFINE5(select, int, 
 <li>共享内存：使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</li>
 <li>信号量（semaphore）：主要作为进程间以及同一进程不同线程之间的同步手段。</li>
 <li>套接口（Socket）：更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview "
-     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/以太坊之MPT/">
-        <h2 class="post-title">
-            以太坊之MPT
-        </h2>
-        
-        <div class="post-meta">
-          <span>Feb 19, 2018</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                <p>Merkle Patricia Tree(简称MPT树，实际上是一种trie前缀树)是以太坊中的一种加密认证的数据结构，可以用来存储所有的(key，value)对。以太坊区块的头部包括一个区块头，一个交易的列表和一个uncle区块的列表。在区块头部包括了交易的hash树根，用来校验交易的列表。在p2p网络上传输的交易是一个简单的列表，它们被组装成一个叫做trie树的特殊数据结构，来计算根hash。值得注意的是，除了校验区块外，这个数据结构并不是必须的，一旦区块被验证正确，那么它在技术上是可以忽略的。但是，这意味着交易列表在本地以trie树的形式存储，发送给客户端的时候序列化成列表。客户端接收到交易列表后重新构建交易列表trie树来验证根hash。RLP(Recursive length prefix encoding,递归长度前缀编码)，用来对trie树种所有的条目进行编码(参考：<a href="http://www.cnblogs.com/fengzhiwu/p/5565559.html)。" target="_blank" rel="noopener">http://www.cnblogs.com/fengzhiwu/p/5565559.html)。</a><br>
             </p>
         </div>
     </a>

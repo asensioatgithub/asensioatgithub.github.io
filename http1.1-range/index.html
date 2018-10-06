@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/http1.1-range/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        http1.1-range｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle"></div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Oct 6, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: Oct 6, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#计算机网络"
+                                 title="计算机网络">计算机网络</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#http1.1"
+                                 title="http1.1">http1.1</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">http1.1-range</div><p>
+          <h1 id="断点续传概念"><a href="#断点续传概念" class="headerlink" title="断点续传概念"></a>断点续传概念</h1><p>断点续传的理解可以分为两部分：一部分是断点，一部分是续传。</p>
+<ul>
+<li>断点的由来是在下载过程中，将一个下载文件分成了多个部分，同时进行多个部分一起的下载，当某个时间点，任务被暂停了，此时下载暂停的位置就是断点了。</li>
+<li>续传就更好理解些了，就是当一个未完成的下载任务再次开始时，会从上次的断点继续传送。</li>
+</ul>
+<h1 id="HTTP-1-1和断点续传"><a href="#HTTP-1-1和断点续传" class="headerlink" title="HTTP/1.1和断点续传"></a>HTTP/1.1和断点续传</h1><p>HTTP1.1的描述中有几个东西可以支持断点续传</p>
+<h2 id="If-Range"><a href="#If-Range" class="headerlink" title="If-Range"></a>If-Range</h2><p>If-Range是另一个起条件判断的请求头. If-Range头用来避免客户端在下载了某资源(比如图片)的一部分后，下次重新下载又从头开始下载。(这对于某些慢速网络来说，也许一辈子也下载不了某完整文件)。</p>
+<p>If-Range的使用格式为:If-Range: Etag|Http-Date<br>即If-Range中的内容可以为最初收到的ETag头或者是Last-Modfied中的最后修改时候。服务端在收到续传请求时，通过If-Range中的内容进行校验，校验一致时返回206的续传回应，不一致时服务端则返回200回应，回应的内容为新的文件的全部数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">If-Range: &quot;df6b0-b4a-3be1b5e1&quot;</span><br><span class="line">If-Range: Tue, 8 Jul 2008 05:05:56 GMT</span><br></pre></td></tr></table></figure></p>
+<p>逻辑上来讲，上面2种方式分别和If-Match,If-Unmodified-Since的工作原理一样，他们的值正是服务器返回的Etag和Last-Modified值。</p>
+<h2 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h2><p>请求资源的部分内容（不包括响应头的大小），单位是byte，即字节.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Range : bytes=50-          意思是从第50个字节开始到最后一个字节</span><br><span class="line">Range : bytes=-70          意思是最后的70个字节</span><br><span class="line">Range : bytes=50-100    意思是从第50字节到100字节</span><br></pre></td></tr></table></figure></p>
+<p><strong>Range 请求的一些注意事项:</strong></p>
+<ul>
+<li>bytes=start-end，即是包含请求头的start及end字节的，所以，下一个请求，应该是上一个请求的end+1 - nextEnd.</li>
+<li>不支持 Range 请求的 server 要用“Accept-Ranges: none”对 client 表明心意且返回整个资源以及响应状态码为 200 OK；server 也可以主动告诉 client “Accept-Ranges: bytes”，且返回 206 Partial Content 的状态码和断点后的资源。</li>
+</ul>
+<h2 id="Accept-ranges"><a href="#Accept-ranges" class="headerlink" title="Accept-ranges"></a>Accept-ranges</h2><p>Accept-ranges是一个响应头，服务器发送这个头来告诉客户端它支持Range(范围)请求.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Ranges: bytes</span><br></pre></td></tr></table></figure></p>
+<h2 id="Content-Range"><a href="#Content-Range" class="headerlink" title="Content-Range"></a>Content-Range</h2><p>这是一个响应头，说明了服务器提供的内容的字节范围和整个资源的长度。例如:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Content-Range: bytes 0-10/3103</span><br><span class="line">Content-Length: 11 //表示这次服务器响应了11个字节的数据（0-10）</span><br></pre></td></tr></table></figure></p>
+<p>这个表示，服务器响应了前(0-10)个字节的数据，该资源一共有(3103)个字节大小。</p>
+<h1 id="工作方式"><a href="#工作方式" class="headerlink" title="工作方式"></a>工作方式</h1><p>下面的代码显示了IIS发送给客户端的用于响应一个初始下载请求的一些头信息，他向客户端传递了被请求的文档的周详信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Connection: close</span><br><span class="line">Date: Tue, 19 Oct 2004 15:11:23 GMT</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Last-Modified: Sun, 26 Sep 2004 15:52:45 GMT</span><br><span class="line">ETag: &quot;47febb2cfd76c41:2062&quot;</span><br><span class="line">Cache-Control: private</span><br><span class="line">Content-Type: application/x-zip-compressed</span><br><span class="line">Content-Length: 2844011</span><br></pre></td></tr></table></figure></p>
+<p>在接收这些头信息之后，假如下载被中断了，IE浏览器在后来的下载请求中会把Etag值和Range头信息发送回服务器。下面的代码显示了尝试恢复被中断下载时IE发送给服务器的一些头信息。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GET http://192.168.100.100/download.zip HTTP/1.0</span><br><span class="line">Range: bytes=822603-</span><br><span class="line">Unless-Modified-Since: Sun, 26 Sep 2004 15:52:45 GMT</span><br><span class="line">If-Range: &quot;47febb2cfd76c41:2062&quot;</span><br></pre></td></tr></table></figure></p>
+<p>请注意，If-Range 元素包含服务器可用于标识要重新发送的文件的原始 ETag 值。您还会看到 Unless-Modified-Since 元素包含了最初下载的开始日期和时间。服务器将利用此信息来确定自最初下载开始后该文件是否已被修改过。如果已被修改，则服务器将从头开始重新下载。这些头信息表明IE缓存了IIS提供的实体标签，并在If-Range头信息中把他发送回服务器了，这是确保下载从准确相同的文档恢复的一种途径。不幸的是，并非任何的浏览器的工作方式都相同。客户端发送的用于验证文档的其他HTTP头信息可能是If-Match、If-Unmodified-Since或Unless-Modified-Since。很明显，该规范对于客户端软件必须支持哪些头信息，或必须使用哪些头信息没有明确的规定。因此，有些客户端根本就没有使用头信息，而IE只使用If-Range和Unless-Modified-Since。您最好用代码检查这些信息。采用这种方式的时候，您的应用程式能够在很高的层次遵循HTTP规范，并能够使用多种浏览器。Range头信息指明了被请求的字节范围–在例子中他是服务器应该恢复文档流的起始点。</p>
+<p>当IIS接收到恢复下载的请求类型时，他发回包含下面的头信息的响应信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 206 Partial Content</span><br><span class="line">Content-Range: bytes 822603-2844010/2844011</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Last-Modified: Sun, 26 Sep 2004 15:52:45 GMT</span><br><span class="line">ETag: &quot;47febb2cfd76c41:2062&quot;</span><br><span class="line">Cache-Control: private</span><br><span class="line">Content-Type: application/x-zip-compressed</span><br><span class="line">Content-Length: 2021408</span><br></pre></td></tr></table></figure></p>
+<p>请注意上面的代码和最初的下载请求的HTTP响应有点差别–恢复下载的请求是206而最初下载的请求是200。这表明通过线路传递进来的内容是部分文档。这一次Content-Range头信息指出了被传递字节的精确数量和位置。</p>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              
+              <li class="next">
+                  <a href="/http2-0中英文对照/" data-toggle="tooltip" data-placement="top"
+                     title="http2.0中英文对照">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/http1.1-range/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
+        Table of Contents
+        
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#断点续传概念"><span class="toc-number">1.</span> <span class="toc-text">断点续传概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-1-1和断点续传"><span class="toc-number">2.</span> <span class="toc-text">HTTP/1.1和断点续传</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#If-Range"><span class="toc-number">2.1.</span> <span class="toc-text">If-Range</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Range"><span class="toc-number">2.2.</span> <span class="toc-text">Range</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Accept-ranges"><span class="toc-number">2.3.</span> <span class="toc-text">Accept-ranges</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Content-Range"><span class="toc-number">2.4.</span> <span class="toc-text">Content-Range</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#工作方式"><span class="toc-number">3.</span> <span class="toc-text">工作方式</span></a></li></ol>
+        
+    </div>
+  </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+<!--回到顶部按钮-->
+<span class="fa fa-arrow-circle-up" onclick="pageScroll()" style="position:fixed; right:20px; bottom:30px; font-size:50px; color:#3366cc"></span>
+<script>
+    function pageScroll() {
+        window.scrollBy(0,-50);
+        scrolldelay = setTimeout('pageScroll()',10);   
+        if(document.documentElement.scrollTop==0) 
+            clearTimeout(scrolldelay); 
+    }
+</script>
+
+</html>
