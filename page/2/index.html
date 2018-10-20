@@ -187,6 +187,35 @@
           
             <div class="post-preview "
      style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/Linux进程间通信之管道/">
+        <h2 class="post-title">
+            Linux进程间通信之管道
+        </h2>
+        
+        <div class="post-meta">
+          <span>Feb 20, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                <p>转自：<a href="https://www.ibm.com/developerworks/cn/linux/l-ipc/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-ipc/</a> </p>
+<p> linux下进程间通信的几种主要手段简介：</p>
+<ul>
+<li>管道（Pipe）及有名管道（named pipe）：管道可用于具有亲缘关系进程间的通信，有名管道克服了管道没有名字的限制，因此，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信；</li>
+<li>信号（Signal）：信号是比较复杂的通信方式，用于通知接受进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程本身；linux除了支持Unix早期信号语义函数sigal外，还支持语义符合Posix.1标准的信号函数sigaction（实际上，该函数是基于BSD的，BSD为了实现可靠信号机制，又能够统一对外接口，用sigaction函数重新实现了signal函数）；</li>
+<li>报文（Message）队列（消息队列）：消息队列是消息的链接表，包括Posix消息队列system V消息队列。有足够权限的进程可以向队列中添加消息，被赋予读权限的进程则可以读走队列中的消息。消息队列克服了信号承载信息量少，管道只能承载无格式字节流以及缓冲区大小受限等缺点。</li>
+<li>共享内存：使得多个进程可以访问同一块内存空间，是最快的可用IPC形式。是针对其他通信机制运行效率较低而设计的。往往与其它通信机制，如信号量结合使用，来达到进程间的同步及互斥。</li>
+<li>信号量（semaphore）：主要作为进程间以及同一进程不同线程之间的同步手段。</li>
+<li>套接口（Socket）：更为一般的进程间通信机制，可用于不同机器之间的进程间通信。起初是由Unix系统的BSD分支开发出来的，但现在一般可以移植到其它类Unix系统上：Linux和System V的变种都支持套接字。
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview "
+     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
     <a href="/以太坊之MPT/">
         <h2 class="post-title">
             以太坊之MPT
@@ -338,29 +367,6 @@ OverviewT..
         <div class="post-content-preview">
             <p>
                 C++中对于普通类型的对象来说，它们之间的复制是很简单的，例如：12345678910111213141516171819202122232425262728293031323334int a=88;int b=a;~~~ 而类对象与普通对象不同，类对象内部结构一般较为复杂，存在各种成员变量。C..
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview "
-     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/openssl-apache2部署SSL/">
-        <h2 class="post-title">
-            openssl-apache2部署SSL
-        </h2>
-        
-        <div class="post-meta">
-          <span>Dec 3, 2017</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                <p>这篇博客记录了如何运用openssl建立CA，并签发服务器和客户端证书实现双向认证，同时使用OCSP进行证书有效性验证。</p>
-<h1 id="openssl命令"><a href="#openssl命令" class="headerlink" title="openssl命令"></a>openssl命令</h1><p>该部分对本次部署将会用到的主要命令进行说明。</p>
-<p>语法格式：<br><code>openssl command [ command_opts ] [ command_args ]</code><br>
             </p>
         </div>
     </a>
