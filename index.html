@@ -187,9 +187,52 @@
           
             <div class="post-preview "
      style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Nginx源码-配置文件解析/">
+    <a href="/Nginx-HTTP配置项的合并/">
         <h2 class="post-title">
-            Nginx源码-配置文件解析
+            Nginx-HTTP配置项的合并
+        </h2>
+        
+        <div class="post-meta">
+          <span>Nov 4, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                <p>对于某一个http模块中的某一个命令来说，它可能出现的区域有http{} server{} locaton{},如果在某一个server{}块内没有这个命令 那么它就需要从http{}中继承这个命令，如果某个server{}中存在这个命令，那么就不需要从http{}中继承；如果server{}中的某一个location{}中没有这个命令，那么就需要从上层（server{}层或者location{}层）继承。怎么合并（使用函数merge_srv_conf和merge_loc_conf函数回调）也是模块本身定义的。<br>
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview "
+     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/Nginx-location的管理与查找/">
+        <h2 class="post-title">
+            Nginx-location的管理与查找
+        </h2>
+        
+        <div class="post-meta">
+          <span>Nov 4, 2018</span>
+          
+        </div>
+        <div class="post-content-preview">
+            <p>
+                被王：lq 图
+在完成了http配置的解析和合并之后就是location的组织。123456789101112131415161718192021static char *ngx_http_block(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)..
+            </p>
+        </div>
+    </a>
+</div>
+<hr>
+
+          
+            <div class="post-preview "
+     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
+    <a href="/Nginx-HTTP配置解析/">
+        <h2 class="post-title">
+            Nginx-HTTP块的解析
         </h2>
         
         <div class="post-meta">
@@ -198,7 +241,8 @@
         </div>
         <div class="post-content-preview">
             <p>
-                ngx_cycle_s12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273..
+                
+ngx_cycle_s1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727..
             </p>
         </div>
     </a>
@@ -309,49 +353,6 @@ The maximum depth is the number of nodes along the longest path ..
         <div class="post-content-preview">
             <p>
                 
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview "
-     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/IO多路复用之select内核源码/">
-        <h2 class="post-title">
-            IO多路复用之select内核源码
-        </h2>
-        
-        <div class="post-meta">
-          <span>May 5, 2018</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                内核版本4.15
-sys_select()123456789101112131415161718192021222324SYSCALL_DEFINE5(select, int, n, fd_set __user *, inp, fd_set __user *, outp, fd_set __us..
-            </p>
-        </div>
-    </a>
-</div>
-<hr>
-
-          
-            <div class="post-preview "
-     style="background-image: url('/img/sky-clouds-moon-horizon.jpg?h=350&auto=compress&cs=tinysrgb')">
-    <a href="/Linux多线程/">
-        <h2 class="post-title">
-            Linux多线程
-        </h2>
-        
-        <div class="post-meta">
-          <span>Mar 5, 2018</span>
-          
-        </div>
-        <div class="post-content-preview">
-            <p>
-                <p>进程是系统中程序执行和资源分配的基本单位。每个进程有自己的数据段、代码段和堆栈段。这就造成进程在进行切换等操作时都需要有比较负责的上下文切换等动作。为了进一步减少处理器的空转时间支持多处理器和减少上下文切换开销,也就出现了线程。<br>线程通常叫做轻量级进程。线程是在共享内存空间中并发执行的多道执行路径,是一个更加接近于执行体的概念,拥有独立的执行序列,是进程的基本调度单元,每个进程至少都有一个 main 线程。<strong>它与同进程中的其他线程共享进程空间{堆 代码 数据 文件描述符 信号等},只拥有自己的栈空间</strong>,大大减少了上下文切换的开销。<br>
             </p>
         </div>
     </a>

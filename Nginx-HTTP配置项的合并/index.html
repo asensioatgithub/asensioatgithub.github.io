@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- layout.ejs-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Asensio">
+    <meta name="keyword" content="hexo, hexo theme, A-RSnippet, responsive, bootstrap">
+    <link rel="canonical" href="http://yoursite.com/Nginx-HTTP配置项的合并/">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="A-RSnippet&lt;br&gt;&lt;a href=&#34;https://github.com/huyingjie/hexo-theme-A-RSnippet&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://img.shields.io/badge/Release-v0.1.0-red.svg&#34;&gt;&lt;/a&gt;" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <title>
+        
+        Nginx-HTTP配置项的合并｜Asensio&#39;s Blog
+        
+    </title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/main.css">
+
+    
+      <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+      <link rel="stylesheet" href="/css/highlight.css">
+    
+
+    
+      <script id="dsq-count-scr" src="//hexo-a-rsnippet.disqus.com/count.js" async></script>
+    
+
+
+    
+
+    
+
+    
+
+
+    
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+    
+
+
+
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <!-- user customization -->
+    <link rel="stylesheet" href="/css/arsnippet.css">
+    <script src="/js/arsnippet.css.js"></script>
+</head>
+
+<style>
+    header.intro-header {
+        background-image: url('')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<header>
+<!--
+  <nav class="navbar navbar-default header-navbar" id="nav-top" data-ispost = "true" data-istags="false" data-ishome = "false" >
+    <div class="container-fluid">
+      <div class="navbar-header page-scroll">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" aria-expanded="false"  data-target="#website_navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand animated pulse">
+          <a class="brand-logo" href="/">
+            A-RSnippet<br><a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank"><img src="https://img.shields.io/badge/Release-v0.1.0-red.svg"></a>
+          </a>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="website_navbar">
+          <ul class="nav navbar-nav navbar-right">
+              
+                <li>
+                  <a href="/">home</a>
+                </li>
+              
+                <li>
+                  <a href="/tutorial/">Tutorial</a>
+                </li>
+              
+                <li>
+                  <a href="/archives/">archives</a>
+                </li>
+              
+                <li>
+                  <a href="/categories/">categories</a>
+                </li>
+              
+                <li>
+                  <a href="/tags/">tags</a>
+                </li>
+              
+          </ul>
+      </div>
+  </nav>
+-->
+
+  
+    <style>
+       .intro-header {
+          background-image: url('/img/default_bg.png')          
+      }
+    </style>
+
+    <div class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                    <div class="site-heading">
+                        <a href="/" style="color:white"><h1>Asensio&#39;s Blog</h1></a>
+                        <div class="post-subtitle"></div>
+                        
+                          <span class="meta">
+                               <span class="meta-item">Author: Asensio</span>
+                               <span class="meta-item">Date: Nov 4, 2018</span>
+                               
+                                 <span class="meta-item">Updated On: Nov 4, 2018</span>
+                               
+                          </span>
+                          <div class="tags text-center">
+                              Categories: 
+                              <a class="tag" href="/categories/#Nginx"
+                                 title="Nginx">Nginx</a>
+                              
+                          </div>
+                          <div class="tags text-center">
+                              Tags: 
+                              <a class="tag" href="/tags/#Nginx"
+                                 title="Nginx">Nginx</a>
+                              
+                          </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</header>
+
+
+<!-- Main Content -->
+<!-- post.ejs -->
+<article>
+    <div class="container">
+      <div class="col-lg-8 col-lg-offset-1 col-sm-9">
+          
+            <div class="text-center"><div class="addthis_inline_share_toolbox">
+  <script type = "text/javascript" src = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5272bc2a7b3c1ddc" async = "async" ></script>
+</div>
+</div><hr>
+          
+          <!---->
+	 <div style="font-size:18px" class="subscribe">Nginx-HTTP配置项的合并</div><p>
+          <p>对于某一个http模块中的某一个命令来说，它可能出现的区域有http{} server{} locaton{},如果在某一个server{}块内没有这个命令 那么它就需要从http{}中继承这个命令，如果某个server{}中存在这个命令，那么就不需要从http{}中继承；如果server{}中的某一个location{}中没有这个命令，那么就需要从上层（server{}层或者location{}层）继承。怎么合并（使用函数merge_srv_conf和merge_loc_conf函数回调）也是模块本身定义的。<br><a id="more"></a></p>
+<p>主要是http、server、location，http作用域最大、server其次、location最精细化。合并的主要流程是，同一个模块中的上下文变量可以存在在不同的作用域，可以在配置文件中的http作用域，也可以在server作用域，还可以写在location作用域，如果该变量在server作用域没有设置，但是http作用域配置文件中设置了该值，那么server作用域的该值，就会被http作用域的合并掉，使用http作用的值，同理location和server合并。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> *</span><br><span class="line">ngx_http_block(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_command_t</span> *cmd, <span class="keyword">void</span> *conf)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * init http&#123;&#125; main_conf's, merge the server&#123;&#125;s' srv_conf's</span></span><br><span class="line"><span class="comment">     * and its location&#123;&#125;s' loc_conf's</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"></span><br><span class="line">    cmcf = ctx-&gt;main_conf[ngx_http_core_module.ctx_index];</span><br><span class="line">    cscfp = cmcf-&gt;servers.elts;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (m = <span class="number">0</span>; cf-&gt;cycle-&gt;modules[m]; m++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cf-&gt;cycle-&gt;modules[m]-&gt;type != NGX_HTTP_MODULE) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">module</span> = cf-&gt;cycle-&gt;modules[m]-&gt;ctx;</span><br><span class="line">        mi = cf-&gt;cycle-&gt;modules[m]-&gt;ctx_index;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* init http&#123;&#125; main_conf's */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">module</span>-&gt;init_main_conf) &#123;</span><br><span class="line">            rv = <span class="keyword">module</span>-&gt;init_main_conf(cf, ctx-&gt;main_conf[mi]);</span><br><span class="line">            <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">                <span class="keyword">goto</span> failed;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        rv = ngx_http_merge_servers(cf, cmcf, <span class="keyword">module</span>, mi);</span><br><span class="line">        <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">            <span class="keyword">goto</span> failed;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ngx_http_merge_servers核心的两个函数是merge_srv_conf和merge_loc_conf,merge_srv_conf主要合并http和server server上下文，merge_loc_conf主要合并http和server的loc上下文</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">ctx_index指的是该模块在同一类型中的位置</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> *</span><br><span class="line">ngx_http_merge_servers(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_http_core_main_conf_t</span> *cmcf,</span><br><span class="line">    <span class="keyword">ngx_http_module_t</span> *<span class="keyword">module</span>, <span class="keyword">ngx_uint_t</span> ctx_index)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span>                        *rv;</span><br><span class="line">    <span class="keyword">ngx_uint_t</span>                   s;</span><br><span class="line">    <span class="keyword">ngx_http_conf_ctx_t</span>         *ctx, saved;</span><br><span class="line">    <span class="keyword">ngx_http_core_loc_conf_t</span>    *clcf;</span><br><span class="line">    <span class="keyword">ngx_http_core_srv_conf_t</span>   **cscfp;</span><br><span class="line"></span><br><span class="line">    cscfp = cmcf-&gt;servers.elts;                     <span class="comment">// cscfp指向所有http块下的所有server块</span></span><br><span class="line">    ctx = (<span class="keyword">ngx_http_conf_ctx_t</span> *) cf-&gt;ctx;          <span class="comment">// ctx指向http块的ngx_http_conf_ctx_t结构</span></span><br><span class="line">    saved = *ctx;</span><br><span class="line">    rv = NGX_CONF_OK;</span><br><span class="line">    <span class="comment">//遍历http块下有所有server块</span></span><br><span class="line">    <span class="keyword">for</span> (s = <span class="number">0</span>; s &lt; cmcf-&gt;servers.nelts; s++) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* merge the server&#123;&#125;s' srv_conf's */</span></span><br><span class="line">        </span><br><span class="line">        ctx-&gt;srv_conf = cscfp[s]-&gt;ctx-&gt;srv_conf;    <span class="comment">// 指向每一个server块中的srv_conf结构</span></span><br><span class="line">        <span class="comment">// 如果该模块实现了merge_srv_conf方法，则调用该方法来合并main级别和srv级别的server相关的结构体；</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">module</span>-&gt;merge_srv_conf) &#123;</span><br><span class="line">            <span class="comment">//将http块中的某个server与server块中的某个server进行合并</span></span><br><span class="line">			<span class="comment">//saved.srv_conf[ctx_index]是http块下的srv_conf中某个元素</span></span><br><span class="line">			<span class="comment">//cscfp[s]-&gt;ctx-&gt;srv_conf[ctx_index]是server块下的srv_conf中某个元素</span></span><br><span class="line">            rv = <span class="keyword">module</span>-&gt;merge_srv_conf(cf, saved.srv_conf[ctx_index],</span><br><span class="line">                                        cscfp[s]-&gt;ctx-&gt;srv_conf[ctx_index]);</span><br><span class="line">            <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">                <span class="keyword">goto</span> failed;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果该模块实现了merge_loc_conf方法，先将main级别和srv级别的location相关的结构体合并，然后将srv级别和loc级别的location相关的结构体合并。</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">module</span>-&gt;merge_loc_conf) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* merge the server&#123;&#125;'s loc_conf */</span></span><br><span class="line"></span><br><span class="line">            ctx-&gt;loc_conf = cscfp[s]-&gt;ctx-&gt;loc_conf;</span><br><span class="line">			<span class="comment">// 首先将http&#123;&#125;块下main级别与server&#123;&#125;块下srv级别的location相关的结构体合并</span></span><br><span class="line">            rv = <span class="keyword">module</span>-&gt;merge_loc_conf(cf, saved.loc_conf[ctx_index],</span><br><span class="line">                                        cscfp[s]-&gt;ctx-&gt;loc_conf[ctx_index]);</span><br><span class="line">            <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">                <span class="keyword">goto</span> failed;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/* merge the locations&#123;&#125;' loc_conf's */</span></span><br><span class="line"></span><br><span class="line">            clcf = cscfp[s]-&gt;ctx-&gt;loc_conf[ngx_http_core_module.ctx_index];</span><br><span class="line">			<span class="comment">// 调用ngx_http_merge_location方法，将server&#123;&#125;块与其所包含的location&#123;&#125;块下的结构体进行合并</span></span><br><span class="line">            rv = ngx_http_merge_locations(cf, clcf-&gt;locations,</span><br><span class="line">                                          cscfp[s]-&gt;ctx-&gt;loc_conf,</span><br><span class="line">                                          <span class="keyword">module</span>, ctx_index);</span><br><span class="line">            <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">                <span class="keyword">goto</span> failed;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">failed:</span><br><span class="line"></span><br><span class="line">    *ctx = saved;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rv;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">char</span> *</span><br><span class="line">ngx_http_merge_locations(<span class="keyword">ngx_conf_t</span> *cf, <span class="keyword">ngx_queue_t</span> *locations,</span><br><span class="line">    <span class="keyword">void</span> **loc_conf, <span class="keyword">ngx_http_module_t</span> *<span class="keyword">module</span>, <span class="keyword">ngx_uint_t</span> ctx_index)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span>                       *rv;</span><br><span class="line">    <span class="keyword">ngx_queue_t</span>                *q;</span><br><span class="line">    <span class="keyword">ngx_http_conf_ctx_t</span>        *ctx, saved;</span><br><span class="line">    <span class="keyword">ngx_http_core_loc_conf_t</span>   *clcf;</span><br><span class="line">    <span class="keyword">ngx_http_location_queue_t</span>  *lq;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果location为空，表明当前server块下没有location块，则立刻返回</span></span><br><span class="line">    <span class="keyword">if</span> (locations == <span class="literal">NULL</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> NGX_CONF_OK;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ctx = (<span class="keyword">ngx_http_conf_ctx_t</span> *) cf-&gt;ctx;</span><br><span class="line">    saved = *ctx;</span><br><span class="line">    <span class="comment">// 遍历location双向链表，即遍历该server&#123;&#125;块下的所有location&#123;&#125;块，server&#123;&#125;下的所有location&#123;&#125;块逐个和loc_conf[ctx_index]合并。</span></span><br><span class="line">    <span class="keyword">for</span> (q = ngx_queue_head(locations);</span><br><span class="line">         q != ngx_queue_sentinel(locations);</span><br><span class="line">         q = ngx_queue_next(q))</span><br><span class="line">    &#123;</span><br><span class="line">        lq = (<span class="keyword">ngx_http_location_queue_t</span> *) q;</span><br><span class="line"></span><br><span class="line">        clcf = lq-&gt;exact ? lq-&gt;exact : lq-&gt;inclusive;</span><br><span class="line">        ctx-&gt;loc_conf = clcf-&gt;loc_conf;</span><br><span class="line"></span><br><span class="line">        rv = <span class="keyword">module</span>-&gt;merge_loc_conf(cf, loc_conf[ctx_index],</span><br><span class="line">                                    clcf-&gt;loc_conf[ctx_index]);</span><br><span class="line">        <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">            <span class="keyword">return</span> rv;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 处理嵌套的location&#123;&#125;块</span></span><br><span class="line">        rv = ngx_http_merge_locations(cf, clcf-&gt;locations, clcf-&gt;loc_conf,</span><br><span class="line">                                      <span class="keyword">module</span>, ctx_index);</span><br><span class="line">        <span class="keyword">if</span> (rv != NGX_CONF_OK) &#123;</span><br><span class="line">            <span class="keyword">return</span> rv;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    *ctx = saved;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> NGX_CONF_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+            <a href="https://www.patreon.com/arsnippet" target="_blank"><img src="/img/patreon.png" alt="support my work at patron"> <a href="https://discord.gg/CB6CPzq" target="_blank"><img src="/img/discord.png" alt="Join the Discord"></a> <br><br><a href="https://arsnippet.freeflarum.com/" target="_blank"><img src="/img/forum.jpg" alt="support my work at patron"></a>
+          
+          <hr>
+          <ul class="pager">
+              
+              
+              <li class="next">
+                  <a href="/Nginx-location的管理与查找/" data-toggle="tooltip" data-placement="top"
+                     title="Nginx-location的管理与查找">Next Post&rarr;</a>
+              </li>
+              
+          </ul>
+        
+  <br>
+  
+  <!-- disqus start -->
+  <div class="comment">
+    <div id="disqus_thread"  class="disqus-thread"></div>
+      <script>
+      var disqus_shortname = 'hexo-a-rsnippet';
+      
+      var disqus_url = 'http://yoursite.com/Nginx-HTTP配置项的合并/';
+      
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+  <!-- disqus end -->
+  
+
+  
+  </div>
+
+
+        
+  <div class="hidden-xs col-sm-3 toc-col">
+    <div class="toc-wrap" style="overflow-y: auto; height: 850px;"><!--auto：在需要时内容会自动添加滚动条-->
+        Table of Contents
+        
+          
+        
+    </div>
+  </div>
+  <!--固定目录-->
+  <script type="text/javascript">
+      window.onscroll = function() {
+        var sctop = document.documentElement.scrollTop;
+        var obj = document.getElementsByClassName("hidden-xs col-sm-3 toc-col")[0];
+        if(sctop>405){
+          obj.style.position = "fixed";
+          obj.style.left = "1205px"
+          obj.style.top = "0px"
+        }
+        else{
+          obj.style.position = "";
+          obj.style.left = ""
+          obj.style.top = ""
+        }
+      };
+  </script>
+
+
+      </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<!-- footer.ejs -->
+<footer>
+    <div class="text-center">
+      <ul class="list-inline">
+          
+              <li>
+                  <a href="/atom.xml" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+          
+          
+
+          
+              <li>
+                  <a target="_blank" href="http://weibo.com/u/2911633817">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a target="_blank"  href="https://github.com/asensioatgithub">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+          
+
+          
+              <li>
+                  <a href="mailto:emilsinclair@163.com" target="_blank">
+                      <span class="fa-stack fa-lg">
+                          <i class="fa fa-circle fa-stack-2x"></i>
+                          <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                      </span>
+                  </a>
+              </li>
+          
+
+      </ul>
+     <div class="text-muted copyright">
+            &copy;
+            
+            2017 - 2018
+            
+            
+              <i class="fa fa-heart"></i>
+            
+            Asensio
+        <br>
+          
+              Powered by <a target="_blank" href="https://hexo.io">Hexo</a>
+          
+          
+            |
+          
+          
+              Theme - <a href="https://github.com/huyingjie/hexo-theme-A-RSnippet" target="_blank">A-RSnippet</a> v0.1.0
+          
+          
+      </div>
+    </div>
+</footer>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+
+</body>
+<!--回到顶部按钮-->
+<span class="fa fa-arrow-circle-up" onclick="pageScroll()" style="position:fixed; right:20px; bottom:30px; font-size:50px; color:#3366cc"></span>
+<script>
+    function pageScroll() {
+        window.scrollBy(0,-50);
+        scrolldelay = setTimeout('pageScroll()',10);   
+        if(document.documentElement.scrollTop==0) 
+            clearTimeout(scrolldelay); 
+    }
+</script>
+
+</html>
